@@ -1,6 +1,9 @@
 package com.kjmaster.magicbooks2;
 
 import com.kjmaster.magicbooks2.common.CommonProxy;
+import com.kjmaster.magicbooks2.common.events.EntityJoinEvent;
+import com.kjmaster.magicbooks2.common.handlers.CapabilityHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -32,6 +35,10 @@ public class MagicBooks2
     {
         LOGGER.info("Starting Initialization");
         proxy.registerModelBakeryVariants();
+        proxy.registerCaps();
+        proxy.registerPackets();
+        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
+        MinecraftForge.EVENT_BUS.register(new EntityJoinEvent());
     }
 
     @Mod.EventHandler

@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.items;
 
+import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.creative.ModCreativeTabs;
 import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
 import com.kjmaster.magicbooks2.common.init.ModItems;
@@ -30,9 +31,9 @@ public class ItemShard extends MetaItemBase {
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        if(this.isInCreativeTab(ModCreativeTabs.tabMagicBooks2)) {
+        if(tab == ModCreativeTabs.tabMagicBooks2)  {
             for (int i = 0; i < 5; i++)
-                items.add(new ItemStack(ModItems.Shard, 1, i));
+                items.add(new ItemStack(this, 1, i));
         }
     }
 }
