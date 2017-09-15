@@ -1,10 +1,13 @@
 package com.kjmaster.magicbooks2.common.handlers;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
+import com.kjmaster.magicbooks2.common.blocks.tile.TileCrystal;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
+import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaCapability;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.SkillPointsProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,11 +20,19 @@ public class CapabilityHandler {
             "Mana");
     public static final ResourceLocation POINTS_CAP = new ResourceLocation(MagicBooks2.MODID,
             "SkillPoints");
+    public static final ResourceLocation CRYSTAL_MANA_CAP = new ResourceLocation(MagicBooks2.MODID,
+            "CrystalMana");
+
 
     @SubscribeEvent
     public void attachEntityCap(AttachCapabilitiesEvent<Entity> event) {
         if (!(event.getObject() instanceof EntityPlayer)) return;
         event.addCapability(MANA_CAP, new ManaProvider());
         event.addCapability(POINTS_CAP, new SkillPointsProvider());
+    }
+
+    @SubscribeEvent
+    public void attachTileCap(AttachCapabilitiesEvent<TileEntity> event) {
+
     }
 }

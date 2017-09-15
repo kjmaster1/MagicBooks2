@@ -2,10 +2,12 @@ package com.kjmaster.magicbooks2.client;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.CommonProxy;
+import com.kjmaster.magicbooks2.common.init.ModBlocks;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -28,7 +30,24 @@ public class ClientProxy extends CommonProxy {
                 new ResourceLocation(MagicBooks2.MODID, "shard_air"),
                 new ResourceLocation(MagicBooks2.MODID, "shard_earth"),
                 new ResourceLocation(MagicBooks2.MODID, "shard_fire"),
-                new ResourceLocation(MagicBooks2.MODID, "shard_water")
+                new ResourceLocation(MagicBooks2.MODID, "shard_water"),
+                new ResourceLocation(MagicBooks2.MODID, "shard_arcane")
+        );
+        ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.crystal),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_air"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_earth"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_fire"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_water"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_arcane")
+
+        );
+        ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.greaterCrystal),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_air"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_earth"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_fire"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_water"),
+                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_arcane")
+
         );
     }
 
@@ -36,6 +55,7 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         ModItems.registerModels();
+        ModBlocks.registerModels();
     }
 
     @SideOnly(Side.CLIENT)

@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"element=air": { "model": "magicbooks2:crystal_air" },
+		"element=arcane": { "model": "magicbooks2:crystal_arcane" },
+		"element=earth": { "model": "magicbooks2:crystal_earth" },
+		"element=fire": { "model": "magicbooks2:crystal_fire" },
+		"element=water": { "model": "magicbooks2:crystal_water" }
+	}		
+}

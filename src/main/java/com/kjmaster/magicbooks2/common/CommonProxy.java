@@ -1,5 +1,8 @@
 package com.kjmaster.magicbooks2.common;
 
+import com.kjmaster.magicbooks2.MagicBooks2;
+import com.kjmaster.magicbooks2.common.blocks.tile.TileCrystal;
+import com.kjmaster.magicbooks2.common.blocks.tile.TileGreaterCrystal;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.Mana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaStorage;
@@ -14,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import static com.kjmaster.magicbooks2.common.network.PacketInstance.INSTANCE;
@@ -36,6 +40,10 @@ public class CommonProxy {
         INSTANCE.registerMessage(ClientPointsHandler.class, ClientPointsPacket.class, 2, Side.CLIENT);
     }
 
+    public void registerTileEntities() {
+        GameRegistry.registerTileEntity(TileCrystal.class, MagicBooks2.MODID + ":tile_crystal");
+        GameRegistry.registerTileEntity(TileGreaterCrystal.class, MagicBooks2.MODID + ":tile_crystal_greater");
+    }
     /**
      * Returns a side-appropriate EntityPlayer for use during message handling
      */
