@@ -8,11 +8,15 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.util.EnumHelper;
 
 /**
  * Created by pbill_000 on 11/09/2017.
  */
 public class ItemShard extends MetaItemBase {
+
+    public static final ToolMaterial shardMaterial = EnumHelper.addToolMaterial(MagicBooks2.MODID + ":shard",
+            3, 1600, 7.0F, 2.0F, 12);
 
     public ItemShard(String unlocalizedName, CreativeTabs tab, int maxSize) {
         super(unlocalizedName, tab, maxSize);

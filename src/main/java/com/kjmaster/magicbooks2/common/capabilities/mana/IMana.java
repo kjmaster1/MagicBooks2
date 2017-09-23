@@ -9,4 +9,5 @@ public interface IMana {
     public int getMana(String type);
     public void setMana(int mana, String type);
     public void setCapacity(int capacity);
+    public int getCapacity();
 }

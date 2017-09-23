@@ -10,8 +10,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -49,6 +51,13 @@ public class ClientProxy extends CommonProxy {
                 new ResourceLocation(MagicBooks2.MODID, "crystal_greater_arcane")
 
         );
+        ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.shardOre),
+                new ResourceLocation(MagicBooks2.MODID, "shard_ore_air"),
+                new ResourceLocation(MagicBooks2.MODID, "shard_ore_earth"),
+                new ResourceLocation(MagicBooks2.MODID, "shard_ore_fire"),
+                new ResourceLocation(MagicBooks2.MODID, "shard_ore_water"),
+                new ResourceLocation(MagicBooks2.MODID, "shard_ore_arcane")
+        );
     }
 
     @SideOnly(Side.CLIENT)
@@ -67,5 +76,10 @@ public class ClientProxy extends CommonProxy {
     @Override
     public IThreadListener getThreadFromContext(MessageContext ctx) {
         return (ctx.side.isClient() ? Minecraft.getMinecraft() : super.getThreadFromContext(ctx));
+    }
+
+    @Override
+    public void init(FMLInitializationEvent event) {
+
     }
 }

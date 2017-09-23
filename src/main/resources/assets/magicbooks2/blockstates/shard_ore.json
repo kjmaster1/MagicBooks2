@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"element=air": { "model": "magicbooks2:shard_ore_air" },
+		"element=arcane": { "model": "magicbooks2:shard_ore_arcane" },
+		"element=earth": { "model": "magicbooks2:shard_ore_earth" },
+		"element=fire": { "model": "magicbooks2:shard_ore_fire" },
+		"element=water": { "model": "magicbooks2:shard_ore_water" }
+	}		
+}

@@ -149,7 +149,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                 for(int y = -range; y < range + 1; y++) {
                     BlockPos posOfCrystal = new BlockPos(thisX + x, thisY + y, thisZ + z);
                     TileEntity entity = world.getTileEntity(posOfCrystal);
-                    if (entity instanceof TileCrystal && !this.connectedToPos.contains(posOfCrystal)) {
+                    int crystalMeta = world.getBlockState(posOfCrystal).getBlock().getMetaFromState(world.getBlockState(posOfCrystal));
+                    if (entity instanceof TileCrystal && !this.connectedToPos.contains(posOfCrystal) && crystalMeta == meta) {
                         this.connectedToPos.add(posOfCrystal);
                         this.connections++;
                     }

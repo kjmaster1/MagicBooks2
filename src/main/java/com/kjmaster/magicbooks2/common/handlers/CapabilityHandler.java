@@ -1,10 +1,9 @@
 package com.kjmaster.magicbooks2.common.handlers;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
-import com.kjmaster.magicbooks2.common.blocks.tile.TileCrystal;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
-import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaCapability;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.SkillPointsProvider;
+import com.kjmaster.magicbooks2.common.capabilities.unlockedentries.EntriesProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -22,6 +21,8 @@ public class CapabilityHandler {
             "SkillPoints");
     public static final ResourceLocation CRYSTAL_MANA_CAP = new ResourceLocation(MagicBooks2.MODID,
             "CrystalMana");
+    public static final ResourceLocation ENTRIES_CAP = new ResourceLocation(MagicBooks2.MODID,
+            "Entries");
 
 
     @SubscribeEvent
@@ -29,6 +30,7 @@ public class CapabilityHandler {
         if (!(event.getObject() instanceof EntityPlayer)) return;
         event.addCapability(MANA_CAP, new ManaProvider());
         event.addCapability(POINTS_CAP, new SkillPointsProvider());
+        event.addCapability(ENTRIES_CAP, new EntriesProvider());
     }
 
     @SubscribeEvent

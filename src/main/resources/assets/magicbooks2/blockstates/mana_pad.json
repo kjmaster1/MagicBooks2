@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "normal": { "model": "magicbooks2:mana_pad" },
+		"powered=false": { "model": "magicbooks2:mana_pad" },
+		"powered=true": { "model": "magicbooks2:mana_pad" }
+    }
+}

@@ -1,22 +1,26 @@
 package com.kjmaster.magicbooks2.common.capabilities.mana;
 
+import com.kjmaster.magicbooks2.MagicBooks2;
+
 /**
  * Created by pbill_000 on 12/09/2017.
  */
 public class Mana implements IMana {
 
-    public static String[] manaList = {"Air", "Earth", "Fire", "Water"};
+    public static String[] manaList = {"Air", "Earth", "Fire", "Water", "Arcane"};
     private int airMana = 0;
     private int earthMana = 0;
     private int fireMana = 0;
     private int waterMana = 0;
+    private int arcaneMana = 0;
 
-    private int capacity = 0;
+    public int capacity = 10000;
 
     @Override
     public void receiveMana(int mana, String type) {
         int stored = getMana(type);
         int accepted = Math.min(mana, capacity - stored);
+
         stored += accepted;
         this.setMana(stored, type);
     }
@@ -44,6 +48,8 @@ public class Mana implements IMana {
             case "Water":
                 this.waterMana = mana;
                 break;
+            case "Arcane":
+                this.arcaneMana = mana;
             default:
                 break;
         }
@@ -60,6 +66,8 @@ public class Mana implements IMana {
                 return fireMana;
             case "Water":
                 return waterMana;
+            case "Arcane":
+                return arcaneMana;
             default:
                 return 0;
         }
@@ -68,5 +76,10 @@ public class Mana implements IMana {
     @Override
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public int getCapacity() {
+        return this.capacity;
     }
 }

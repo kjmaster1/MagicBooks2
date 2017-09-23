@@ -3,10 +3,7 @@ package com.kjmaster.magicbooks2.common.init;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.creative.ModCreativeTabs;
 import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
-import com.kjmaster.magicbooks2.common.items.ItemBook;
-import com.kjmaster.magicbooks2.common.items.ItemCrystalLinker;
-import com.kjmaster.magicbooks2.common.items.ItemMagicBook;
-import com.kjmaster.magicbooks2.common.items.ItemShard;
+import com.kjmaster.magicbooks2.common.items.*;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -37,6 +34,8 @@ public class ModItems {
 
     public static final Item CrystalLinker = new ItemCrystalLinker("crystal_linker",
             ModCreativeTabs.tabMagicBooks2, 1);
+    public static final Item shardPickaxe = new ItemShardPickaxe(ItemShard.shardMaterial, "shard_pick",
+            ModCreativeTabs.tabMagicBooks2, 1);
 
     @Mod.EventBusSubscriber
     public static class RegistrationHandler {
@@ -49,6 +48,7 @@ public class ModItems {
                     Book,
                     MagicBook,
                     CrystalLinker,
+                    shardPickaxe,
             };
             final IForgeRegistry<Item> registry = event.getRegistry();
             for (final Item item : items) {

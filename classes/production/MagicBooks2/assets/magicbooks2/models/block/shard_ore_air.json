@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+		"particle": "magicbooks2:blocks/shard_ore_air",
+        "all": "magicbooks2:blocks/shard_ore_air"
+    }
+}

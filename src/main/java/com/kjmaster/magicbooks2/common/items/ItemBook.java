@@ -8,6 +8,8 @@ import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import com.kjmaster.magicbooks2.common.network.PacketInstance;
 import com.kjmaster.magicbooks2.common.network.ServerPointsPacket;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,6 +18,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.client.GuiIngameForge;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by pbill_000 on 11/09/2017.
@@ -76,10 +81,10 @@ public class ItemBook extends MetaItemBase {
 
         ISkillPoints skillPointsCap = playerIn.getCapability(SkillPointsProvider.SKILL_POINTS_CAP, null);
         int points = skillPointsCap.getPoints(element);
-        MagicBooks2.LOGGER.info(element + ": " + points);
-
+        if (worldIn.isRemote) {
+            Minecraft.getMinecraft().ingameGUI.setOverlayMessage("You now have " + points + " " + element + " skill points", false);
+        }
         playerIn.inventory.decrStackSize(playerIn.inventory.currentItem, 1);
-
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

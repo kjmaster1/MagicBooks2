@@ -43,6 +43,7 @@ public class MagicBooks2
         proxy.registerCaps();
         proxy.registerPackets();
         proxy.registerTileEntities();
+        proxy.init(event);
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         MinecraftForge.EVENT_BUS.register(new EntityJoinEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(MagicBooks2.instance, new ModGuiHandler());

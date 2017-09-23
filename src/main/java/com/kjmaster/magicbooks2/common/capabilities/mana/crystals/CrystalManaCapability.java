@@ -19,7 +19,7 @@ public class CrystalManaCapability implements ICapabilitySerializable<NBTBase> {
     @CapabilityInject(IManaStorage.class)
     public static Capability<IManaStorage> MANA = null;
     private IManaStorage instance = MANA.getDefaultInstance();
-    public static int capacity = 0;
+    public  static int capacity = 0;
     public CrystalManaCapability(int capacity) { this.capacity = capacity; }
     public static void register() {
         CapabilityManager.INSTANCE.register(IManaStorage.class, new IStorage<IManaStorage>() {

@@ -1,6 +1,11 @@
 package com.kjmaster.magicbooks2.common.network;
 
+import com.kjmaster.magicbooks2.client.gui.blocks.GuiArcaneCrafter;
 import com.kjmaster.magicbooks2.client.gui.blocks.GuiGreaterCrystal;
+import com.kjmaster.magicbooks2.client.gui.magicbook.GuiMagicBookScreen;
+import com.kjmaster.magicbooks2.client.gui.magicbook.entries.GuiIntroScreen;
+import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.ContainerArcaneCrafter;
+import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.TileArcaneCrafter;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileGreaterCrystal;
 import com.kjmaster.magicbooks2.common.blocks.tile.container.ContainerGreaterCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +18,9 @@ import javax.annotation.Nullable;
 public class ModGuiHandler implements IGuiHandler {
 
     public static final int greaterCrystal = 0;
+    public static final int magicBook = 1;
+    public static final int introEntry = 2;
+    public static final int arcaneCrafter = 3;
 
     @Nullable
     @Override
@@ -20,6 +28,12 @@ public class ModGuiHandler implements IGuiHandler {
         switch (ID) {
             case greaterCrystal:
                 return new GuiGreaterCrystal(player.inventory, (TileGreaterCrystal) world.getTileEntity(new BlockPos(x, y, z)), world);
+            case introEntry:
+                return new GuiIntroScreen();
+            case magicBook:
+                return new GuiMagicBookScreen();
+            case arcaneCrafter:
+                return new GuiArcaneCrafter(player.inventory, (TileArcaneCrafter) world.getTileEntity(new BlockPos(x,y,z)), world);
         }
         return null;
     }
@@ -30,6 +44,8 @@ public class ModGuiHandler implements IGuiHandler {
         switch (ID) {
             case greaterCrystal:
                 return new ContainerGreaterCrystal(player.inventory, (TileGreaterCrystal) world.getTileEntity(new BlockPos(x, y, z)));
+            case arcaneCrafter:
+                return new ContainerArcaneCrafter(player.inventory, (TileArcaneCrafter) world.getTileEntity(new BlockPos(x,y,z)));
         }
         return null;
     }
