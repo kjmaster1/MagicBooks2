@@ -4,6 +4,7 @@ import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.SkillPointsProvider;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedentries.EntriesProvider;
+import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -23,6 +24,8 @@ public class CapabilityHandler {
             "CrystalMana");
     public static final ResourceLocation ENTRIES_CAP = new ResourceLocation(MagicBooks2.MODID,
             "Entries");
+    public static final ResourceLocation SPELLS_CAP = new ResourceLocation(MagicBooks2.MODID,
+            "Spells");
 
 
     @SubscribeEvent
@@ -31,6 +34,7 @@ public class CapabilityHandler {
         event.addCapability(MANA_CAP, new ManaProvider());
         event.addCapability(POINTS_CAP, new SkillPointsProvider());
         event.addCapability(ENTRIES_CAP, new EntriesProvider());
+        event.addCapability(SPELLS_CAP, new SpellsProvider());
     }
 
     @SubscribeEvent

@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
  */
 public class ItemBook extends MetaItemBase {
 
+
     public ItemBook(String unlocalizedName, CreativeTabs tab, int maxSize) {
         super(unlocalizedName, tab, maxSize);
     }
@@ -78,12 +79,6 @@ public class ItemBook extends MetaItemBase {
         }
         if (playerIn.world.isRemote)
             PacketInstance.INSTANCE.sendToServer(new ServerPointsPacket(1, element, "Add"));
-
-        ISkillPoints skillPointsCap = playerIn.getCapability(SkillPointsProvider.SKILL_POINTS_CAP, null);
-        int points = skillPointsCap.getPoints(element);
-        if (worldIn.isRemote) {
-            Minecraft.getMinecraft().ingameGUI.setOverlayMessage("You now have " + points + " " + element + " skill points", false);
-        }
         playerIn.inventory.decrStackSize(playerIn.inventory.currentItem, 1);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

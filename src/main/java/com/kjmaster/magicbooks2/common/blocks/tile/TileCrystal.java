@@ -24,7 +24,7 @@ public class TileCrystal extends TileEntity implements ITickable, ICapabilityPro
     private int MANA_USE = 400;
     private boolean hasConnection;
     private BlockPos connectedToPos;
-    public final CrystalManaStorage storage = new CrystalManaStorage(10000, 10000, MANA_USE);
+    public final CrystalManaStorage storage = new CrystalManaStorage(10000, 10000, 10000);
     public TileCrystal() {
         this.hasConnection = false;
         this.connectedToPos = new BlockPos(0,0,0);

@@ -1,0 +1,22 @@
+{
+	"result": {
+		"item": "magicbooks2:crystal_greater",
+		"data": 3
+	},
+	"pattern": [
+		" # ",
+		"#.#",
+		" # "
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"#": {
+			"type": "forge:ore_dict",
+			"ore": "shardWater"
+		},
+		".": {
+			"type": "forge:ore_dict",
+			"ore": "blockWater"
+		}
+	}
+}

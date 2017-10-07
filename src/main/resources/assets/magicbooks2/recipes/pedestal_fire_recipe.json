@@ -1,0 +1,18 @@
+{
+	"result": {
+		"item": "magicbooks2:pedestal_block",
+		"data": 2
+	},
+	"pattern": [
+		"###",
+		" # ",
+		"###"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"#": {
+			"type": "forge:ore_dict",
+			"ore": "shardFire"
+		}
+	}
+}

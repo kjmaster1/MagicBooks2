@@ -11,23 +11,27 @@ public class ClientPointsPacket implements IMessage {
 
     public int points;
     public String element;
+    public boolean sendMessage;
 
     public ClientPointsPacket() {}
 
-    public ClientPointsPacket(int points, String element) {
+    public ClientPointsPacket(int points, String element, Boolean sendMessage) {
         this.points = points;
         this.element = element;
+        this.sendMessage = sendMessage;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         points = buf.readInt();
         element = ByteBufUtils.readUTF8String(buf);
+        sendMessage = buf.readBoolean();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(points);
         ByteBufUtils.writeUTF8String(buf, element);
+        buf.writeBoolean(sendMessage);
     }
 }

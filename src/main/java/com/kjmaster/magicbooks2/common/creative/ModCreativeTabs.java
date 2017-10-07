@@ -16,4 +16,11 @@ public class ModCreativeTabs {
             return icon;
         }
     };
+
+    public static final CreativeTabs tabMagicBooks2Spells = new CreativeTabs("MagicBooks2Spells") {
+        @Override
+        public ItemStack getTabIconItem() {
+            return new ItemStack(ModItems.earthSpell);
+        }
+    };
 }

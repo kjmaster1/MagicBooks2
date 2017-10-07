@@ -1,0 +1,46 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+	"custom": { "flip-v": true },
+    "model": "magicbooks2:shard_pickaxe_air.obj"
+  },
+  "variants": {
+    "inventory": [
+      {
+        "transform": {
+          "thirdperson_lefthand": {
+            "rotation": [ { "x": 0 }, { "y": 0 }, { "z": 0 } ],
+            "translation": [ -0.41, 0.1, 0.55 ],
+            "scale": 1
+          },
+          "thirdperson_righthand": {
+            "rotation": [ { "x": 0 }, { "y": 0 }, { "z": 0 } ],
+            "translation": [ 0.41, 0.1, 0.55 ],
+            "scale": 1
+          },
+          "gui": {
+            "rotation": [ { "x": 0 }, { "y": 90 }, { "z": 0 } ],
+            "translation": [ 0.4, 0, 0 ],
+            "scale": 0.8
+          },
+          "firstperson_righthand": {
+            "rotation": [ { "x": 20 }, { "y": 0 }, { "z": 0 } ],
+            "translation": [ 0.8, -0.2, 0 ],
+            "scale": 1
+          },
+          "firstperson_lefthand": {
+            "rotation": [ { "x": 0 }, { "y": 0 }, { "z": -20 } ],
+            "translation": [ 0, 0, 0 ],
+            "scale": 1
+          },
+          "ground": {
+            "rotation": [ { "x": 0 }, { "y": 0 }, { "z": 0 } ],
+            "scale": 0.5
+          }
+        }
+      }
+    ]
+  }
+}
+
+

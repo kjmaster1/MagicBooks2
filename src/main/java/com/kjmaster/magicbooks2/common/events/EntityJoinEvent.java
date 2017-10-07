@@ -1,12 +1,15 @@
 package com.kjmaster.magicbooks2.common.events;
 
+import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.ISkillPoints;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.SkillPointsProvider;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedentries.EntriesProvider;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedentries.IEntries;
-import com.kjmaster.magicbooks2.common.network.ClientEntriesPacket;
-import com.kjmaster.magicbooks2.common.network.ClientPointsPacket;
-import com.kjmaster.magicbooks2.common.network.PacketInstance;
+import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.ISpells;
+import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spell;
+import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvider;
+import com.kjmaster.magicbooks2.common.network.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -21,22 +24,27 @@ public class EntityJoinEvent {
         EntityPlayer player = event.player;
         if (!player.world.isRemote) {
             EntityPlayerMP playerMP = (EntityPlayerMP) player;
-            //Skill points sync
-            ISkillPoints skillPointsCap = playerMP.getCapability(SkillPointsProvider.SKILL_POINTS_CAP, null);
-            int airPoints = skillPointsCap.getPoints("Air");
-            int arcanePoints = skillPointsCap.getPoints("Arcane");
-            int earthPoints = skillPointsCap.getPoints("Earth");
-            int firePoints = skillPointsCap.getPoints("Fire");
-            int waterPoints = skillPointsCap.getPoints("Water");
-            PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(airPoints, "Air"), playerMP);
-            PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(arcanePoints, "Arcane"), playerMP);
-            PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(earthPoints, "Earth"), playerMP);
-            PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(firePoints, "Fire"), playerMP);
-            PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(waterPoints, "Water"), playerMP);
+            String[] elements = {"Air", "Arcane", "Earth", "Fire", "Water"};
             //Entries sync
             IEntries entriesCap = playerMP.getCapability(EntriesProvider.ENTRIES_CAP, null);
             Boolean isIntroUnlocked = entriesCap.isEntryUnlocked("Intro");
             PacketInstance.INSTANCE.sendTo(new ClientEntriesPacket("Intro", isIntroUnlocked), playerMP);
+            //Spells sync
+            ISpells spellsCap = playerMP.getCapability(SpellsProvider.SPELLS_CAP, null);
+            Spell[] spells = spellsCap.getSpellList();
+            for (Spell spell: spells) {
+                Boolean isUnlocked = spellsCap.getIsUnlocked(spell);
+                PacketInstance.INSTANCE.sendTo(new ClientSpellPacket(spell.getAsString(), isUnlocked), playerMP);
+            }
+            //Mana + SkillPoints Sync
+            IMana manaCap = playerMP.getCapability(ManaProvider.MANA_CAP, null);
+            ISkillPoints skillPointsCap = playerMP.getCapability(SkillPointsProvider.SKILL_POINTS_CAP, null);
+            for (String element: elements) {
+                int mana = manaCap.getMana(element);
+                PacketInstance.INSTANCE.sendTo(new ClientManaPacket(element, mana), playerMP);
+                int skillPoints = skillPointsCap.getPoints(element);
+                PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(skillPoints, element, false), playerMP);
+            }
         }
     }
 }

@@ -44,10 +44,12 @@ public class ServerPointsHandler implements IMessageHandler<ServerPointsPacket, 
             case "Consume":
                 skillPointsCap.consumePoints(points, element);
                 break;
+            case "Set":
+                skillPointsCap.setPoints(points, element);
             default:
                 break;
         }
         EntityPlayerMP playerMP = (EntityPlayerMP) player;
-        PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(skillPointsCap.getPoints(element), element), playerMP);
+        PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(skillPointsCap.getPoints(element), element, true), playerMP);
     }
 }

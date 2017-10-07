@@ -1,0 +1,18 @@
+{
+	"result": {
+		"item": "magicbooks2:crystal",
+		"data": 0
+	},
+	"pattern": [
+		" a ",
+		"aaa",
+		" a "
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"a": {
+			"type": "forge:ore_dict",
+			"ore": "shardAir"
+		}
+	}
+}

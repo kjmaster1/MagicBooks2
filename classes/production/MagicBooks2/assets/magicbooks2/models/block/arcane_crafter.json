@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "magicbooks2:blocks/arcane_crafter_side",
+    "down": "magicbooks2:blocks/arcane_crafter_bottom",
+    "up": "magicbooks2:blocks/arcane_crafter_top",
+    "east": "magicbooks2:blocks/arcane_crafter_side",
+    "west": "magicbooks2:blocks/arcane_crafter_side",
+    "north": "magicbooks2:blocks/arcane_crafter_side",
+    "south": "magicbooks2:blocks/arcane_crafter_side"
+  }
+}

@@ -7,11 +7,11 @@ public class SkillPoints implements ISkillPoints {
 
     public static String[] pointTypes = {"Air", "Arcane", "Earth", "Fire", "Water"};
 
-    private int airPoints = 1;
-    private int arcanePoints = 1;
-    private int earthPoints = 1;
-    private int firePoints = 1;
-    private int waterPoints = 1;
+    private int airPoints = 0;
+    private int arcanePoints = 0;
+    private int earthPoints = 0;
+    private int firePoints = 0;
+    private int waterPoints = 0;
 
     @Override
     public void addPoints(int points, String type) {

@@ -2,15 +2,22 @@ package com.kjmaster.magicbooks2;
 
 import com.kjmaster.magicbooks2.common.CommonProxy;
 import com.kjmaster.magicbooks2.common.events.EntityJoinEvent;
+import com.kjmaster.magicbooks2.common.events.LootTableEvent;
+import com.kjmaster.magicbooks2.common.gen.OreGen;;
+import com.kjmaster.magicbooks2.common.gen.structures.DungeonGenerator;
 import com.kjmaster.magicbooks2.common.handlers.CapabilityHandler;
 import com.kjmaster.magicbooks2.common.network.ModGuiHandler;
+import com.kjmaster.magicbooks2.common.recipe.PedestalHandler;
+import com.kjmaster.magicbooks2.tinkers.Tinkers;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,8 +40,11 @@ public class MagicBooks2
     public void preInit(FMLPreInitializationEvent event)
     {
         LOGGER.info("Starting Pre-Initialization");
+        proxy.preInit(event);
+        if(Loader.isModLoaded("tconstruct")) {
+            Tinkers.init(event.getSide());
+        }
     }
-
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
@@ -43,15 +53,19 @@ public class MagicBooks2
         proxy.registerCaps();
         proxy.registerPackets();
         proxy.registerTileEntities();
-        proxy.init(event);
+
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         MinecraftForge.EVENT_BUS.register(new EntityJoinEvent());
+        MinecraftForge.EVENT_BUS.register(new LootTableEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(MagicBooks2.instance, new ModGuiHandler());
+        GameRegistry.registerWorldGenerator(new OreGen(), 0);
+        GameRegistry.registerWorldGenerator(new DungeonGenerator(), 0);
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
         LOGGER.info("Starting Post-Initialization");
+        PedestalHandler.init();
     }
 }

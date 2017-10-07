@@ -1,0 +1,21 @@
+{
+	"result": {
+		"item": "magicbooks2:crystal_linker"
+	},
+	"pattern": [
+		"  a",
+		" a ",
+		"s  "
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"a": {
+			"type": "forge:ore_dict",
+			"ore": "shardArcane"
+		},
+		"s": {
+			"type": "forge:ore_dict",
+			"ore": "stickWood"
+		}
+	}
+}

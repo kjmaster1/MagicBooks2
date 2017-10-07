@@ -1,9 +1,6 @@
 package com.kjmaster.magicbooks2.common.blocks.arcanecrafter;
 
-import com.kjmaster.magicbooks2.common.init.ModBlocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -19,39 +16,28 @@ import javax.annotation.Nullable;
 public class TileArcaneCrafter extends TileEntity implements ITickable {
 
     private ItemStackHandler handler;
-    private ArcaneRecipe crystal;
-    private Item[] items = {Items.REDSTONE, Items.REDSTONE, Items.REDSTONE,
-                            Items.REDSTONE, Items.REDSTONE, Items.REDSTONE,
-                            Items.REDSTONE, Items.REDSTONE, Items.REDSTONE};
+    public final CrystalManaStorage storage = new CrystalManaStorage(10000, 10000, 10000);
 
     public TileArcaneCrafter() {
         this.handler = new ItemStackHandler(10);
-        this.crystal = new ArcaneRecipe(new ItemStack(Item.getItemFromBlock(ModBlocks.crystal)),
-                items, 0);
     }
 
     @Override
     public void update() {
-        if(crystal.hasRecipe(handler)) {
-            if (!handler.getStackInSlot(9).isEmpty())
-                 if(handler.getStackInSlot(9).getItem().equals(Item.getItemFromBlock(ModBlocks.crystal)))
-                     handler.getStackInSlot(9).setCount(handler.getStackInSlot(9).getCount() + 1);
-            else
-                handler.setStackInSlot(9, new ItemStack(Item.getItemFromBlock(ModBlocks.crystal)));
-            for (int i = 0; i <= 8; i++)
-                handler.getStackInSlot(i).shrink(1);
-        }
+
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         handler.deserializeNBT(compound.getCompoundTag("ItemStackHandler"));
+        storage.readFromNBT(compound);
         super.readFromNBT(compound);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setTag("ItemStackHandler", handler.serializeNBT());
+        storage.writeToNBT(compound);
         return super.writeToNBT(compound);
     }
 

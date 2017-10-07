@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"element=air": { "model": "magicbooks2:pedestal_block_air" },
+		"element=arcane": { "model": "magicbooks2:pedestal_block_arcane" },
+		"element=earth": { "model": "magicbooks2:pedestal_block_earth" },
+		"element=fire": { "model": "magicbooks2:pedestal_block_fire" },
+		"element=water": { "model": "magicbooks2:pedestal_block_water" }
+	}		
+}

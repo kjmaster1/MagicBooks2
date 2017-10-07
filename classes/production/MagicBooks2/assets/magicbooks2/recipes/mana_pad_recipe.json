@@ -1,0 +1,17 @@
+{
+	"result": {
+		"item": "magicbooks2:mana_pad"
+	},
+	"pattern": [
+		"   ",
+		"   ",
+		"sss"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"s": {
+			"type": "forge:ore_dict",
+			"ore": "shardArcane"
+		}
+	}
+}

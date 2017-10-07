@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.gen;
 
+import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -44,11 +45,11 @@ public class OreGen implements IWorldGenerator {
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         switch (world.provider.getDimension()) {
             case 0: // Overworld
-                this.runGenerator(airShardOre, world, random, chunkX, chunkZ, 2, 5, 18);
-                this.runGenerator(earthShardOre, world, random, chunkX, chunkZ, 2, 5, 18);
-                this.runGenerator(fireShardOre, world, random, chunkX, chunkZ, 2, 5, 18);
-                this.runGenerator(waterShardOre, world, random, chunkX, chunkZ, 2, 5, 18);
-                this.runGenerator(arcaneShardOre, world, random, chunkX, chunkZ, 2, 5, 18);
+                this.runGenerator(airShardOre, world, random, chunkX, chunkZ, 1, 5, 18);
+                this.runGenerator(earthShardOre, world, random, chunkX, chunkZ, 1, 5, 18);
+                this.runGenerator(fireShardOre, world, random, chunkX, chunkZ, 1, 5, 18);
+                this.runGenerator(waterShardOre, world, random, chunkX, chunkZ, 1, 5, 18);
+                this.runGenerator(arcaneShardOre, world, random, chunkX, chunkZ, 1, 5, 18);
 
         }
     }

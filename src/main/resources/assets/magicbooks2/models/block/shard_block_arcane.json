@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+		"particle": "magicbooks2:blocks/mana_pad",
+        "all": "magicbooks2:blocks/mana_pad"
+    }
+}

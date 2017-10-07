@@ -55,4 +55,110 @@ public class EnumHandler {
 
         public int getID() { return ID; }
     }
+
+    public static enum WandTypes implements IStringSerializable {
+        AIR("air", 0),
+        EARTH("earth", 1),
+        FIRE("fire", 2),
+        WATER("water", 3),
+        ARCANE("arcane", 4),
+        ULTIMATE("ultimate", 5)
+        ;
+
+        private int ID;
+        private String name;
+
+        private WandTypes(String name, int ID) {
+            this.ID = ID;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() { return getName(); }
+
+        @Override
+        public String getName() { return this.name; }
+
+        public int getID() { return ID; }
+    }
+
+    public static enum AirSpellTypes implements IStringSerializable {
+        LIGHTNING("lightning", 0),
+        INVISIBILITY("invisibility", 1)
+        ;
+
+        private int ID;
+        private String name;
+
+        private AirSpellTypes(String name, int iD) {
+            this.ID = iD;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return getName();
+        }
+
+
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        public int getID() { return ID; }
+    }
+
+    public static enum EarthSpellTypes implements IStringSerializable {
+        GROW("grow", 0),
+        WALLING("walling", 1)
+        ;
+
+        private int ID;
+        private String name;
+
+        private EarthSpellTypes(String name, int iD) {
+            this.ID = iD;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return getName();
+        }
+
+
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        public int getID() { return ID; }
+    }
+
+    public static enum FireSpellTypes implements IStringSerializable {
+        FIREBLAST("fireblast", 0),
+        ;
+
+        private int ID;
+        private String name;
+
+        private FireSpellTypes(String name, int iD) {
+            this.ID = iD;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return getName();
+        }
+
+
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        public int getID() { return ID; }
+    }
 }

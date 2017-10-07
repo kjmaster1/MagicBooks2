@@ -11,9 +11,9 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.0"
-group = "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+version = "1.0.0"
+group = "com.kjmaster.magicbooks2" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "magicbooks2"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.1-14.22.0.2475"
+    version = "1.12.2-14.23.0.2503"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -34,33 +34,17 @@ minecraft {
 }
 
 repositories {
-    maven { url = 'http://tehnut.info/maven/' }
+    maven {
+        url "http://dvs1.progwml6.com/files/maven"
+    }
 }
 
 dependencies {
-    deobfCompile "info.amerifrance.guideapi:Guide-API:1.12-2.1.4-56"
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    deobfCompile "mezz.jei:jei_1.12.2:+"
+    deobfCompile "slimeknights.mantle:Mantle:1.12-1.3.1.21"
+    deobfCompile "slimeknights:TConstruct:1.12-2.7.3.30"
 }
+
 
 processResources {
     // this will ensure that this task is redone when the versions change.

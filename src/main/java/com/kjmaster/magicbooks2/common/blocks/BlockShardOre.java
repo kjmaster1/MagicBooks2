@@ -21,52 +21,10 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockShardOre extends BlockBase implements IMetaBlockName {
-
-    public static final PropertyEnum<EnumHandler.ShardTypes> ELEMENT = PropertyEnum.create("element", EnumHandler.ShardTypes.class);
+public class BlockShardOre extends BlockElementBase {
 
     public BlockShardOre(String name, Material mat, CreativeTabs tab, float hardness, float resistance, String tool, int harvest) {
         super(name, mat, tab, hardness, resistance, tool, harvest);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(ELEMENT, EnumHandler.ShardTypes.AIR));
-    }
-
-    @Override
-    public String getSpecialName(ItemStack stack) {
-        return EnumHandler.ShardTypes.values()[stack.getItemDamage()].getName();
-    }
-
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {ELEMENT});
-
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        EnumHandler.ShardTypes type = state.getValue(ELEMENT);
-        return type.getID();
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ELEMENT, EnumHandler.ShardTypes.values()[meta]);
-    }
-
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (int i = 0; i < EnumHandler.ShardTypes.values().length; i++) {
-            items.add(new ItemStack(Item.getItemFromBlock(this), 1, i));
-        }
-    }
-
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-    }
-
-    @Override
-    public int damageDropped(IBlockState state) {
-        return getMetaFromState(state);
     }
 
     @Override

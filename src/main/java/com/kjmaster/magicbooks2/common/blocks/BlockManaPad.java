@@ -4,12 +4,15 @@ import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileManaPad;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
+import com.kjmaster.magicbooks2.common.network.ClientManaPacket;
+import com.kjmaster.magicbooks2.common.network.PacketInstance;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,37 +51,39 @@ public class BlockManaPad extends BlockPressurePlate implements ITileEntityProvi
                     if(manaCap.getMana("Air") < manaCap.getCapacity()) {
                         int airMana = manaPad.storage.getManaStored("Air");
                         manaCap.receiveMana(airMana, "Air");
+                        sendManaPacket(manaCap, "Air", (EntityPlayerMP) player);
                         manaPad.storage.extractMana(airMana, false, "Air");
                     }
                     if(manaCap.getMana("Arcane") < manaCap.getCapacity()) {
                         int arcaneMana = manaPad.storage.getManaStored("Arcane");
                         manaCap.receiveMana(arcaneMana, "Arcane");
+                        sendManaPacket(manaCap, "Arcane", (EntityPlayerMP) player);
                         manaPad.storage.extractMana(arcaneMana, false, "Arcane");
                     }
                     if(manaCap.getMana("Earth") < manaCap.getCapacity()) {
                         int earthMana = manaPad.storage.getManaStored("Earth");
                         manaCap.receiveMana(earthMana, "Earth");
+                        sendManaPacket(manaCap, "Earth", (EntityPlayerMP) player);
                         manaPad.storage.extractMana(earthMana, false, "Earth");
                     }
                     if(manaCap.getMana("Fire") < manaCap.getCapacity()) {
                         int fireMana = manaPad.storage.getManaStored("Fire");
                         manaCap.receiveMana(fireMana, "Fire");
+                        sendManaPacket(manaCap, "Fire", (EntityPlayerMP) player);
                         manaPad.storage.extractMana(fireMana, false, "Fire");
                     }
                     if(manaCap.getMana("Water") < manaCap.getCapacity()) {
                         int waterMana = manaPad.storage.getManaStored("Water");
                         manaCap.receiveMana(waterMana, "Water");
+                        sendManaPacket(manaCap, "Water", (EntityPlayerMP) player);
                         manaPad.storage.extractMana(waterMana, false, "Water");
                     }
-
-                    MagicBooks2.LOGGER.info("Player Air Mana: " + manaCap.getMana("Air"));
-                    MagicBooks2.LOGGER.info("Player Arcane Mana: " + manaCap.getMana("Arcane"));
-                    MagicBooks2.LOGGER.info("Player Earth Mana: " + manaCap.getMana("Earth"));
-                    MagicBooks2.LOGGER.info("Player Fire Mana: " + manaCap.getMana("Fire"));
-                    MagicBooks2.LOGGER.info("Player Water Mana: " + manaCap.getMana("Water"));
-
                 }
             }
         }
+    }
+
+    private void sendManaPacket(IMana manaCap, String element, EntityPlayerMP entityPlayerMP) {
+        PacketInstance.INSTANCE.sendTo(new ClientManaPacket(element, manaCap.getMana(element)), entityPlayerMP);
     }
 }

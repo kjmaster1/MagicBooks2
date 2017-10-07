@@ -2,7 +2,7 @@ package com.kjmaster.magicbooks2.common.network;
 
 import com.kjmaster.magicbooks2.client.gui.blocks.GuiArcaneCrafter;
 import com.kjmaster.magicbooks2.client.gui.blocks.GuiGreaterCrystal;
-import com.kjmaster.magicbooks2.client.gui.magicbook.GuiMagicBookScreen;
+import com.kjmaster.magicbooks2.client.gui.magicbook.screens.*;
 import com.kjmaster.magicbooks2.client.gui.magicbook.entries.GuiIntroScreen;
 import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.ContainerArcaneCrafter;
 import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.TileArcaneCrafter;
@@ -21,6 +21,11 @@ public class ModGuiHandler implements IGuiHandler {
     public static final int magicBook = 1;
     public static final int introEntry = 2;
     public static final int arcaneCrafter = 3;
+    public static final int airBookPage = 4;
+    public static final int arcaneBookPage = 5;
+    public static final int earthBookPage = 6;
+    public static final int fireBookPage = 7;
+    public static final int waterBookPage = 8;
 
     @Nullable
     @Override
@@ -34,6 +39,16 @@ public class ModGuiHandler implements IGuiHandler {
                 return new GuiMagicBookScreen();
             case arcaneCrafter:
                 return new GuiArcaneCrafter(player.inventory, (TileArcaneCrafter) world.getTileEntity(new BlockPos(x,y,z)), world);
+            case airBookPage:
+                return new GuiAirScreen();
+            case arcaneBookPage:
+                return new GuiArcaneScreen();
+            case earthBookPage:
+                return new GuiEarthScreen();
+            case fireBookPage:
+                return new GuiFireScreen();
+            case waterBookPage:
+                return new GuiWaterScreen();
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package com.kjmaster.magicbooks2.common.blocks.tile;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
+import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.TileArcaneCrafter;
 import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaStorage;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import com.kjmaster.magicbooks2.common.items.ItemShard;
@@ -29,6 +30,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
     private final CrystalManaStorage storage = new CrystalManaStorage(10000, 10000, 10000);
     private int connections;
     private List<BlockPos> connectedToPos;
+    private List<BlockPos> connectedToCrafters;
+    private int crafterConnections;
     private int searchCooldown;
     private int itemCooldown;
     private int meta = -1;
@@ -38,6 +41,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
     public TileGreaterCrystal() {
         this.connections = 0;
         this.connectedToPos = new ArrayList<>(5);
+        this.crafterConnections = 0;
+        this.connectedToCrafters = new ArrayList<>(2);
         handler = new ItemStackHandler(1);
     }
 
@@ -50,6 +55,7 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                 this.searchCooldown %= 100;
                 if (this.searchCooldown == 0) {
                     searchForCrystals(world, pos);
+                    searchForCrafters(world, pos);
                 }
                 if (this.meta == -1)
                     this.meta = findMeta();
@@ -60,8 +66,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                                 ItemShard shard = (ItemShard) handler.getStackInSlot(0).getItem();
                                 int meta = shard.getMetadata(handler.getStackInSlot(0));
                                 if (meta == 0) {
-                                    this.storage.receiveMana(500, false, element);
-                                    this.itemCooldown %= 1;
+                                    this.storage.receiveMana(25, false, element);
+                                    this.itemCooldown %= 20;
                                     if(itemCooldown == 0)
                                         handler.getStackInSlot(0).shrink(1);
                                 }
@@ -72,8 +78,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                                 ItemShard shard = (ItemShard) handler.getStackInSlot(0).getItem();
                                 int meta = shard.getMetadata(handler.getStackInSlot(0));
                                 if (meta == 1) {
-                                    this.storage.receiveMana(500, false, element);
-                                    this.itemCooldown %= 1;
+                                    this.storage.receiveMana(25, false, element);
+                                    this.itemCooldown %= 20;
                                     if (itemCooldown == 0)
                                         handler.getStackInSlot(0).shrink(1);
                                 }
@@ -84,8 +90,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                                 ItemShard shard = (ItemShard) handler.getStackInSlot(0).getItem();
                                 int meta = shard.getMetadata(handler.getStackInSlot(0));
                                 if (meta == 2) {
-                                    this.storage.receiveMana(500, false, element);
-                                    this.itemCooldown %= 1;
+                                    this.storage.receiveMana(25, false, element);
+                                    this.itemCooldown %= 20;
                                     if (itemCooldown == 0)
                                         handler.getStackInSlot(0).shrink(1);
                                 }
@@ -96,8 +102,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                                 ItemShard shard = (ItemShard) handler.getStackInSlot(0).getItem();
                                 int meta = shard.getMetadata(handler.getStackInSlot(0));
                                 if (meta == 3) {
-                                    this.storage.receiveMana(500, false, element);
-                                    this.itemCooldown %= 1;
+                                    this.storage.receiveMana(25, false, element);
+                                    this.itemCooldown %= 20;
                                     if (itemCooldown == 0)
                                         handler.getStackInSlot(0).shrink(1);
                                 }
@@ -108,8 +114,8 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                                 ItemShard shard = (ItemShard) handler.getStackInSlot(0).getItem();
                                 int meta = shard.getMetadata(handler.getStackInSlot(0));
                                 if (meta == 4) {
-                                    this.storage.receiveMana(500, false, element);
-                                    this.itemCooldown %= 1;
+                                    this.storage.receiveMana(25, false, element);
+                                    this.itemCooldown %= 20;
                                     if (itemCooldown == 0)
                                         handler.getStackInSlot(0).shrink(1);
                                 }
@@ -124,12 +130,19 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                             TileCrystal crystal = (TileCrystal) entity;
                             if (crystal.storage.canExtract(element) && this.storage.canExtract(element)
                                     && !crystal.storage.isFull(element)) {
-                                int toExtract = crystal.storage.receiveMana(this.storage.getManaStored(element) / this.connectedToPos.size(),
+                                int toExtract = crystal.storage.receiveMana(this.storage.getManaStored(element) / (this.connectedToPos.size() + this.connectedToCrafters.size()),
                                         false, element);
                                 this.storage.extractMana(toExtract, false, element);
-                                MagicBooks2.LOGGER.info("Greater Crystal " + element + " Mana: " + this.storage.getManaStored(element) );
-                                MagicBooks2.LOGGER.info("Crystal " + element + " Mana: " + crystal.storage.getManaStored(element));
                             }
+                        }
+                    }
+                }
+                if (this.crafterConnections > 0) {
+                    for(int i = 0; i < this.connectedToCrafters.size(); i++) {
+                        TileEntity entity = world.getTileEntity(this.connectedToCrafters.get(i));
+                        if (entity instanceof TileArcaneCrafter) {
+                            TileArcaneCrafter crafter = (TileArcaneCrafter) entity;
+                            doCrafterMana(element, crafter);
                         }
                     }
                 }
@@ -157,6 +170,37 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                 }
             }
         }
+    }
+
+    private void searchForCrafters(World world, BlockPos pos) {
+        this.connectedToCrafters.clear();
+        this.crafterConnections = 0;
+        int thisX = pos.getX();
+        int thisY = pos.getY();
+        int thisZ = pos.getZ();
+        int range = 10;
+        for (int x = -range; x < range + 1; x++) {
+            for (int z = -range; z < range + 1; z++) {
+                for (int y = -range; y < range + 1; y++) {
+                    BlockPos posOfTile = new BlockPos(thisX + x, thisY + y, thisZ + z);
+                    TileEntity entity = world.getTileEntity(posOfTile);
+                    if (entity instanceof TileArcaneCrafter && !this.connectedToCrafters.contains(posOfTile)) {
+                        this.connectedToCrafters.add(posOfTile);
+                        this.crafterConnections++;
+                    }
+                }
+            }
+        }
+    }
+
+    private void doCrafterMana(String element, TileArcaneCrafter crafter) {
+        if (crafter.storage.canExtract(element) && this.storage.canExtract(element)
+                && !crafter.storage.isFull(element)) {
+            int toExtract = crafter.storage.receiveMana(this.storage.getManaStored(element) / (this.connectedToPos.size() + this.connectedToCrafters.size()),
+                    false, element);
+            this.storage.extractMana(toExtract, false, element);
+        }
+
     }
 
     private int findMeta() {
@@ -187,17 +231,27 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
     public void readFromNBT(NBTTagCompound compound) {
         this.storage.readFromNBT(compound);
         setConnections(compound.getInteger("Connections"));
+        setCrafterConnections(compound.getInteger("CrafterConnections"));
         searchCooldown = compound.getInteger("SearchCooldown");
         meta = compound.getInteger("Meta");
         element = compound.getString("Element");
         itemCooldown = compound.getInteger("ItemCooldown");
         NBTTagList tagList = compound.getTagList("PosList", Constants.NBT.TAG_COMPOUND);
         for(int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound tagCompound = tagList.getCompoundTagAt(1);
+            NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
             int X = tagCompound.getInteger("PosX" + i);
             int Y = tagCompound.getInteger("PosY" + i);
             int Z = tagCompound.getInteger("PosZ" + i);
             addConnectedToPos(X, Y, Z);
+        }
+        NBTTagList tagList2 = compound.getTagList("CrafterPosList", Constants.NBT.TAG_COMPOUND);
+        for(int i = 0; i < tagList2.tagCount(); i++) {
+            NBTTagCompound tagCompound2 = tagList2.getCompoundTagAt(i);
+            int X = tagCompound2.getInteger("PosX" + i);
+            int Y = tagCompound2.getInteger("PosY" + i);
+            int Z = tagCompound2.getInteger("PosZ" + i);
+            addCrafterConnection(X, Y, Z);
+
         }
         handler.deserializeNBT(compound.getCompoundTag("ItemStackHandler"));
         super.readFromNBT(compound);
@@ -207,6 +261,7 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         this.storage.writeToNBT(compound);
         compound.setInteger("Connections", this.connections);
+        compound.setInteger("CrafterConnections", this.crafterConnections);
         compound.setInteger("SearchCooldown", this.searchCooldown);
         compound.setInteger("Meta", this.meta);
         compound.setString("Element", this.element);
@@ -222,6 +277,17 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                 tagList.appendTag(tagCompound);
             }
         }
+        NBTTagList tagList2 = new NBTTagList();
+        for(int i = 0; i < connectedToCrafters.size(); i++) {
+            BlockPos pos = connectedToCrafters.get(i);
+            if(pos != null) {
+                NBTTagCompound tagCompound = new NBTTagCompound();
+                tagCompound.setInteger("PosX" + i, pos.getX());
+                tagCompound.setInteger("PosY" + i, pos.getY());
+                tagCompound.setInteger("PosZ" + i, pos.getZ());
+                tagList2.appendTag(tagCompound);
+            }
+        }
         compound.setTag("ItemStackHandler", handler.serializeNBT());
         return super.writeToNBT(compound);
     }
@@ -231,6 +297,13 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
     private void addConnectedToPos(int X, int Y, int Z) {
         BlockPos pos = new BlockPos(X, Y, Z);
         this.connectedToPos.add(pos);
+    }
+
+    private void setCrafterConnections(int crafterConnections) {this.crafterConnections = crafterConnections;}
+
+    private void addCrafterConnection(int X, int Y, int Z) {
+        BlockPos pos = new BlockPos(X, Y, Z);
+        this.connectedToCrafters.add(pos);
     }
 
     @Override

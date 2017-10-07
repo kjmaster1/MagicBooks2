@@ -1,0 +1,18 @@
+{
+	"result": {
+		"item": "magicbooks2:crystal",
+		"data": 1
+	},
+	"pattern": [
+		" e ",
+		"eee",
+		" e "
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"e": {
+			"type": "forge:ore_dict",
+			"ore": "shardEarth"
+		}
+	}
+}

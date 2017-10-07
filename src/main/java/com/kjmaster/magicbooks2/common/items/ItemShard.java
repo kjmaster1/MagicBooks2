@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class ItemShard extends MetaItemBase {
 
     public static final ToolMaterial shardMaterial = EnumHelper.addToolMaterial(MagicBooks2.MODID + ":shard",
-            3, 1600, 7.0F, 2.0F, 12);
+            3, 1600, 7.0F, 2.0F, 22);
 
     public ItemShard(String unlocalizedName, CreativeTabs tab, int maxSize) {
         super(unlocalizedName, tab, maxSize);
