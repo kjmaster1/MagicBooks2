@@ -56,22 +56,12 @@ public class DungeonGenerator implements IWorldGenerator {
             Template templateStairs = world.getSaveHandler().getStructureTemplateManager().getTemplate(world.getMinecraftServer(), DUNGEON_STAIRS);
             Template templateDungeon = world.getSaveHandler().getStructureTemplateManager().getTemplate(world.getMinecraftServer(), DUNGEON);
             y = y - 2;
-            if (!world.isChunkGeneratedAt(x, z)) {
-                return;
-            }
-
             templateTower.addBlocksToWorld(world, new BlockPos(x, y, z), new PlacementSettings().setRotation(Rotation.NONE));
             y = y - 11;
             x = x - 2;
-            if (!world.isChunkGeneratedAt(x, z)) {
-                return;
-            }
             templateDungeon.addBlocksToWorld(world, new BlockPos(x, y, z), new PlacementSettings().setRotation(Rotation.NONE));
             y = y + 7;
             x = x + 3;
-            if (!world.isChunkGeneratedAt(x, z)) {
-                return;
-            }
             templateStairs.addBlocksToWorld(world, new BlockPos(x, y, z), new PlacementSettings().setRotation(Rotation.NONE));
             z = z + 9;
             x = x + 14;
