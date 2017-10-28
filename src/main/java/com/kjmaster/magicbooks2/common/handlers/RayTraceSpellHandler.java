@@ -9,6 +9,7 @@ import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spell;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvider;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
 import com.kjmaster.magicbooks2.common.network.ClientManaPacket;
+import com.kjmaster.magicbooks2.common.network.ClientParticlePacket;
 import com.kjmaster.magicbooks2.common.network.PacketInstance;
 import com.kjmaster.magicbooks2.common.network.RayTraceSpellPacket;
 import net.minecraft.block.Block;
@@ -24,6 +25,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -71,6 +73,8 @@ public class RayTraceSpellHandler implements IMessageHandler<RayTraceSpellPacket
                 break;
             case "fireblast":
                 castFireBlast(player, world, spell, manaCap);
+            case "bubble":
+                castBubble(player, world, spell, manaCap);
             default:
                 break;
         }
@@ -165,6 +169,15 @@ public class RayTraceSpellHandler implements IMessageHandler<RayTraceSpellPacket
             }
             manaCap.extractMana(spell.getManaCost() * mobs, "Fire");
             PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Fire", manaCap.getMana("Fire")), (EntityPlayerMP) player);
+        }
+    }
+
+    private void castBubble(EntityPlayer player, World world, Spell spell, IMana manaCap) {
+        MagicBooks2.LOGGER.info("Bubble3 :" + spell.getIsBeingCast());
+        if (manaCap.getMana("Water") >= spell.getManaCost() && spell.getIsUnlocked() && !spell.getIsBeingCast()) {
+            manaCap.extractMana(spell.getManaCost(), "Water");
+            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Water", manaCap.getMana("Water")), (EntityPlayerMP) player);
+            spell.setIsBeingCast(true);
         }
     }
 }

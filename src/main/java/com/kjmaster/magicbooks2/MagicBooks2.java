@@ -1,14 +1,16 @@
 package com.kjmaster.magicbooks2;
 
 import com.kjmaster.magicbooks2.common.CommonProxy;
-import com.kjmaster.magicbooks2.common.events.EntityJoinEvent;
-import com.kjmaster.magicbooks2.common.events.LootTableEvent;
+import com.kjmaster.magicbooks2.common.events.*;
 import com.kjmaster.magicbooks2.common.gen.OreGen;;
 import com.kjmaster.magicbooks2.common.gen.structures.DungeonGenerator;
+import com.kjmaster.magicbooks2.common.gen.structures.StructureDungeonStart;
 import com.kjmaster.magicbooks2.common.handlers.CapabilityHandler;
+import com.kjmaster.magicbooks2.common.init.ModEntities;
 import com.kjmaster.magicbooks2.common.network.ModGuiHandler;
 import com.kjmaster.magicbooks2.common.recipe.PedestalHandler;
 import com.kjmaster.magicbooks2.tinkers.Tinkers;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -40,6 +42,7 @@ public class MagicBooks2
     public void preInit(FMLPreInitializationEvent event)
     {
         LOGGER.info("Starting Pre-Initialization");
+        ModEntities.init();
         proxy.preInit(event);
         if(Loader.isModLoaded("tconstruct")) {
             Tinkers.init(event.getSide());
@@ -49,17 +52,20 @@ public class MagicBooks2
     public void init(FMLInitializationEvent event)
     {
         LOGGER.info("Starting Initialization");
+        proxy.init(event);
         proxy.registerModelBakeryVariants();
         proxy.registerCaps();
         proxy.registerPackets();
         proxy.registerTileEntities();
-
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         MinecraftForge.EVENT_BUS.register(new EntityJoinEvent());
         MinecraftForge.EVENT_BUS.register(new LootTableEvent());
+        MinecraftForge.EVENT_BUS.register(new HurtEvent());
+        MinecraftForge.EVENT_BUS.register(new OnPlayerTickEvent());
+        MinecraftForge.TERRAIN_GEN_BUS.register(new MapGenEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(MagicBooks2.instance, new ModGuiHandler());
         GameRegistry.registerWorldGenerator(new OreGen(), 0);
-        GameRegistry.registerWorldGenerator(new DungeonGenerator(), 0);
+        MapGenStructureIO.registerStructure(StructureDungeonStart.class, MODID + ":dungeon");
     }
 
     @Mod.EventHandler

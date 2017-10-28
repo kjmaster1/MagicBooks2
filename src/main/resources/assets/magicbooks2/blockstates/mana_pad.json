@@ -1,7 +1,49 @@
 {
+	"forge_marker": 1,
+	"defaults": {
+		"custom": { "flip-v": true },
+		"model": "magicbooks2:mana_pad.obj"
+	},
     "variants": {
-        "normal": { "model": "magicbooks2:mana_pad" },
-		"powered=false": { "model": "magicbooks2:mana_pad" },
-		"powered=true": { "model": "magicbooks2:mana_pad" }
+        "normal": { "model": "magicbooks2:mana_pad.obj" },
+		"powered": {
+			"false": { "model": "magicbooks2:mana_pad.obj" },
+			"true": { "model": "magicbooks2:mana_pad.obj" }
+		},
+		"inventory": [
+			{
+				"transform": {
+				  "thirdperson_lefthand": {
+					"rotation": [ { "x": 90 }, { "y": 0 }, { "z": 0 } ],
+					"translation": [ 0, 0.2, 0.2 ],
+					"scale": 0.45
+				  },
+				  "thirdperson_righthand": {
+					"rotation": [ { "x": 90 }, { "y": 0 }, { "z": 0 } ],
+					"translation": [ 0, 0.2, 0.2 ],
+					"scale": 0.45
+				  },
+				  "gui": {
+					"rotation": [ { "x": 45 }, { "y": 0 }, { "z": 0 } ],
+					"translation": [ 0, 0.1, 0 ],
+					"scale": 0.8
+				  },
+				  "firstperson_righthand": {
+					"rotation": [ { "x": 0 }, { "y": 45 }, { "z": 0 } ],
+					"translation": [ 0, 0.2, 0 ],
+					"scale": 0.45
+				  },
+				  "firstperson_lefthand": {
+					"rotation": [ { "x": 0 }, { "y": 45 }, { "z": 0 } ],
+					"translation": [ 0, 0.2, 0 ],
+					"scale": 0.45
+				  },
+				  "ground": {
+					"rotation": [ { "x": 0 }, { "y": 0 }, { "z": 0 } ],
+					"scale": 0.5
+				  }
+				}
+			}
+		]	
     }
 }

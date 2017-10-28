@@ -76,6 +76,12 @@ public class ModItems {
     public static final Item fireSpell = new ItemSpellFire("spell_fire",
             ModCreativeTabs.tabMagicBooks2Spells, 1);
 
+    public static final Item waterSpell = new ItemSpellWater("spell_water",
+            ModCreativeTabs.tabMagicBooks2Spells, 1);
+
+    public static final Item spellBag = new ItemSpellBag("spell_bag",
+            ModCreativeTabs.tabMagicBooks2Spells, 1);
+
     @Mod.EventBusSubscriber
     public static class RegistrationHandler {
         public static final Set<Item> ITEMS = new HashSet<>();
@@ -101,6 +107,8 @@ public class ModItems {
                     earthSpell,
                     airSpell,
                     fireSpell,
+                    waterSpell,
+                    spellBag,
             };
             final IForgeRegistry<Item> registry = event.getRegistry();
             for (final Item item : items) {
@@ -127,6 +135,7 @@ public class ModItems {
                 shardAxeEarth,
                 shardAxeFire,
                 shardAxeWater,
+                spellBag,
         };
         for(final Item item : items) {
             ModelLoader.setCustomModelResourceLocation(item, 0,
@@ -156,6 +165,10 @@ public class ModItems {
         for(int i = 0; i < EnumHandler.FireSpellTypes.values().length; i++) {
             registerRender(fireSpell, i,
                     "spell_fire_" + EnumHandler.FireSpellTypes.values()[i].getName());
+        }
+        for(int i = 0; i < EnumHandler.WaterSpellTypes.values().length; i++) {
+            registerRender(waterSpell, i,
+                    "spell_water_" + EnumHandler.WaterSpellTypes.values()[i].getName());
         }
     }
     @SideOnly(Side.CLIENT)

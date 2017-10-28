@@ -1,0 +1,10 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "magicbooks2:earth_wall"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}

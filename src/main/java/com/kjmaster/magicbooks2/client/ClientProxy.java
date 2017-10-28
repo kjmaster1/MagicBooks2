@@ -2,10 +2,10 @@ package com.kjmaster.magicbooks2.client;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.CommonProxy;
-import com.kjmaster.magicbooks2.common.blocks.BlockPedestal;
 import com.kjmaster.magicbooks2.common.blocks.tile.PedestalTESR;
 import com.kjmaster.magicbooks2.common.blocks.tile.TilePedestal;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
+import com.kjmaster.magicbooks2.common.init.ModEntities;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -27,7 +27,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import slimeknights.tconstruct.library.materials.Material;
 
 /**
  * Created by pbill_000 on 11/09/2017.
@@ -67,16 +66,19 @@ public class ClientProxy extends CommonProxy {
                 new ResourceLocation(MagicBooks2.MODID, "wand_arcane"),
                 new ResourceLocation(MagicBooks2.MODID, "wand_ultimate")
         );
-        ModelBakery.registerItemVariants(ModItems.Wand,
+        ModelBakery.registerItemVariants(ModItems.earthSpell,
                 new ResourceLocation(MagicBooks2.MODID, "spell_earth_grow"),
                 new ResourceLocation(MagicBooks2.MODID, "spell_earth_walling")
         );
-        ModelBakery.registerItemVariants(ModItems.Wand,
+        ModelBakery.registerItemVariants(ModItems.airSpell,
                 new ResourceLocation(MagicBooks2.MODID, "spell_air_lightning"),
                 new ResourceLocation(MagicBooks2.MODID, "spell_air_invisibility")
         );
-        ModelBakery.registerItemVariants(ModItems.Wand,
+        ModelBakery.registerItemVariants(ModItems.fireSpell,
                 new ResourceLocation(MagicBooks2.MODID, "spell_fire_fireblast")
+        );
+        ModelBakery.registerItemVariants(ModItems.waterSpell,
+                new ResourceLocation(MagicBooks2.MODID, "spell_water_bubble")
         );
         ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.crystal),
                 new ResourceLocation(MagicBooks2.MODID, "crystal_air"),
@@ -138,13 +140,13 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void init(FMLInitializationEvent event) {
-
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         OBJLoader.INSTANCE.addDomain(MagicBooks2.MODID);
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
+        ModEntities.initModels();
     }
 
     @SubscribeEvent

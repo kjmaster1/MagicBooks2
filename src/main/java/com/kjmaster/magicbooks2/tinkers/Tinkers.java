@@ -40,10 +40,10 @@ public class Tinkers {
                 registerTinkersRenderInfo(airShardMaterial, 0xFCE458);
 
             TinkerRegistry.addMaterialStats(airShardMaterial,
-                    new HeadMaterialStats(40, 13f, 5, OBSIDIAN),
+                    new HeadMaterialStats(30, 13f, 2, OBSIDIAN),
                     new HandleMaterialStats(0.8f, 20),
                     new ExtraMaterialStats(40),
-                    new BowMaterialStats(3, 4.0f, 7));
+                    new BowMaterialStats(4, 4.0f, 1));
             materials.put("AirMaterial", airShardMaterial);
 
             //Arcane

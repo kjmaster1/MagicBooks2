@@ -7,6 +7,7 @@ public class Spell {
     private String element;
     private String asString;
     private Boolean isUnlocked;
+    private Boolean isBeingCast;
 
     public Spell(int manaCost, int pointCost, String element, String name) {
         this.manaCost = manaCost;
@@ -14,6 +15,7 @@ public class Spell {
         this.element = element;
         this.asString = name;
         this.isUnlocked = false;
+        this.isBeingCast = false;
     }
 
     public int getManaCost() {
@@ -39,4 +41,8 @@ public class Spell {
     public void setUnlocked() {
         setValueUnlocked(true);
     }
+
+    public boolean getIsBeingCast() { return isBeingCast; }
+
+    public void setIsBeingCast(Boolean value) { this.isBeingCast = value; }
 }

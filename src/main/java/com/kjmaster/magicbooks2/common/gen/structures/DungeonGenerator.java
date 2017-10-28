@@ -7,6 +7,7 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -14,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -78,13 +80,16 @@ public class DungeonGenerator implements IWorldGenerator {
 
     private void addChest(World world, int x, int y, int z, Random random, Rotation rotation) {
         world.setBlockState(new BlockPos(x, y, z), Blocks.CHEST.getDefaultState().withRotation(rotation));
-        TileEntityChest tileChest = (TileEntityChest) world.getTileEntity(new BlockPos(x, y, z));
-        tileChest.setLootTable(new ResourceLocation("chests/simple_dungeon"), random.nextLong());
-        IItemHandler handler = InventoryUtils.tryGetHandler(tileChest, null);
-        ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
-        ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
-        ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
-        ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
+        TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
+        if (tileEntity instanceof TileEntityChest) {
+            TileEntityChest tileChest = (TileEntityChest) tileEntity;
+            tileChest.setLootTable(new ResourceLocation("chests/simple_dungeon"), random.nextLong());
+            IItemHandler handler = InventoryUtils.tryGetHandler(tileChest, null);
+            ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
+            ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
+            ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
+            ItemHandlerHelper.insertItemStacked(handler, new ItemStack(ModItems.Shard, random.nextInt(3), random.nextInt(5)), false);
+        }
     }
 
     private boolean checkTower(World world, int x, int y, int z) {

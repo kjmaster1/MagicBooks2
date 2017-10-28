@@ -1,10 +1,20 @@
 package com.kjmaster.magicbooks2.common.capabilities.unlockedspells;
 
+import com.kjmaster.magicbooks2.common.init.ModItems;
 import com.kjmaster.magicbooks2.common.network.PacketInstance;
 import com.kjmaster.magicbooks2.common.network.RayTraceSpellPacket;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import org.apache.commons.lang3.ArrayUtils;
+import scala.Array;
+import scala.actors.threadpool.Arrays;
+import slimeknights.tconstruct.library.utils.ListUtil;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class Spells implements ISpells {
     //Air
@@ -16,8 +26,14 @@ public class Spells implements ISpells {
     private Spell walling = new Spell(200, 16, "Earth", "walling");
     //Fire
     private Spell fireblast = new Spell(250, 8, "Fire", "fireblast");
+    //Water
+    private Spell bubble = new Spell(500, 16, "Water", "bubble");
 
-    private Spell[] spellsList = {lightning, invisibility, grow, walling, fireblast};
+    private Spell[] spellsList = {lightning, invisibility, grow, walling, fireblast, bubble};
+
+    private static Item[] spellItemList = {ModItems.earthSpell, ModItems.fireSpell, ModItems.airSpell};
+
+    public static List<Item> validSpellItems = new ArrayList<Item>(Arrays.asList(spellItemList));
 
     @Override
     public int getManaCost(Spell spell) {

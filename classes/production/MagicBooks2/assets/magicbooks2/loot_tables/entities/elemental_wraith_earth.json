@@ -1,0 +1,32 @@
+{
+    "pools": [
+        {
+			"name": "magicbooks2:earth_wraith",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "magicbooks2:shard",
+					"data": 1,
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 0,
+                                "max": 1
+                            }
+                        },
+                        {
+                            "function": "looting_enchant",
+                            "count": {
+                                "min": 0,
+                                "max": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

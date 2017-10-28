@@ -161,4 +161,27 @@ public class EnumHandler {
 
         public int getID() { return ID; }
     }
+
+    public static enum WaterSpellTypes implements IStringSerializable {
+        BUBBLE("bubble", 0),
+        ;
+
+        private int ID;
+        private String name;
+
+        private WaterSpellTypes(String name, int id) {
+            this.ID = id;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
+
+        @Override
+        public String getName() { return this.name; }
+
+        public int getID() { return this.ID; }
+    }
 }

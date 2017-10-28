@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+		"particle": "magicbooks2:blocks/rune_drowning",
+        "all": "magicbooks2:blocks/rune_drowning"
+    }
+}

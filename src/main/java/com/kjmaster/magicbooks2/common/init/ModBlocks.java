@@ -4,6 +4,8 @@ import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.*;
 import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.BlockArcaneCrafter;
 import com.kjmaster.magicbooks2.common.blocks.item.ItemBlockBase;
+import com.kjmaster.magicbooks2.common.blocks.runes.BlockDrowningRune;
+import com.kjmaster.magicbooks2.common.blocks.runes.BlockLumberRune;
 import com.kjmaster.magicbooks2.common.creative.ModCreativeTabs;
 import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
 import jline.internal.Preconditions;
@@ -52,6 +54,12 @@ public class ModBlocks {
     public static Block pedestal = new BlockPedestal("pedestal_block", Material.IRON, ModCreativeTabs.tabMagicBooks2,
             3.0F, 10F, "pickaxe", 2);
 
+    public static Block drowningRune = new BlockDrowningRune("rune_drowning", Material.IRON, ModCreativeTabs.tabMagicBooks2,
+            3.0F, 10F, "pickaxe", 2);
+
+    public static Block lumberRune = new BlockLumberRune("rune_lumber", Material.IRON, ModCreativeTabs.tabMagicBooks2,
+            3.0F, 10F, "pickaxe", 2);
+
     @Mod.EventBusSubscriber
     public static class RegistrationHandler {
         public static final Set<ItemBlock> ITEM_BLOCKS = new HashSet<>();
@@ -68,6 +76,8 @@ public class ModBlocks {
                     shardOre,
                     shardBlock,
                     earthWall,
+                    drowningRune,
+                    lumberRune,
             };
             registry.registerAll(blocks);
         }
@@ -78,6 +88,8 @@ public class ModBlocks {
                     new ItemBlock(manaPad),
                     new ItemBlock(arcaneCrafter),
                     new ItemBlock(earthWall),
+                    new ItemBlock(drowningRune),
+                    new ItemBlock(lumberRune),
             };
 
             final IForgeRegistry<Item> registry = event.getRegistry();
@@ -99,15 +111,20 @@ public class ModBlocks {
     @SideOnly(Side.CLIENT)
     public static void registerModels() {
         final Block[] blocks = {
-                manaPad,
                 arcaneCrafter,
+                manaPad,
+                earthWall,
+                drowningRune,
+                lumberRune,
         };
         for(final Block block: blocks) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(MagicBooks2.MODID + ":" + block.getUnlocalizedName().substring(5), "inventory"));;
         }
         final ItemBlock[] items = {
-                new ItemBlock(manaPad),
                 new ItemBlock(arcaneCrafter),
+                new ItemBlock(earthWall),
+                new ItemBlock(drowningRune),
+                new ItemBlock(lumberRune),
         };
         for(final ItemBlock item : items) {
             final Block block = item.getBlock();

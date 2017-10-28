@@ -1,14 +1,23 @@
 package com.kjmaster.magicbooks2.common.network;
 
+import com.kjmaster.magicbooks2.client.gui.bag.ContainerSpellBag;
+import com.kjmaster.magicbooks2.client.gui.bag.GuiSpellBag;
+import com.kjmaster.magicbooks2.client.gui.bag.InventorySpellBag;
 import com.kjmaster.magicbooks2.client.gui.blocks.GuiArcaneCrafter;
 import com.kjmaster.magicbooks2.client.gui.blocks.GuiGreaterCrystal;
 import com.kjmaster.magicbooks2.client.gui.magicbook.screens.*;
 import com.kjmaster.magicbooks2.client.gui.magicbook.entries.GuiIntroScreen;
+import com.kjmaster.magicbooks2.client.gui.runes.GuiLumberRune;
+import com.kjmaster.magicbooks2.client.gui.runes.GuiRune;
 import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.ContainerArcaneCrafter;
 import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.TileArcaneCrafter;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileGreaterCrystal;
 import com.kjmaster.magicbooks2.common.blocks.tile.container.ContainerGreaterCrystal;
+import com.kjmaster.magicbooks2.common.blocks.tile.container.runes.ContainerLumberRune;
+import com.kjmaster.magicbooks2.common.blocks.tile.container.runes.ContainerRune;
+import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileRune;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -26,6 +35,9 @@ public class ModGuiHandler implements IGuiHandler {
     public static final int earthBookPage = 6;
     public static final int fireBookPage = 7;
     public static final int waterBookPage = 8;
+    public static final int spellBag = 9;
+    public static final int rune = 10;
+    public static final int lumberRune = 11;
 
     @Nullable
     @Override
@@ -49,6 +61,12 @@ public class ModGuiHandler implements IGuiHandler {
                 return new GuiFireScreen();
             case waterBookPage:
                 return new GuiWaterScreen();
+            case spellBag:
+                return new GuiSpellBag(player.inventory, new InventorySpellBag(player.getHeldItem(EnumHand.MAIN_HAND)));
+            case rune:
+                return new GuiRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)), world);
+            case lumberRune:
+                return new GuiLumberRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)), world);
         }
         return null;
     }
@@ -61,6 +79,12 @@ public class ModGuiHandler implements IGuiHandler {
                 return new ContainerGreaterCrystal(player.inventory, (TileGreaterCrystal) world.getTileEntity(new BlockPos(x, y, z)));
             case arcaneCrafter:
                 return new ContainerArcaneCrafter(player.inventory, (TileArcaneCrafter) world.getTileEntity(new BlockPos(x,y,z)));
+            case spellBag:
+                return new ContainerSpellBag(player.inventory, new InventorySpellBag(player.getHeldItem(EnumHand.MAIN_HAND)));
+            case rune:
+                return new ContainerRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)));
+            case lumberRune:
+                return new ContainerLumberRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)));
         }
         return null;
     }

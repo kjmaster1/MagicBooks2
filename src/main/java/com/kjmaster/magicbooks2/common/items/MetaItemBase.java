@@ -14,5 +14,7 @@ public class MetaItemBase extends Item {
         this.setUnlocalizedName(unlocalizedName);
         this.setRegistryName(new ResourceLocation(MagicBooks2.MODID, unlocalizedName));
         this.setHasSubtypes(true);
+        this.setCreativeTab(tab);
+        this.setMaxStackSize(maxSize);
     }
 }

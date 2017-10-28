@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileManaPad;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
@@ -14,17 +13,47 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 public class BlockManaPad extends BlockPressurePlate implements ITileEntityProvider {
 
+    private static final AxisAlignedBB BLOCK_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.2F, 1.0F);
+
     public BlockManaPad(Material materialIn, Sensitivity sensitivityIn) {
         super(materialIn, sensitivityIn);
         this.setUnlocalizedName("mana_pad");
         this.setRegistryName("mana_pad");
+    }
+
+    @Override
+    public boolean canSpawnInBlock() {
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return BLOCK_AABB;
+    }
+
+    @Override
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
+
+    @Override
+    public boolean isCollidable() {
+        return true;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return BLOCK_AABB;
     }
 
     @Nullable

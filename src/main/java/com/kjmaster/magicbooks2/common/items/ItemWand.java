@@ -77,6 +77,11 @@ public class ItemWand extends MetaItemBase {
                     fireSpell(playerIn, worldIn, stackOnLeft, spellsCap);
                     return super.onItemRightClick(worldIn, playerIn, handIn);
                 }
+            case 3:
+                if (itemOnLeft == ModItems.waterSpell) {
+                    waterSpell(playerIn, worldIn, stackOnLeft, spellsCap);
+                    return super.onItemRightClick(worldIn, playerIn, handIn);
+                }
                 break;
             default:
                 break;
@@ -130,6 +135,15 @@ public class ItemWand extends MetaItemBase {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void waterSpell(EntityPlayer player, World world, ItemStack stack, ISpells spellsCap) {
+        int meta = stack.getMetadata();
+        switch (meta) {
+            case 0:
+                if(world.isRemote)
+                    spellsCap.castSpell(player, "bubble");
         }
     }
 }

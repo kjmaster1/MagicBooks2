@@ -3,6 +3,8 @@ package com.kjmaster.magicbooks2.common;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.TileArcaneCrafter;
 import com.kjmaster.magicbooks2.common.blocks.tile.*;
+import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileLumberRune;
+import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileRune;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.Mana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaStorage;
@@ -17,6 +19,7 @@ import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spells;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsStorage;
 import com.kjmaster.magicbooks2.common.handlers.*;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
+import com.kjmaster.magicbooks2.common.init.ModEntities;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import com.kjmaster.magicbooks2.common.network.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -71,6 +74,8 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileArcaneCrafter.class, MagicBooks2.MODID + ":tile_arcane_crafter");
         GameRegistry.registerTileEntity(TileEarthWall.class, MagicBooks2.MODID + ":tile_earth_wall");
         GameRegistry.registerTileEntity(TilePedestal.class, MagicBooks2.MODID + ":tile_pedestal_block");
+        GameRegistry.registerTileEntity(TileRune.class, MagicBooks2.MODID + "tile:rune");
+        GameRegistry.registerTileEntity(TileLumberRune.class, MagicBooks2.MODID + "tile:rune_lumber");
     }
     /**
      * Returns a side-appropriate EntityPlayer for use during message handling
@@ -89,7 +94,8 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {}
 
-    public void preInit(FMLPreInitializationEvent event) {}
+    public void preInit(FMLPreInitializationEvent event) {
+    }
 
     public void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed) {}
 
