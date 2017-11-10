@@ -40,10 +40,6 @@ public class TileLumberRune extends TileRune {
     public TileLumberRune() {
     }
 
-    public TileLumberRune(String element, int MANA_USE) {
-        super(element, MANA_USE);
-    }
-
     @Override
     public void update() {
         super.update();
@@ -73,7 +69,7 @@ public class TileLumberRune extends TileRune {
                         coolDownDone(pos, world, lumberRune, player, handler, blocksbroken);
                     }
                 }
-                MagicBooks2.LOGGER.info("Lumber Rune Mana: " + this.getManaStored());
+                this.markDirty();
             }
         }
     }

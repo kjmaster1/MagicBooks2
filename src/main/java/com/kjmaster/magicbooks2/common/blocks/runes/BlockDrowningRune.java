@@ -9,9 +9,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
@@ -44,6 +46,14 @@ public class BlockDrowningRune extends BlockBase implements ITileEntityProvider 
     }
 
     @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        TileRune rune = (TileRune) worldIn.getTileEntity(pos);
+        rune.setElement("Water");
+        rune.setMANA_USE(400);
+    }
+
+    @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote && !playerIn.isSneaking())
             playerIn.openGui(MagicBooks2.instance, ModGuiHandler.rune, worldIn, pos.getX(), pos.getY(), pos.getZ());
@@ -53,12 +63,12 @@ public class BlockDrowningRune extends BlockBase implements ITileEntityProvider 
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileRune("Water", 400);
+        return new TileRune();
     }
 
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileRune("Water", 400);
+        return new TileRune();
     }
 }

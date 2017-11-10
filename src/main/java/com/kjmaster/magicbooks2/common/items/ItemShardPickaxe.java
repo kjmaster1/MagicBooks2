@@ -97,7 +97,6 @@ public class ItemShardPickaxe extends ItemPickaxe {
                 world.setBlockState(pos, Blocks.WATER.getDefaultState());
                     manaCap.extractMana(100, "Water");
                     PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Water", manaCap.getMana("Water")), playerMP);
-                MagicBooks2.LOGGER.info("Water Mana: " + manaCap.getMana("Water"));
             }
         }
     }
@@ -193,9 +192,6 @@ public class ItemShardPickaxe extends ItemPickaxe {
                     float f5 = random.nextFloat() * 0.6F - 0.3F;
                     NetworkRegistry.TargetPoint point = new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20);
                     PacketInstance.INSTANCE.sendToAllAround(new ClientParticlePacket("AutoSmelt", f1, f2, f3, f4, f5), point);
-
-                    int fireMana2 = manaCap.getMana("Fire");
-                    MagicBooks2.LOGGER.info("Fire Mana: " + fireMana2);
 
                     int damage = itemstack.getItemDamage();
                     itemstack.setItemDamage(damage + 1);

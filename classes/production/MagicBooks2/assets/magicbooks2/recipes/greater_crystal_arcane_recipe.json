@@ -12,7 +12,7 @@
 	"key": {
 		"#": {
 			"type": "forge:ore_dict",
-			"ore": "airArcane"
+			"ore": "shardArcane"
 		},
 		".": {
 			"type": "forge:ore_dict",

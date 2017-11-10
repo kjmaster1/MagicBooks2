@@ -91,4 +91,10 @@ public class GuiLumberRune extends GuiContainer {
         int l = this.getCooldownProgressScaled().intValue();
         this.drawTexturedModalRect(this.guiLeft + 102, this.guiTop + 35, 176, 53, l + 1, 16);
     }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.drawDefaultBackground();
+    }
 }

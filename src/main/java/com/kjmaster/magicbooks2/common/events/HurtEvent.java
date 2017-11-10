@@ -16,7 +16,6 @@ public class HurtEvent {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             ISpells spellsCap = player.getCapability(SpellsProvider.SPELLS_CAP, null);
             Spell bubble = spellsCap.getSpell("bubble");
-            MagicBooks2.LOGGER.info("Bubble2: " + bubble.getIsBeingCast());
             if (bubble.getIsBeingCast()) {
                 event.setAmount(event.getAmount() / 2);
             }

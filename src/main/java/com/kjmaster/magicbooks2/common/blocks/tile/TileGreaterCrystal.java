@@ -146,6 +146,7 @@ public class TileGreaterCrystal extends TileEntity implements ITickable {
                         }
                     }
                 }
+                this.markDirty();
             }
         }
     }

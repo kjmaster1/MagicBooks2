@@ -99,6 +99,20 @@ public class PedestalHandler {
                 ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(Blocks.MAGMA, 1, 0), ItemStack.EMPTY,
                 0, 0, 1000, 0, 50));
         //Add All Water Spells
+        PEDESTAL_RECIPES.add(new PedestalRecipe(new ItemStack(Blocks.WOOL, 1, 15), new ItemStack(ModItems.waterSpell, 1, 0),
+                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(Items.WATER_BUCKET, 1, 0),
+                0, 0, 0, 1000, 50));
+        //Add All Air Runes
+        //Add All Arcane Runes
+        //Add All Earth Runes
+        PEDESTAL_RECIPES.add(new PedestalRecipe(new ItemStack(Blocks.STONE, 1, 0), new ItemStack(ModBlocks.lumberRune, 1, 0),
+                ItemStack.EMPTY, new ItemStack(Items.DIAMOND_AXE, 1), ItemStack.EMPTY, ItemStack.EMPTY,
+                0, 1000, 0, 0, 50));
+        //Add All Fire Runes
+        //Add All Water Runes
+        PEDESTAL_RECIPES.add(new PedestalRecipe(new ItemStack(Blocks.STONE, 1, 0), new ItemStack(ModBlocks.drowningRune, 1, 0),
+                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, new ItemStack(Items.WATER_BUCKET, 1, 0),
+                0, 0, 0, 500, 50));
     }
 }
 

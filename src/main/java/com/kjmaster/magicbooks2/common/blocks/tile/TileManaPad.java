@@ -69,6 +69,7 @@ public class TileManaPad extends TileEntity implements ITickable {
                         }
                     }
                 }
+                this.markDirty();
             }
         }
     }

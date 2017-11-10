@@ -131,7 +131,6 @@ public class CrystalManaStorage implements IManaStorage {
             case "Arcane":
                 return arcaneMana;
             case "Earth":
-                MagicBooks2.LOGGER.info("Storage Says Earth Mana Is: " + earthMana);
                 return earthMana;
             case "Fire":
                 return fireMana;

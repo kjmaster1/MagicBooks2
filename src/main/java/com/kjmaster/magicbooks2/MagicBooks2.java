@@ -41,7 +41,7 @@ public class MagicBooks2
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        LOGGER.info("Starting Pre-Initialization");
+        LOGGER.info(MODID + ": Starting Pre-Initialization");
         ModEntities.init();
         proxy.preInit(event);
         if(Loader.isModLoaded("tconstruct")) {
@@ -51,7 +51,7 @@ public class MagicBooks2
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-        LOGGER.info("Starting Initialization");
+        LOGGER.info(MODID + ": Starting Initialization");
         proxy.init(event);
         proxy.registerModelBakeryVariants();
         proxy.registerCaps();
@@ -71,7 +71,7 @@ public class MagicBooks2
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-        LOGGER.info("Starting Post-Initialization");
+        LOGGER.info(MODID + " Starting Post-Initialization");
         PedestalHandler.init();
     }
 }

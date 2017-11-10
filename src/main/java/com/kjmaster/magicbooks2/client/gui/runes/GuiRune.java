@@ -64,7 +64,6 @@ public class GuiRune extends GuiContainer {
         this.mc.fontRenderer.drawString(s, this.xSize / 2 - this.mc.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
         this.mc.fontRenderer.drawString(this.playerInv.getDisplayName().getFormattedText(), 8, 72, 4210752);
         int mana = this.rune.getField(0);
-        MagicBooks2.LOGGER.info("GuiForegroundMana: " + mana);
         this.progressBar.setMin(mana).setMax(10000);
         this.progressBar.draw(this.mc);
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
@@ -93,8 +92,13 @@ public class GuiRune extends GuiContainer {
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         int mana = this.rune.getField(0);
-        MagicBooks2.LOGGER.info("GuiUpdateMana: " + mana);
         this.progressBar.setMin(mana).setMax(1000);
         this.progressBar.draw(this.mc);
+    }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.drawDefaultBackground();
     }
 }

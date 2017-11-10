@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.items;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileCrystal;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,14 +21,13 @@ public class ItemCrystalLinker extends ItemBase {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        MagicBooks2.LOGGER.info("TESTING");
         if (storedPos != null) {
             if(pos.equals(storedPos) && !worldIn.isRemote) {
-                player.sendMessage(new TextComponentString("No Connecting To Self, TEST"));
+                player.sendMessage(new TextComponentString("No Connecting To Self"));
                 storedPos = null;
             }
             else if (!isInRange(pos, storedPos) && !worldIn.isRemote) {
-                player.sendMessage(new TextComponentString("Out Of Range, TEST"));
+                player.sendMessage(new TextComponentString("Out Of Range"));
                 storedPos = null;
             }
             else if (worldIn.getTileEntity(pos) instanceof TileCrystal
@@ -41,7 +39,7 @@ public class ItemCrystalLinker extends ItemBase {
             }
         } else if (worldIn.getTileEntity(pos) instanceof TileCrystal && !worldIn.isRemote) {
             storedPos = pos;
-            player.sendMessage(new TextComponentString("Pos Saved, TEST"));
+            player.sendMessage(new TextComponentString("Pos Saved"));
         }
 
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);

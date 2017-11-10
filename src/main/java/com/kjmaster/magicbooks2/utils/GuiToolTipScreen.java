@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiScreen;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+/** GuiToolTipScreen class by Zyin055 https://goo.gl/7VfyZL */
 public abstract class GuiToolTipScreen extends GuiScreen {
 
     /** Show a white "?" in the top right part of any button with a tooltip assigned to it */

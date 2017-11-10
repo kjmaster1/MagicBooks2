@@ -57,6 +57,7 @@ item.spell_air_lightning.name=Lightning Spell
 item.spell_air_invisibility.name=Invisibility Spell
 item.spell_earth_grow.name=Grow Spell
 item.spell_earth_walling.name=Walling Spell
+item.spell_water_bubble.name=Bubble Spell
 itemGroup.MagicBooks2=MagicBooks2
 itemGroup.MagicBooks2Spells=MagicBooks2 Spells
 container.crystal_greater=Greater Crystal
@@ -66,12 +67,7 @@ material.shardearth.name=Earth
 material.shardarcane.name=Arcane
 material.shardwater.name=Water
 item.book_magic.name=Magic Book
-
-
-
-
-
-
-
-
-
+item.spell_bag.name=Spell Bag
+tile.mana_pad.name=Mana Pad
+tile.rune_drowning.name=Rune Of Drowning
+tile.rune_lumber.name=Rune Of Lumber

@@ -27,7 +27,6 @@ public class OnPlayerTickEvent {
                 if (ticks %100 ==  0) {
                     ticks = 0;
                     bubble.setIsBeingCast(false);
-                    MagicBooks2.LOGGER.info("Bubble1: " + bubble.getIsBeingCast());
                 }
             }
         }

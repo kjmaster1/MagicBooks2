@@ -1,0 +1,21 @@
+{
+	"result": {
+		"item": "magicbooks2:spell_bag"
+	},
+	"pattern": [
+		"   ",
+		"#.#",
+		"###"
+	],
+	"type": "forge:ore_shaped",
+	"key": {
+		"#": {
+			"item": "minecraft:wool",
+			"data": 15
+		},
+		".": {
+			"type": "forge:ore_dict",
+			"ore": "shardArcane"
+		}
+	}
+}

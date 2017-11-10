@@ -27,6 +27,7 @@ public class GuiMagicBookScreen extends GuiToolTipScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        this.drawDefaultBackground();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(BACKGROUNDTEXTURE);
         this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, 192, 192);

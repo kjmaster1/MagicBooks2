@@ -21,6 +21,8 @@ public class TileEarthWall extends TileEntity implements ITickable {
         if(ticks == 100)
             getWorld().setBlockToAir(pos);
         else ticks++;
+        if (!this.world.isRemote)
+            this.markDirty();
     }
 
     @Override

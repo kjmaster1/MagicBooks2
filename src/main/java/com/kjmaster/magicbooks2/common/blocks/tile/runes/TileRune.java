@@ -19,14 +19,15 @@ public class TileRune extends TileEntity implements ITickable {
     private TileCrystal connectedCrystal;
     private int MANA_USE;
 
-    TileRune() {}
-
-    public TileRune(String element, int MANA_USE){
-        this.element = element;
+    public TileRune(){
         this.connectedToPos = new BlockPos(0,0, 0);
         this.hasConnection = false;
-        this.MANA_USE = MANA_USE;
+        this.element = "";
     }
+
+    public void setElement(String element) { this.element = element; }
+
+    public void setMANA_USE(int MANA_USE) { this.MANA_USE = MANA_USE; }
 
     @Override
     public void update() {
@@ -53,6 +54,7 @@ public class TileRune extends TileEntity implements ITickable {
                         }
                     }
                 }
+                this.markDirty();
             }
         }
     }
@@ -113,6 +115,7 @@ public class TileRune extends TileEntity implements ITickable {
         compound.setInteger("PosY", this.connectedToPos.getY());
         compound.setInteger("PosZ", this.connectedToPos.getZ());
         compound.setString("Element", this.element);
+        compound.setInteger("MANA_USE", this.MANA_USE);
         return super.writeToNBT(compound);
     }
 
@@ -122,6 +125,7 @@ public class TileRune extends TileEntity implements ITickable {
         this.hasConnection = compound.getBoolean("Connection");
         this.connectedToPos = new BlockPos(compound.getInteger("PosX"), compound.getInteger("PosY"), compound.getInteger("PosZ"));
         this.element = compound.getString("Element");
+        this.MANA_USE = compound.getInteger("MANA_USE");
         super.readFromNBT(compound);
     }
 
@@ -136,6 +140,13 @@ public class TileRune extends TileEntity implements ITickable {
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         this.readFromNBT(pkt.getNbtCompound());
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        this.writeToNBT(nbt);
+        return nbt;
     }
 
     @Override
@@ -156,7 +167,6 @@ public class TileRune extends TileEntity implements ITickable {
     }
 
     public int getManaStored() {
-        MagicBooks2.LOGGER.info("TileRune Says Earth Mana Is: " + this.storage.getManaStored(this.element));
         return this.storage.getManaStored(this.element);
     }
 

@@ -93,4 +93,10 @@ public class GuiGreaterCrystal extends GuiContainer {
         }
         return meta;
     }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.drawDefaultBackground();
+    }
 }

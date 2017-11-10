@@ -30,6 +30,7 @@ public class GuiElementScreen extends GuiToolTipScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float f) {GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        this.drawDefaultBackground();
         mc.renderEngine.bindTexture(BACKGROUND);
         this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, 192, 192);
         super.drawScreen(mouseX, mouseY, f);

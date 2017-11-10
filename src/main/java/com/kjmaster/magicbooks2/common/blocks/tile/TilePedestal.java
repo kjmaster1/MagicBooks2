@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.tile;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.recipe.PedestalHandler;
 import com.kjmaster.magicbooks2.common.recipe.PedestalRecipe;
 import net.minecraft.block.state.IBlockState;
@@ -16,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-//Thank you McJty for the great tutorial which can be found here https://wiki.mcjty.eu/modding/index.php/Render_Block_TESR_/_OBJ-1.9
+/** Thank you McJty for the great tutorial which can be found here https://wiki.mcjty.eu/modding/index.php/Render_Block_TESR_/_OBJ-1.9 */
 public class TilePedestal extends TileEntity implements ITickable {
 
     private ItemStack stack = ItemStack.EMPTY;
@@ -98,6 +97,7 @@ public class TilePedestal extends TileEntity implements ITickable {
                     recipes.clear();
                 }
             }
+            this.markDirty();
         }
     }
 

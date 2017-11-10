@@ -3,6 +3,7 @@ package com.kjmaster.magicbooks2.common.blocks;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileManaPad;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
+import com.kjmaster.magicbooks2.common.creative.ModCreativeTabs;
 import com.kjmaster.magicbooks2.common.network.ClientManaPacket;
 import com.kjmaster.magicbooks2.common.network.PacketInstance;
 import net.minecraft.block.BlockPressurePlate;
@@ -28,6 +29,7 @@ public class BlockManaPad extends BlockPressurePlate implements ITileEntityProvi
         super(materialIn, sensitivityIn);
         this.setUnlocalizedName("mana_pad");
         this.setRegistryName("mana_pad");
+        setCreativeTab(ModCreativeTabs.tabMagicBooks2);
     }
 
     @Override

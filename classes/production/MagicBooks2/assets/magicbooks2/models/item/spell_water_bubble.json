@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "magicbooks2:items/spell_water_bubble"
+    }
+}

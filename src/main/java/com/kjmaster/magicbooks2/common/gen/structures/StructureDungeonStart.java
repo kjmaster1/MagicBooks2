@@ -70,7 +70,7 @@ public class StructureDungeonStart extends StructureStart {
             Template templateStairs = world.getSaveHandler().getStructureTemplateManager().getTemplate(world.getMinecraftServer(), DUNGEON_STAIRS);
             Template templateDungeon = world.getSaveHandler().getStructureTemplateManager().getTemplate(world.getMinecraftServer(), DUNGEON);
             y = y - 2;
-            MagicBooks2.LOGGER.info("Generated Tower At: " + new BlockPos(x, y, z).toString());
+            MagicBooks2.LOGGER.info(MagicBooks2.MODID + ": Generated Tower At: " + new BlockPos(x, y, z).toString());
             templateTower.addBlocksToWorld(world, new BlockPos(x, y, z), new PlacementSettings().setRotation(Rotation.NONE));
             y = y - 11;
             x = x - 2;

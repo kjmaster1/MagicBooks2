@@ -10,7 +10,6 @@ public class MapGenEvent {
     @SubscribeEvent()
     public void onMapGen(InitMapGenEvent event) {
         if(event.getType().equals(InitMapGenEvent.EventType.SCATTERED_FEATURE)) {
-            MagicBooks2.LOGGER.info("Map Gen Is Being Called!");
             DungeonGenBase dungeonGenBase = new DungeonGenBase();
             event.setNewGen(dungeonGenBase);
         }

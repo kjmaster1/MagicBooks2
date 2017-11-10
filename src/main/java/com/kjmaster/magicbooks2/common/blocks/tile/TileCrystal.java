@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.tile;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -66,6 +65,7 @@ public class TileCrystal extends TileEntity implements ITickable, ICapabilityPro
                     default:
                         break;
                 }
+                this.markDirty();
             }
         }
     }
@@ -79,8 +79,6 @@ public class TileCrystal extends TileEntity implements ITickable, ICapabilityPro
                   && !tileCrystal.storage.isFull(element) && this.storage.getManaStored(element) > MANA_USE) {
                 tileCrystal.storage.receiveMana(MANA_USE, false, element);
                 this.storage.extractMana(MANA_USE, false, element);
-                MagicBooks2.LOGGER.info("Mana: " + this.storage.getManaStored(element));
-                MagicBooks2.LOGGER.info("Other Crystal Mana" + tileCrystal.storage.getManaStored(element));
             }
         }
     }
