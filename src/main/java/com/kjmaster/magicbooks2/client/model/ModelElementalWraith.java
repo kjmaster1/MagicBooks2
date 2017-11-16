@@ -1,11 +1,7 @@
 package com.kjmaster.magicbooks2.client.model;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
-import com.kjmaster.magicbooks2.common.entities.EntityElementalWraith;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelIronGolem;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.ModelZombie;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 

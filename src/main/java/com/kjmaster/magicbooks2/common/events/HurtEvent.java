@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.events;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.ISpells;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spell;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvider;

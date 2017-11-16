@@ -1,7 +1,6 @@
 package com.kjmaster.magicbooks2.common.blocks;
 
 import com.kjmaster.magicbooks2.common.blocks.tile.TilePedestal;
-import net.minecraft.block.BlockGlass;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

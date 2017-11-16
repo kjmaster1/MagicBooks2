@@ -4,7 +4,6 @@ import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.ISpells;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spell;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvider;
-import com.kjmaster.magicbooks2.common.network.ClientPointsPacket;
 import com.kjmaster.magicbooks2.common.network.ClientSpellPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

@@ -3,7 +3,6 @@ package com.kjmaster.magicbooks2;
 import com.kjmaster.magicbooks2.common.CommonProxy;
 import com.kjmaster.magicbooks2.common.events.*;
 import com.kjmaster.magicbooks2.common.gen.OreGen;;
-import com.kjmaster.magicbooks2.common.gen.structures.DungeonGenerator;
 import com.kjmaster.magicbooks2.common.gen.structures.StructureDungeonStart;
 import com.kjmaster.magicbooks2.common.handlers.CapabilityHandler;
 import com.kjmaster.magicbooks2.common.init.ModEntities;

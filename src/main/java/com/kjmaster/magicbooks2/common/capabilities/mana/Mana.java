@@ -1,7 +1,5 @@
 package com.kjmaster.magicbooks2.common.capabilities.mana;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
-
 /**
  * Created by pbill_000 on 12/09/2017.
  */

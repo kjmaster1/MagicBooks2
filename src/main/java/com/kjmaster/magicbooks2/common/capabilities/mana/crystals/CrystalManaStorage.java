@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.capabilities.mana.crystals;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**

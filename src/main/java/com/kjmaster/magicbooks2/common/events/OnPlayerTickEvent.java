@@ -1,16 +1,11 @@
 package com.kjmaster.magicbooks2.common.events;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.ISpells;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spell;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvider;
-import com.kjmaster.magicbooks2.common.network.ClientParticlePacket;
-import com.kjmaster.magicbooks2.common.network.PacketInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class OnPlayerTickEvent {
 

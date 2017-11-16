@@ -22,7 +22,6 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import slimeknights.mantle.common.GuiHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

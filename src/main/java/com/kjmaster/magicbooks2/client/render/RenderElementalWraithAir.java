@@ -4,7 +4,6 @@ import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.client.model.ModelElementalWraith;
 import com.kjmaster.magicbooks2.common.entities.EntityAirWraith;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderEnderman;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;

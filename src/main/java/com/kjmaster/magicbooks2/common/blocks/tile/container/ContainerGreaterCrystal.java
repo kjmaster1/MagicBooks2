@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.container;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileGreaterCrystal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -8,8 +7,6 @@ import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;

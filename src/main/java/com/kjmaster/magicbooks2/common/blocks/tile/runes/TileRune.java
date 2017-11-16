@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.runes;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileCrystal;
 import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaStorage;
 import net.minecraft.nbt.NBTTagCompound;

@@ -3,7 +3,6 @@ package com.kjmaster.magicbooks2.common.entities;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;

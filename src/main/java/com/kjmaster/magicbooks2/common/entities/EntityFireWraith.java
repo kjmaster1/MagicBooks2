@@ -1,7 +1,6 @@
 package com.kjmaster.magicbooks2.common.entities;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 

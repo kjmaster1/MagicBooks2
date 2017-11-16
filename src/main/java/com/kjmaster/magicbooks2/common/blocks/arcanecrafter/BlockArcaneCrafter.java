@@ -2,15 +2,10 @@ package com.kjmaster.magicbooks2.common.blocks.arcanecrafter;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.BlockBase;
-import com.kjmaster.magicbooks2.common.blocks.item.IMetaBlockName;
-import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
 import com.kjmaster.magicbooks2.common.network.ModGuiHandler;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;

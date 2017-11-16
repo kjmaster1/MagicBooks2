@@ -5,9 +5,7 @@ import com.kjmaster.magicbooks2.common.init.ModItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 
 import java.util.ArrayList;

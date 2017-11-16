@@ -19,11 +19,9 @@ import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spells;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsStorage;
 import com.kjmaster.magicbooks2.common.handlers.*;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
-import com.kjmaster.magicbooks2.common.init.ModEntities;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import com.kjmaster.magicbooks2.common.network.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IThreadListener;
@@ -34,7 +32,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
-import slimeknights.tconstruct.library.materials.Material;
 
 import static com.kjmaster.magicbooks2.common.network.PacketInstance.INSTANCE;
 /**

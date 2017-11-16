@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.tile;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.TileArcaneCrafter;
 import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaStorage;
 import com.kjmaster.magicbooks2.common.init.ModItems;

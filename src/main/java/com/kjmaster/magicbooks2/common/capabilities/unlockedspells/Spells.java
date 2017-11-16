@@ -7,13 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import org.apache.commons.lang3.ArrayUtils;
-import scala.Array;
-import scala.actors.threadpool.Arrays;
-import slimeknights.tconstruct.library.utils.ListUtil;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 
 public class Spells implements ISpells {

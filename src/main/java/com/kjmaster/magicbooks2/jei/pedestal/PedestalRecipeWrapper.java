@@ -1,9 +1,7 @@
 package com.kjmaster.magicbooks2.jei.pedestal;
 
 import com.kjmaster.magicbooks2.common.recipe.PedestalRecipe;
-import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

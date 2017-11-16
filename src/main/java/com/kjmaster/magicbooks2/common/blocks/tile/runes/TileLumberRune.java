@@ -1,7 +1,6 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.runes;
 
 import com.google.common.collect.Lists;
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.events.LumberRuneEvent;
 import com.kjmaster.magicbooks2.utils.InventoryUtils;
 import com.mojang.authlib.GameProfile;
