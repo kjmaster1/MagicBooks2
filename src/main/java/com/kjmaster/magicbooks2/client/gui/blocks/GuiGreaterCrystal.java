@@ -5,7 +5,6 @@ import com.kjmaster.magicbooks2.client.gui.ProgressBar;
 import com.kjmaster.magicbooks2.common.blocks.tile.TileGreaterCrystal;
 import com.kjmaster.magicbooks2.common.blocks.tile.container.ContainerGreaterCrystal;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
@@ -48,7 +47,7 @@ public class GuiGreaterCrystal extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        this.drawDefaultBackground();
         this.mc.getTextureManager().bindTexture(new ResourceLocation(MagicBooks2.MODID, "textures/gui/container/crystal_greater.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
@@ -56,7 +55,6 @@ public class GuiGreaterCrystal extends GuiContainer {
     @Override
     public void updateScreen() {
         super.updateScreen();
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(new ResourceLocation(MagicBooks2.MODID, "textures/gui/container/crystal_greater.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         int mana = this.te.getField(meta);
@@ -91,11 +89,5 @@ public class GuiGreaterCrystal extends GuiContainer {
 
         }
         return meta;
-    }
-
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawDefaultBackground();
     }
 }

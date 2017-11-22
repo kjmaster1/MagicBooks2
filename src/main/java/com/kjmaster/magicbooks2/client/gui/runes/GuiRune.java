@@ -80,7 +80,7 @@ public class GuiRune extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        this.drawDefaultBackground();
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
@@ -88,17 +88,10 @@ public class GuiRune extends GuiContainer {
     @Override
     public void updateScreen() {
         super.updateScreen();
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         int mana = this.rune.getField(0);
         this.progressBar.setMin(mana).setMax(1000);
         this.progressBar.draw(this.mc);
-    }
-
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawDefaultBackground();
     }
 }

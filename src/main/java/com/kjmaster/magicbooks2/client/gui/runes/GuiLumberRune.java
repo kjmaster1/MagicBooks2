@@ -67,7 +67,7 @@ public class GuiLumberRune extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        this.drawDefaultBackground();
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         int l = this.getCooldownProgressScaled().intValue();
@@ -82,7 +82,6 @@ public class GuiLumberRune extends GuiContainer {
     @Override
     public void updateScreen() {
         super.updateScreen();
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         int mana = this.lumberRune.getField(0);
@@ -90,11 +89,5 @@ public class GuiLumberRune extends GuiContainer {
         this.progressBar.draw(this.mc);
         int l = this.getCooldownProgressScaled().intValue();
         this.drawTexturedModalRect(this.guiLeft + 102, this.guiTop + 35, 176, 53, l + 1, 16);
-    }
-
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawDefaultBackground();
     }
 }
