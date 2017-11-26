@@ -2,7 +2,11 @@ package com.kjmaster.magicbooks2.client;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
+import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.arcane.CapabilityArcaneMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.fire.CapabilityFireMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.CapabilityWaterMana;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -43,12 +47,18 @@ public class HUDHandler {
         ItemStack heldItemStack = getItemInHand(player);
         Item item = heldItemStack.getItem();
         if (isValid(item)) {
-            IMana manaCap = player.getCapability(ManaProvider.MANA_CAP, null);
-            int airMana = manaCap.getMana("Air");
-            int arcaneMana = manaCap.getMana("Arcane");
-            int earthMana = manaCap.getMana("Earth");
-            int fireMana = manaCap.getMana("Fire");
-            int waterMana = manaCap.getMana("Water");
+
+            IMana airManaCap = player.getCapability(CapabilityAirMana.AIRMANA, null);
+            IMana arcaneManaCap = player.getCapability(CapabilityArcaneMana.ARCANEMANA, null);
+            IMana earthManaCap = player.getCapability(CapabilityEarthMana.EARTHMANA, null);
+            IMana fireManaCap = player.getCapability(CapabilityFireMana.FIREMANA, null);
+            IMana waterManaCap = player.getCapability(CapabilityWaterMana.WATERMANA, null);
+
+            int airMana = assignManaValue(airManaCap);
+            int arcaneMana = assignManaValue(arcaneManaCap);
+            int earthMana = assignManaValue(earthManaCap);
+            int fireMana = assignManaValue(fireManaCap);
+            int waterMana = assignManaValue(waterManaCap);
 
             int width = 8;
             int height = 64;
@@ -88,6 +98,13 @@ public class HUDHandler {
         }
     }
 
+    private int assignManaValue (IMana manaCap) {
+        if (manaCap != null) {
+            return manaCap.getManaStored();
+        } else {
+            return 0;
+        }
+    }
 
     private boolean isValid(Item item) {
        return (item == ModItems.shardPickaxeArcane || item == ModItems.shardPickaxeEarth || item == ModItems.shardPickaxeWater

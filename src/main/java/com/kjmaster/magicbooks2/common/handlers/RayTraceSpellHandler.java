@@ -3,7 +3,11 @@ package com.kjmaster.magicbooks2.common.handlers;
 import com.google.common.base.Predicate;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
+import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.arcane.CapabilityArcaneMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.fire.CapabilityFireMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.CapabilityWaterMana;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.ISpells;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spell;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvider;
@@ -53,40 +57,46 @@ public class RayTraceSpellHandler implements IMessageHandler<RayTraceSpellPacket
         BlockPos pos = new BlockPos(x, y, z);
         IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        IMana manaCap = player.getCapability(ManaProvider.MANA_CAP, null);
+        IMana airManaCap = player.getCapability(CapabilityAirMana.AIRMANA, null);
+        IMana arcaneManaCap = player.getCapability(CapabilityArcaneMana.ARCANEMANA, null);
+        IMana earthManaCap = player.getCapability(CapabilityEarthMana.EARTHMANA, null);
+        IMana fireManaCap = player.getCapability(CapabilityFireMana.FIREMANA, null);
+        IMana waterManaCap = player.getCapability(CapabilityWaterMana.WATERMANA, null);
         ISpells spellsCap = player.getCapability(SpellsProvider.SPELLS_CAP, null);
         Spell spell = spellsCap.getSpell(spellAsString);
         switch (spell.getAsString()) {
             case "grow":
-                castGrow(player, world, spell, block, manaCap, state, pos);
+                castGrow(player, world, spell, block, earthManaCap, state, pos);
                 break;
             case "walling":
-                castWalling(player, world, spell, manaCap, pos);
+                castWalling(player, world, spell, earthManaCap, pos);
                 break;
             case "invisibility":
-                castInvisibility(player, spell, manaCap);
+                castInvisibility(player, spell, airManaCap);
                 break;
             case "lightning":
-                castLightning(player, world, spell, manaCap, pos);
+                castLightning(player, world, spell, airManaCap, pos);
                 break;
             case "fireblast":
-                castFireBlast(player, world, spell, manaCap);
+                castFireBlast(player, world, spell, fireManaCap);
             case "bubble":
-                castBubble(player, world, spell, manaCap);
+                castBubble(player, world, spell, waterManaCap);
             default:
                 break;
         }
     }
 
 
-    private void castGrow(EntityPlayer player, World world, Spell spell, Block block, IMana manaCap, IBlockState state, BlockPos pos) {
+    private void castGrow(EntityPlayer player, World world, Spell spell, Block block, IMana manaCap,
+                          IBlockState state, BlockPos pos) {
         if (spell.getIsUnlocked()) {
-            if (manaCap.getMana("Earth") >= spell.getManaCost()) {
+            if (manaCap.getManaStored() >= spell.getManaCost()) {
                 if (block instanceof IGrowable || block instanceof IPlantable) {
                     for (int i = 0; i < 21; i++)
                         block.updateTick(world, pos, state, world.rand);
-                    manaCap.extractMana(spell.getManaCost(), "Earth");
-                    PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Earth", manaCap.getMana("Earth")), (EntityPlayerMP) player);
+                    manaCap.extractMana(spell.getManaCost(), false);
+                    PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Earth",
+                            manaCap.getManaStored()), (EntityPlayerMP) player);
                 }
             }
         }
@@ -118,10 +128,11 @@ public class RayTraceSpellHandler implements IMessageHandler<RayTraceSpellPacket
                         BlockPos posTargetBlock = new BlockPos(x + i, y + j, z + k);
                         IBlockState stateTargetBlock = world.getBlockState(posTargetBlock);
                         if (stateTargetBlock.getMaterial().equals(Material.AIR)) {
-                            if (manaCap.getMana("Earth") >= spell.getManaCost()) {
+                            if (manaCap.getManaStored() >= spell.getManaCost()) {
                                 world.setBlockState(posTargetBlock, ModBlocks.earthWall.getDefaultState());
-                                manaCap.extractMana(spell.getManaCost(), "Earth");
-                                PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Earth", manaCap.getMana("Earth")), (EntityPlayerMP) player);
+                                manaCap.extractMana(spell.getManaCost(), false);
+                                PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Earth",
+                                        manaCap.getManaStored()), (EntityPlayerMP) player);
                             }
                         }
                     }
@@ -134,26 +145,29 @@ public class RayTraceSpellHandler implements IMessageHandler<RayTraceSpellPacket
         if (player.isInvisible()) {
             player.setInvisible(false);
         } else {
-            if (manaCap.getMana("Air") >= spell.getManaCost() && spell.getIsUnlocked()) {
+            if (manaCap.getManaStored() >= spell.getManaCost() && spell.getIsUnlocked()) {
                 player.setInvisible(true);
-                manaCap.extractMana(spell.getManaCost(), "Air");
-                PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Air", manaCap.getMana("Air")), (EntityPlayerMP) player);
+                manaCap.extractMana(spell.getManaCost(), false);
+                PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Air",
+                        manaCap.getManaStored()), (EntityPlayerMP) player);
             }
         }
     }
 
     private void castLightning(EntityPlayer player, World world, Spell spell, IMana manaCap, BlockPos pos) {
-        if (manaCap.getMana("Air") >= spell.getManaCost() && spell.getIsUnlocked()) {
+        if (manaCap.getManaStored() >= spell.getManaCost() && spell.getIsUnlocked()) {
             if (!world.getBlockState(pos).getMaterial().equals(Material.AIR)) {
-                world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
-                manaCap.extractMana(spell.getManaCost(), "Air");
-                PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Air", manaCap.getMana("Air")), (EntityPlayerMP) player);
+                world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(),
+                        false));
+                manaCap.extractMana(spell.getManaCost(), false);
+                PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Air",
+                        manaCap.getManaStored()), (EntityPlayerMP) player);
             }
         }
     }
 
     private void castFireBlast(EntityPlayer player, World world, Spell spell, IMana manaCap) {
-        if (manaCap.getMana("Fire") >= spell.getManaCost() && spell.getIsUnlocked()) {
+        if (manaCap.getManaStored() >= spell.getManaCost() && spell.getIsUnlocked()) {
             int mobs = 0;
             for(EntityMob e : world.getEntities(EntityMob.class, new Predicate<EntityMob>() {
                 @Override
@@ -165,16 +179,17 @@ public class RayTraceSpellHandler implements IMessageHandler<RayTraceSpellPacket
                 e.attackEntityFrom(new DamageSource("magic"), 2F);
                 mobs++;
             }
-            manaCap.extractMana(spell.getManaCost() * mobs, "Fire");
-            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Fire", manaCap.getMana("Fire")), (EntityPlayerMP) player);
+            manaCap.extractMana(spell.getManaCost() * mobs, false);
+            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Fire", manaCap.getManaStored()),
+                    (EntityPlayerMP) player);
         }
     }
 
     private void castBubble(EntityPlayer player, World world, Spell spell, IMana manaCap) {
-        MagicBooks2.LOGGER.info("Bubble3 :" + spell.getIsBeingCast());
-        if (manaCap.getMana("Water") >= spell.getManaCost() && spell.getIsUnlocked() && !spell.getIsBeingCast()) {
-            manaCap.extractMana(spell.getManaCost(), "Water");
-            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Water", manaCap.getMana("Water")), (EntityPlayerMP) player);
+        if (manaCap.getManaStored() >= spell.getManaCost() && spell.getIsUnlocked() && !spell.getIsBeingCast()) {
+            manaCap.extractMana(spell.getManaCost(), false);
+            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Water",
+                    manaCap.getManaStored()), (EntityPlayerMP) player);
             spell.setIsBeingCast(true);
         }
     }

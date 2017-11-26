@@ -4,7 +4,10 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Sets;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
+import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.fire.CapabilityFireMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.CapabilityWaterMana;
 import com.kjmaster.magicbooks2.common.init.ModItems;
 import com.kjmaster.magicbooks2.common.network.ClientManaPacket;
 import com.kjmaster.magicbooks2.common.network.ClientParticlePacket;
@@ -61,7 +64,7 @@ public class ItemShardPickaxe extends ItemPickaxe {
         Item item = stack.getItem();
         if (entityLiving instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityLiving;
-            IMana manaCap = player.getCapability(ManaProvider.MANA_CAP, null);
+            IMana waterManaCap = player.getCapability(CapabilityWaterMana.WATERMANA, null);
             if(worldIn.rand.nextInt() % 900 == 0) {
                 if (!worldIn.isRemote) {
                     if(item == ModItems.shardPickaxeAir)
@@ -85,17 +88,17 @@ public class ItemShardPickaxe extends ItemPickaxe {
             }
             if (item == ModItems.shardPickaxeWater)
                 if (!worldIn.isRemote)
-                    doObsidianCheck(worldIn, state, pos, manaCap, (EntityPlayerMP) player, stack);
+                    doObsidianCheck(worldIn, state, pos, waterManaCap, (EntityPlayerMP) player, stack);
         }
         return super.onBlockDestroyed(stack, worldIn, state, pos, entityLiving);
     }
 
     private void doObsidianCheck(World world, IBlockState state, BlockPos pos, IMana manaCap, EntityPlayerMP playerMP, ItemStack stack) {
         if (state.getBlock().equals(Blocks.OBSIDIAN)) {
-            if (manaCap.getMana("Water") >= 100) {
+            if (manaCap.getManaStored() >= 100) {
                 world.setBlockState(pos, Blocks.WATER.getDefaultState());
-                    manaCap.extractMana(100, "Water");
-                    PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Water", manaCap.getMana("Water")), playerMP);
+                    manaCap.extractMana(100, false);
+                    PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Water", manaCap.getManaStored()), playerMP);
             }
         }
     }
@@ -110,11 +113,11 @@ public class ItemShardPickaxe extends ItemPickaxe {
             for(EntityItem item: itemsInArea) {
                 if(!item.isDead && !item.cannotPickup()) {
                     int manaForItem = 10 * item.getItem().getCount();
-                    if (manaCap.getMana("Air") >= manaForItem) {
+                    if (manaCap.getManaStored() >= manaForItem) {
                         item.onCollideWithPlayer(player);
                         if (!world.isRemote) {
-                            manaCap.extractMana(manaForItem, "Air");
-                            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Air", manaCap.getMana("Air")), (EntityPlayerMP) player);
+                            manaCap.extractMana(manaForItem, false);
+                            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Air", manaCap.getManaStored()), (EntityPlayerMP) player);
                         }
                     }
                 }
@@ -129,8 +132,9 @@ public class ItemShardPickaxe extends ItemPickaxe {
         IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
         int meta = block.getMetaFromState(world.getBlockState(pos));
-        IMana manaCap = player.getCapability(ManaProvider.MANA_CAP, null);
-        int fireMana = manaCap.getMana("Fire");
+        IMana earthManaCap = player.getCapability(CapabilityEarthMana.EARTHMANA, null);
+        IMana fireManaCap = player.getCapability(CapabilityFireMana.FIREMANA, null);
+        int fireMana = fireManaCap.getManaStored();
         if (item == ModItems.shardPickaxeFire) {
             if (block.quantityDropped(world.getBlockState(pos), 0, random) != 0) {
                 int amount = block.quantityDropped(random);
@@ -154,8 +158,8 @@ public class ItemShardPickaxe extends ItemPickaxe {
                         entityItem.setPickupDelay(10);
                         world.spawnEntity(entityItem);
                         world.playBroadcastSound(2001, pos, Block.getIdFromBlock(block) + (meta << 12));
-                        manaCap.extractMana(100, "Fire");
-                        PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Fire", manaCap.getMana("Fire")), (EntityPlayerMP) player);
+                        fireManaCap.extractMana(100, false);
+                        PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Fire", fireManaCap.getManaStored()), (EntityPlayerMP) player);
                         int i = spawnStack.getCount();
                         float f = FurnaceRecipes.instance().getSmeltingExperience(spawnStack);
                         int j;
@@ -204,8 +208,8 @@ public class ItemShardPickaxe extends ItemPickaxe {
             return false;
         }
         if (item == ModItems.shardPickaxeEarth) {
-            if (manaCap.getMana("Earth") >= 100)
-               mineArea(itemstack, world, player, manaCap, pos);
+            if (earthManaCap.getManaStored() >= 100)
+               mineArea(itemstack, world, player, earthManaCap, pos);
         }
 
         return super.onBlockStartBreak(itemstack, pos, player);
@@ -276,8 +280,8 @@ public class ItemShardPickaxe extends ItemPickaxe {
             }
         }
         if (!world.isRemote) {
-            manaCap.extractMana(100, "Earth");
-            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Earth", manaCap.getMana("Earth")), playerMP);
+            manaCap.extractMana(100, false);
+            PacketInstance.INSTANCE.sendTo(new ClientManaPacket("Earth", manaCap.getManaStored()), playerMP);
         }
     }
 
@@ -285,10 +289,10 @@ public class ItemShardPickaxe extends ItemPickaxe {
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityIn;
-            IMana manaCap = player.getCapability(ManaProvider.MANA_CAP, null);
+            IMana airManaCap = player.getCapability(CapabilityAirMana.AIRMANA, null);
             Item item = stack.getItem();
             if (item == ModItems.shardPickaxeAir) {
-                    doMagnet(worldIn, player, manaCap);
+                    doMagnet(worldIn, player, airManaCap);
             }
         }
         super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);

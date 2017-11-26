@@ -39,9 +39,7 @@ public class TileLumberRune extends TileRune {
     public TileLumberRune() {
     }
 
-    @Override
     public void update() {
-        super.update();
         if (this.world != null) {
             if(!this.world.isRemote) {
                 TileLumberRune lumberRune = (TileLumberRune) world.getTileEntity(pos);
@@ -92,10 +90,10 @@ public class TileLumberRune extends TileRune {
         BlockPos blockPosWest = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
         BlockPos[] blocksPos = {blockPosNorth, blockPosSouth, blockPosEast, blockPosWest};
         for (BlockPos pos2: blocksPos) {
-            if (world.getBlockState(pos2).getBlock() instanceof BlockLog && tile.getManaStored() >= this.getMANA_USE()) {
+            //if (world.getBlockState(pos2).getBlock() instanceof BlockLog && tile.getManaStored() >= this.getMANA_USE()) {
                 if(detectTree(world, pos2))
                     fellTree(pos2, player, handler, pos, tile);
-            }
+            //}
         }
     }
 
@@ -239,8 +237,8 @@ public class TileLumberRune extends TileRune {
             MinecraftForge.EVENT_BUS.unregister(this);
             int damage = handler.getStackInSlot(0).getItemDamage();
             handler.getStackInSlot(0).setItemDamage(damage + blocksbroken);
-            if (!world.isRemote)
-                rune.extractMana(rune.getMANA_USE());
+            //if (!world.isRemote)
+                //rune.extractMana(rune.getMANA_USE());
             blocksbroken = 0;
         }
     }
@@ -262,12 +260,12 @@ public class TileLumberRune extends TileRune {
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
 
-    @Override
     public int getField(int id) {
         switch (id)
         {
             case 0:
-                return this.storage.getManaStored(this.element);
+                //return this.storage.getManaStored(this.element);
+                return 0;
             case 1:
                 return this.getCooldown();
             default:
@@ -275,12 +273,11 @@ public class TileLumberRune extends TileRune {
         }
     }
 
-    @Override
     public void setField(int id, int value) {
         switch (id)
         {
             case 0:
-                this.storage.setMana(value, this.element);
+                //this.storage.setMana(value, this.element);
                 break;
             case 1:
                 this.setCooldown(value);

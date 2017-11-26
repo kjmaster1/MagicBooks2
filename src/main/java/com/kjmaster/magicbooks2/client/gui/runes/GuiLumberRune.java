@@ -28,30 +28,6 @@ public class GuiLumberRune extends GuiContainer {
         this.lumberRune = (TileLumberRune) rune;
         this.playerInv = playerInv;
         this.world = world;
-        this.element = rune.getElement();
-        int textureX;
-        switch (element) {
-            case "Air":
-                textureX = 177;
-                break;
-            case "Arcane":
-                textureX = 190;
-                break;
-            case "Earth":
-                textureX = 203;
-                break;
-            case "Fire":
-                textureX = 216;
-                break;
-            case "Water":
-                textureX = 229;
-                break;
-            default:
-                textureX = 177;
-                break;
-        }
-        this.progressBar = new ProgressBar(TEXTURE, ProgressBar.ProgressBarDirection.DOWN_TO_UP,
-                12, 48, this.guiLeft + 83, this.guiTop + 17, textureX, 3);
     }
 
     @Override
@@ -84,9 +60,6 @@ public class GuiLumberRune extends GuiContainer {
         super.updateScreen();
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-        int mana = this.lumberRune.getField(0);
-        this.progressBar.setMin(mana).setMax(1000);
-        this.progressBar.draw(this.mc);
         int l = this.getCooldownProgressScaled().intValue();
         this.drawTexturedModalRect(this.guiLeft + 102, this.guiTop + 35, 176, 53, l + 1, 16);
     }

@@ -11,12 +11,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 public class BlockPedestal extends BlockElementBase implements ITileEntityProvider {
+
+    private static final AxisAlignedBB BLOCK_AABB = new AxisAlignedBB(0.2F, 0.0F, 0.2F, 0.8F, 0.95F, 0.8F);
 
     public BlockPedestal(String name, Material mat, CreativeTabs tab, float hardness, float resistance, String tool, int harvest) {
         super(name, mat, tab, hardness, resistance, tool, harvest);
@@ -83,6 +87,22 @@ public class BlockPedestal extends BlockElementBase implements ITileEntityProvid
     @Override
     public boolean isFullBlock(IBlockState state) {
         return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return BLOCK_AABB;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return BLOCK_AABB;
     }
 }
 

@@ -31,9 +31,6 @@ public class ModItems {
     public static final Item MagicBook = new ItemMagicBook("book_magic",
             ModCreativeTabs.tabMagicBooks2, 1);
 
-    public static final Item CrystalLinker = new ItemCrystalLinker("crystal_linker",
-            ModCreativeTabs.tabMagicBooks2, 1);
-
     public static final Item Wand = new ItemWand("wand",
             ModCreativeTabs.tabMagicBooks2, 1);
 
@@ -92,7 +89,6 @@ public class ModItems {
                     Shard,
                     Book,
                     MagicBook,
-                    CrystalLinker,
                     Wand,
                     shardPickaxeAir,
                     shardPickaxeEarth,
@@ -124,7 +120,6 @@ public class ModItems {
     public static void registerModels() {
         final Item[] items = {
                 MagicBook,
-                CrystalLinker,
                 shardPickaxeAir,
                 shardPickaxeEarth,
                 shardPickaxeFire,

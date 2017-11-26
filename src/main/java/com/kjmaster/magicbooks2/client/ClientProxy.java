@@ -2,8 +2,11 @@ package com.kjmaster.magicbooks2.client;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.CommonProxy;
+import com.kjmaster.magicbooks2.common.blocks.BlockManaVase;
 import com.kjmaster.magicbooks2.common.blocks.tile.PedestalTESR;
 import com.kjmaster.magicbooks2.common.blocks.tile.TilePedestal;
+import com.kjmaster.magicbooks2.common.blocks.tile.extractor.ExtractorTESR;
+import com.kjmaster.magicbooks2.common.blocks.tile.extractor.TileManaExtractor;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
 import com.kjmaster.magicbooks2.common.init.ModEntities;
 import com.kjmaster.magicbooks2.common.init.ModItems;
@@ -80,22 +83,6 @@ public class ClientProxy extends CommonProxy {
         ModelBakery.registerItemVariants(ModItems.waterSpell,
                 new ResourceLocation(MagicBooks2.MODID, "spell_water_bubble")
         );
-        ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.crystal),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_air"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_earth"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_fire"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_water"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_arcane")
-
-        );
-        ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.greaterCrystal),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_air"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_earth"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_fire"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_water"),
-                new ResourceLocation(MagicBooks2.MODID, "crystal_greater_arcane")
-
-        );
         ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.shardOre),
                 new ResourceLocation(MagicBooks2.MODID, "shard_ore_air"),
                 new ResourceLocation(MagicBooks2.MODID, "shard_ore_earth"),
@@ -124,7 +111,9 @@ public class ClientProxy extends CommonProxy {
     public static void registerModels(ModelRegistryEvent event) {
         ModItems.registerModels();
         ModBlocks.registerModels();
+        ModBlocks.manaVase.initModel();
         ClientRegistry.bindTileEntitySpecialRenderer(TilePedestal.class, new PedestalTESR());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileManaExtractor.class, new ExtractorTESR());
     }
 
     @SideOnly(Side.CLIENT)
@@ -165,8 +154,6 @@ public class ClientProxy extends CommonProxy {
         if (item == new ItemStack(ModItems.Wand, 1, 5).getItem())
             event.getToolTip().add("WIP");
         if (item == Item.getItemFromBlock(ModBlocks.earthWall))
-            event.getToolTip().add("WIP");
-        if (item == Item.getItemFromBlock(ModBlocks.arcaneCrafter))
             event.getToolTip().add("WIP");
     }
 }

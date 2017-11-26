@@ -2,7 +2,11 @@ package com.kjmaster.magicbooks2.common.blocks;
 
 import com.kjmaster.magicbooks2.common.blocks.tile.TileManaPad;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.ManaProvider;
+import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.arcane.CapabilityArcaneMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.fire.CapabilityFireMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.CapabilityWaterMana;
 import com.kjmaster.magicbooks2.common.creative.ModCreativeTabs;
 import com.kjmaster.magicbooks2.common.network.ClientManaPacket;
 import com.kjmaster.magicbooks2.common.network.PacketInstance;
@@ -18,6 +22,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
@@ -75,46 +80,48 @@ public class BlockManaPad extends BlockPressurePlate implements ITileEntityProvi
         if (entityIn instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityIn;
             if (!worldIn.isRemote) {
-                IMana manaCap = player.getCapability(ManaProvider.MANA_CAP, null);
-                TileEntity entity = worldIn.getTileEntity(pos);
-                if(entity instanceof TileManaPad) {
-                    TileManaPad manaPad = (TileManaPad) entity;
-                    if(manaCap.getMana("Air") < manaCap.getCapacity()) {
-                        int airMana = manaPad.storage.getManaStored("Air");
-                        manaCap.receiveMana(airMana, "Air");
-                        sendManaPacket(manaCap, "Air", (EntityPlayerMP) player);
-                        manaPad.storage.extractMana(airMana, false, "Air");
-                    }
-                    if(manaCap.getMana("Arcane") < manaCap.getCapacity()) {
-                        int arcaneMana = manaPad.storage.getManaStored("Arcane");
-                        manaCap.receiveMana(arcaneMana, "Arcane");
-                        sendManaPacket(manaCap, "Arcane", (EntityPlayerMP) player);
-                        manaPad.storage.extractMana(arcaneMana, false, "Arcane");
-                    }
-                    if(manaCap.getMana("Earth") < manaCap.getCapacity()) {
-                        int earthMana = manaPad.storage.getManaStored("Earth");
-                        manaCap.receiveMana(earthMana, "Earth");
-                        sendManaPacket(manaCap, "Earth", (EntityPlayerMP) player);
-                        manaPad.storage.extractMana(earthMana, false, "Earth");
-                    }
-                    if(manaCap.getMana("Fire") < manaCap.getCapacity()) {
-                        int fireMana = manaPad.storage.getManaStored("Fire");
-                        manaCap.receiveMana(fireMana, "Fire");
-                        sendManaPacket(manaCap, "Fire", (EntityPlayerMP) player);
-                        manaPad.storage.extractMana(fireMana, false, "Fire");
-                    }
-                    if(manaCap.getMana("Water") < manaCap.getCapacity()) {
-                        int waterMana = manaPad.storage.getManaStored("Water");
-                        manaCap.receiveMana(waterMana, "Water");
-                        sendManaPacket(manaCap, "Water", (EntityPlayerMP) player);
-                        manaPad.storage.extractMana(waterMana, false, "Water");
-                    }
-                }
+                IMana airManaCap = player.getCapability(CapabilityAirMana.AIRMANA, null);
+                IMana arcaneManaCap = player.getCapability(CapabilityArcaneMana.ARCANEMANA, null);
+                IMana earthManaCap = player.getCapability(CapabilityEarthMana.EARTHMANA, null);
+                IMana fireManaCap = player.getCapability(CapabilityFireMana.FIREMANA, null);
+                IMana waterManaCap = player.getCapability(CapabilityWaterMana.WATERMANA, null);
+                int airMana = assignManaValue(airManaCap);
+                int arcaneMana = assignManaValue(arcaneManaCap);
+                int earthMana = assignManaValue(earthManaCap);
+                int fireMana = assignManaValue(fireManaCap);
+                int waterMana = assignManaValue(waterManaCap);
+                TileManaPad tile = (TileManaPad) worldIn.getTileEntity(pos);
+                IMana tileAirCap = tile.getCapability(CapabilityAirMana.AIRMANA, null);
+                IMana tileArcaneCap = tile.getCapability(CapabilityArcaneMana.ARCANEMANA, null);
+                IMana tileEarthCap = tile.getCapability(CapabilityEarthMana.EARTHMANA, null);
+                IMana tileFireCap = tile.getCapability(CapabilityFireMana.FIREMANA, null);
+                IMana tileWaterCap = tile.getCapability(CapabilityWaterMana.WATERMANA, null);
+                receiveManaServer(airMana, airManaCap, tileAirCap, "Air", player);
+                receiveManaServer(arcaneMana, arcaneManaCap, tileArcaneCap, "Arcane", player);
+                receiveManaServer(earthMana, earthManaCap, tileEarthCap, "Earth", player);
+                receiveManaServer(fireMana, fireManaCap, tileFireCap, "Fire", player);
+                receiveManaServer(waterMana, waterManaCap, tileWaterCap, "Water", player);
             }
         }
     }
 
+    private void receiveManaServer(int mana, IMana manaCap, IMana tileManaCap, String element, EntityPlayer player) {
+        if (manaCap.getManaStored() < manaCap.getMaxManaStored()) {
+            int received = manaCap.receiveMana(tileManaCap.getManaStored(), false);
+            tileManaCap.extractMana(received, false);
+            sendManaPacket(manaCap, element, (EntityPlayerMP) player);
+        }
+    }
+
     private void sendManaPacket(IMana manaCap, String element, EntityPlayerMP entityPlayerMP) {
-        PacketInstance.INSTANCE.sendTo(new ClientManaPacket(element, manaCap.getMana(element)), entityPlayerMP);
+        PacketInstance.INSTANCE.sendTo(new ClientManaPacket(element, manaCap.getManaStored()), entityPlayerMP);
+    }
+
+    private int assignManaValue (IMana manaCap) {
+        if (manaCap != null) {
+            return manaCap.getManaStored();
+        } else {
+            return 0;
+        }
     }
 }

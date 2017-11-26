@@ -36,11 +36,11 @@ public class BlockDrowningRune extends BlockBase implements ITileEntityProvider 
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof TileRune) {
                 TileRune rune = (TileRune) tile;
-                if (rune.getManaStored() >= 10) {
+                //if (rune.getManaStored() >= 10) {
                     ((EntityMob) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 9600, 9000));
                     entityIn.attackEntityFrom(DamageSource.DROWN, 1.0F);
-                    rune.extractMana(10);
-                }
+                    //rune.extractMana(10);
+                //}
             }
         }
     }

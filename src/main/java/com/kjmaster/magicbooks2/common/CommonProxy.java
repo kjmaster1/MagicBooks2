@@ -1,13 +1,17 @@
 package com.kjmaster.magicbooks2.common;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
-import com.kjmaster.magicbooks2.common.blocks.arcanecrafter.TileArcaneCrafter;
 import com.kjmaster.magicbooks2.common.blocks.tile.*;
+import com.kjmaster.magicbooks2.common.blocks.tile.extractor.TileManaExtractor;
+import com.kjmaster.magicbooks2.common.blocks.tile.pipes.*;
 import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileLumberRune;
 import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileRune;
-import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.Mana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.ManaStorage;
+import com.kjmaster.magicbooks2.common.blocks.tile.vase.*;
+import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.arcane.CapabilityArcaneMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.fire.CapabilityFireMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.CapabilityWaterMana;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.ISkillPoints;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.SkillPoints;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.SkillPointsStorage;
@@ -41,14 +45,17 @@ public class CommonProxy {
     public void registerModelBakeryVariants() {}
 
     public void registerCaps() {
-        CapabilityManager.INSTANCE.register(IMana.class,
-                new ManaStorage(), Mana.class);
         CapabilityManager.INSTANCE.register(ISkillPoints.class,
                 new SkillPointsStorage(), SkillPoints.class);
         CapabilityManager.INSTANCE.register(IEntries.class,
                 new EntriesStorage(), Entries.class);
         CapabilityManager.INSTANCE.register(ISpells.class,
                 new SpellsStorage(), Spells.class);
+        CapabilityAirMana.register();
+        CapabilityArcaneMana.register();
+        CapabilityEarthMana.register();
+        CapabilityFireMana.register();
+        CapabilityWaterMana.register();
     }
 
     public void registerPackets() {
@@ -65,15 +72,26 @@ public class CommonProxy {
     }
 
     public void registerTileEntities() {
-        GameRegistry.registerTileEntity(TileCrystal.class, MagicBooks2.MODID + ":tile_crystal");
-        GameRegistry.registerTileEntity(TileGreaterCrystal.class, MagicBooks2.MODID + ":tile_crystal_greater");
         GameRegistry.registerTileEntity(TileManaPad.class, MagicBooks2.MODID + ":tile_mana_pad");
-        GameRegistry.registerTileEntity(TileArcaneCrafter.class, MagicBooks2.MODID + ":tile_arcane_crafter");
+        GameRegistry.registerTileEntity(TilePipe.class, MagicBooks2.MODID + ":tile_pipe");
+        GameRegistry.registerTileEntity(TileAirPipe.class, MagicBooks2.MODID + ":tile_air_pipe");
+        GameRegistry.registerTileEntity(TileArcanePipe.class, MagicBooks2.MODID + ":tile_arcane_pipe");
+        GameRegistry.registerTileEntity(TileEarthPipe.class, MagicBooks2.MODID + ":tile_earth_pipe");
+        GameRegistry.registerTileEntity(TileFirePipe.class, MagicBooks2.MODID + ":tile_fire_pipe");
+        GameRegistry.registerTileEntity(TileWaterPipe.class, MagicBooks2.MODID + ":tile_water_pipe");
         GameRegistry.registerTileEntity(TileEarthWall.class, MagicBooks2.MODID + ":tile_earth_wall");
         GameRegistry.registerTileEntity(TilePedestal.class, MagicBooks2.MODID + ":tile_pedestal_block");
-        GameRegistry.registerTileEntity(TileRune.class, MagicBooks2.MODID + "tile:rune");
-        GameRegistry.registerTileEntity(TileLumberRune.class, MagicBooks2.MODID + "tile:rune_lumber");
+        GameRegistry.registerTileEntity(TileRune.class, MagicBooks2.MODID + ":tile:rune");
+        GameRegistry.registerTileEntity(TileLumberRune.class, MagicBooks2.MODID + ":tile:rune_lumber");
+        GameRegistry.registerTileEntity(TileManaExtractor.class, MagicBooks2.MODID + ":tile:mana_extractor");
+        GameRegistry.registerTileEntity(TileManaVase.class, MagicBooks2.MODID + ":tile:mana_vase");
+        GameRegistry.registerTileEntity(TileAirManaVase.class, MagicBooks2.MODID + ":tile:air_mana_vase");
+        GameRegistry.registerTileEntity(TileArcaneManaVase.class, MagicBooks2.MODID + ":tile_arcane_mana_vase");
+        GameRegistry.registerTileEntity(TileEarthManaVase.class, MagicBooks2.MODID + ":tile_earth_mana_vase");
+        GameRegistry.registerTileEntity(TileFireManaVase.class, MagicBooks2.MODID + ":tile_fire_mana_vase");
+        GameRegistry.registerTileEntity(TileWaterManaVase.class, MagicBooks2.MODID + "tile_water_mana_vase");
     }
+
     /**
      * Returns a side-appropriate EntityPlayer for use during message handling
      */

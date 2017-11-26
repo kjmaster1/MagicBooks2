@@ -1,0 +1,37 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"transform": "forge:default-item",
+		"model": "builtin/generated"
+	},
+	"variants": {
+		"type": {
+			"air": {
+				"textures": {
+					"layer0": "magicbooks2:items/pipes/air"
+				}
+			},
+			"arcane": {
+				"textures": {
+					"layer0": "magicbooks2:items/pipes/arcane"
+				}
+			},
+			"earth": {
+				"textures": {
+					"layer0": "magicbooks2:items/pipes/earth"
+				}
+			},
+			"fire": {
+				"textures": {
+					"layer0": "magicbooks2:items/pipes/fire"
+				}
+			},
+			"water": {
+				"textures": {
+					"layer0": "magicbooks2:items/pipes/water"
+				}
+			}
+		}
+	}
+}
+			

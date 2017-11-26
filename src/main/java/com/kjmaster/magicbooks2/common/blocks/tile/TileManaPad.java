@@ -1,137 +1,75 @@
 package com.kjmaster.magicbooks2.common.blocks.tile;
 
-import com.kjmaster.magicbooks2.common.capabilities.mana.crystals.CrystalManaStorage;
+import com.kjmaster.magicbooks2.common.capabilities.mana.air.AirManaStorage;
+import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.arcane.ArcaneManaStorage;
+import com.kjmaster.magicbooks2.common.capabilities.mana.arcane.CapabilityArcaneMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.EarthManaStorage;
+import com.kjmaster.magicbooks2.common.capabilities.mana.fire.CapabilityFireMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.fire.FireManaStorage;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.CapabilityWaterMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.WaterManaStorage;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
 
-import java.util.ArrayList;
+import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.List;
 
-public class TileManaPad extends TileEntity implements ITickable {
+public class TileManaPad extends TileEntity {
 
-    public final CrystalManaStorage storage = new CrystalManaStorage(10000, 10000, 10000);
+    private Capability<?>[] capabilities = {CapabilityAirMana.AIRMANA, CapabilityArcaneMana.ARCANEMANA,
+    CapabilityEarthMana.EARTHMANA, CapabilityFireMana.FIREMANA, CapabilityWaterMana.WATERMANA};
+    private List capabilitiesList = Arrays.asList(capabilities);
 
-    private int connections;
-    private int searchCooldown;
-    private List<BlockPos> connectedToPos;
+    private int MAX_MANA = 10000;
 
-    public TileManaPad() {
-        this.connections = 0;
-        this.connectedToPos = new ArrayList<>(5);
-    }
+    private final AirManaStorage airStorage =
+            new AirManaStorage(MAX_MANA, MAX_MANA, 0);
+    private final ArcaneManaStorage arcaneStorage =
+            new ArcaneManaStorage(MAX_MANA, MAX_MANA, 0);
+    private final EarthManaStorage earthStorage =
+            new EarthManaStorage(MAX_MANA, MAX_MANA, 0);
+    private final FireManaStorage fireStorage =
+            new FireManaStorage(MAX_MANA, MAX_MANA, 0);
+    private final WaterManaStorage waterStorage =
+            new WaterManaStorage(MAX_MANA, MAX_MANA, 0);
 
-
-
-    @Override
-    public void update() {
-        if (world != null) {
-            if(!world.isRemote) {
-                this.searchCooldown++;
-                this.searchCooldown %= 100;
-                if (this.searchCooldown == 0) {
-                    searchForCrystals(world, pos);
-                }
-                if(this.connections > 0) {
-                    for (BlockPos pos: this.connectedToPos) {
-                        TileEntity entity = world.getTileEntity(pos);
-                        if (entity instanceof TileCrystal) {
-                            TileCrystal crystal = (TileCrystal) entity;
-                            if(this.storage.getManaStored("Air") < this.storage.capacity) {
-                                int airMana = crystal.storage.getManaStored("Air");
-                                crystal.storage.extractMana(airMana, false, "Air");
-                                this.storage.receiveMana(airMana, false, "Air");
-                            }
-                            if(this.storage.getManaStored("Arcane") < this.storage.capacity) {
-                                int arcaneMana = crystal.storage.getManaStored("Arcane");
-                                crystal.storage.extractMana(arcaneMana, false, "Arcane");
-                                this.storage.receiveMana(arcaneMana, false, "Arcane");
-                            }
-                            if(this.storage.getManaStored("Earth") < this.storage.capacity) {
-                                int earthMana = crystal.storage.getManaStored("Earth");
-                                crystal.storage.extractMana(earthMana, false, "Earth");
-                                this.storage.receiveMana(earthMana, false, "Earth");
-                            }
-                            if(this.storage.getManaStored("Fire") < this.storage.capacity) {
-                                int fireMana = crystal.storage.getManaStored("Fire");
-                                crystal.storage.extractMana(fireMana, false, "Fire");
-                                this.storage.receiveMana(fireMana, false, "Fire");
-                            }
-                            if(this.storage.getManaStored("Water") < this.storage.capacity) {
-                                int waterMana = crystal.storage.getManaStored("Water");
-                                crystal.storage.extractMana(waterMana, false, "Water");
-                                this.storage.receiveMana(waterMana, false, "Water");
-                            }
-                        }
-                    }
-                }
-                this.markDirty();
-            }
-        }
-    }
+    public TileManaPad() {this.markDirty();}
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        this.storage.readFromNBT(compound);
-        setConnections(compound.getInteger("Connections"));
-        NBTTagList tagList = compound.getTagList("PosList", Constants.NBT.TAG_COMPOUND);
-        for(int i = 0; i < tagList.tagCount(); i++) {
-            NBTTagCompound tagCompound = tagList.getCompoundTagAt(1);
-            int X = tagCompound.getInteger("PosX" + i);
-            int Y = tagCompound.getInteger("PosY" + i);
-            int Z = tagCompound.getInteger("PosZ" + i);
-            addConnectedToPos(X, Y, Z);
-        }
+        this.airStorage.readFromNBT(compound);
+        this.arcaneStorage.readFromNBT(compound);
+        this.earthStorage.readFromNBT(compound);
+        this.fireStorage.readFromNBT(compound);
+        this.waterStorage.readFromNBT(compound);
         super.readFromNBT(compound);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        this.storage.writeToNBT(compound);
-        compound.setInteger("Connections", this.connections);
-        NBTTagList tagList = new NBTTagList();
-        for(int i = 0; i < connectedToPos.size(); i++) {
-            BlockPos pos = connectedToPos.get(i);
-            if(pos != null) {
-                NBTTagCompound tagCompound = new NBTTagCompound();
-                tagCompound.setInteger("PosX" + i, pos.getX());
-                tagCompound.setInteger("PosY" + i, pos.getY());
-                tagCompound.setInteger("PosZ" + i, pos.getZ());
-                tagList.appendTag(tagCompound);
-            }
-        }
+        this.airStorage.writeToNBT(compound);
+        this.arcaneStorage.writeToNBT(compound);
+        this.fireStorage.writeToNBT(compound);
+        this.waterStorage.writeToNBT(compound);
         return super.writeToNBT(compound);
     }
 
-    private void setConnections(int connections) {this.connections = connections;}
-
-    private void addConnectedToPos(int X, int Y, int Z) {
-        BlockPos pos = new BlockPos(X, Y, Z);
-        this.connectedToPos.add(pos);
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        return capabilitiesList.contains(capability) || super.hasCapability(capability, facing);
     }
 
-    private void searchForCrystals(World world, BlockPos pos) {
-        this.connectedToPos.clear();
-        this.connections = 0;
-        int thisX = pos.getX();
-        int thisY = pos.getY();
-        int thisZ = pos.getZ();
-        int range = 10;
-        for (int x = -range; x < range + 1; x++) {
-            for (int z = -range; z < range + 1; z++) {
-                for(int y = -range; y < range + 1; y++) {
-                    BlockPos posOfCrystal = new BlockPos(thisX + x, thisY + y, thisZ + z);
-                    TileEntity entity = world.getTileEntity(posOfCrystal);
-                    if (entity instanceof TileCrystal && !this.connectedToPos.contains(posOfCrystal)) {
-                        this.connectedToPos.add(posOfCrystal);
-                        this.connections++;
-                    }
-                }
-            }
-        }
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        if (capabilitiesList.contains(capability))
+            return (T) this;
+        else
+            return super.getCapability(capability, facing);
     }
 }

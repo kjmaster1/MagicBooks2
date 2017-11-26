@@ -1,9 +1,15 @@
 {
-	"variants": {
-		"element=air": { "model": "magicbooks2:pedestal_block_air" },
-		"element=arcane": { "model": "magicbooks2:pedestal_block_arcane" },
-		"element=earth": { "model": "magicbooks2:pedestal_block_earth" },
-		"element=fire": { "model": "magicbooks2:pedestal_block_fire" },
-		"element=water": { "model": "magicbooks2:pedestal_block_water" }
-	}		
+	"forge_marker": 1,
+	"defaults": {
+		"custom": { "flip-v": true }
+	},
+    "variants": {
+		"normal": [{}],
+		"element=air": { "model": "magicbooks2:pedestal_block_air.obj" },
+		"element=arcane": { "model": "magicbooks2:pedestal_block_arcane.obj" },
+		"element=earth": { "model": "magicbooks2:pedestal_block_earth.obj" },
+		"element=fire": { "model": "magicbooks2:pedestal_block_fire.obj" },
+		"element=water": { "model": "magicbooks2:pedestal_block_water.obj" },
+		"inventory": [{}]
+    }
 }

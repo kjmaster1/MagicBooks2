@@ -50,6 +50,7 @@ public class ServerPointsHandler implements IMessageHandler<ServerPointsPacket, 
                 break;
         }
         EntityPlayerMP playerMP = (EntityPlayerMP) player;
-        PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(skillPointsCap.getPoints(element), element, true), playerMP);
+        PacketInstance.INSTANCE.sendTo(new ClientPointsPacket(skillPointsCap.getPoints(element),
+                element, true), playerMP);
     }
 }

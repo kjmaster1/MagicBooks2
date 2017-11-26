@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"custom": { "flip-v": true }
+	},
+    "variants": {
+		"normal": [{}],
+		"element=air": { "model": "magicbooks2:mana_vase_air.obj" },
+		"element=arcane": { "model": "magicbooks2:mana_vase_arcane.obj" },
+		"element=earth": { "model": "magicbooks2:mana_vase_earth.obj" },
+		"element=fire": { "model": "magicbooks2:mana_vase_fire.obj" },
+		"element=water": { "model": "magicbooks2:mana_vase_water.obj" },
+		"inventory": [{}]
+    }
+}
