@@ -8,9 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.EnumHelper;
 
-/**
- * Created by pbill_000 on 11/09/2017.
- */
 public class ItemShard extends MetaItemBase {
 
     public static final ToolMaterial shardMaterial = EnumHelper.addToolMaterial(MagicBooks2.MODID + ":shard",

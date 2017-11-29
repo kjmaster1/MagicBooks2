@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.capabilities.mana.arcane;
 
-import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.EnumFacing;

@@ -38,9 +38,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
 import static com.kjmaster.magicbooks2.common.network.PacketInstance.INSTANCE;
-/**
- * Created by pbill_000 on 11/09/2017.
- */
+
 public class CommonProxy {
     public void registerModelBakeryVariants() {}
 

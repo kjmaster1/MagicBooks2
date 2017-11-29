@@ -34,9 +34,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by pbill_000 on 12/09/2017.
- */
 public class ModBlocks {
 
     public static Block manaPad = new BlockManaPad(Material.IRON, BlockPressurePlate.Sensitivity.EVERYTHING);

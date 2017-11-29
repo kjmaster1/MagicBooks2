@@ -1,7 +1,5 @@
 package com.kjmaster.magicbooks2.common.capabilities.mana.earth;
 
-import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.air.AirManaStorage;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.EnumFacing;

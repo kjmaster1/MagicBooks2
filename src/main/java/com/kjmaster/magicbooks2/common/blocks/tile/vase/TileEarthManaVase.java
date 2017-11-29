@@ -1,8 +1,6 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.vase;
 
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
-import com.kjmaster.magicbooks2.common.capabilities.mana.air.AirManaStorage;
-import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.earth.EarthManaStorage;
 import net.minecraft.tileentity.TileEntity;

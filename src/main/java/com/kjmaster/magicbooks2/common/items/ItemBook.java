@@ -12,9 +12,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-/**
- * Created by pbill_000 on 11/09/2017.
- */
 public class ItemBook extends MetaItemBase {
 
 

@@ -4,9 +4,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-/**
- * Created by pbill_000 on 12/09/2017.
- */
 public class ClientPointsPacket implements IMessage {
 
     public int points;

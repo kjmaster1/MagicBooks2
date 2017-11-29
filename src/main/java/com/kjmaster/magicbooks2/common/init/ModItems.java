@@ -18,9 +18,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by pbill_000 on 11/09/2017.
- */
 public class ModItems {
     public static final Item Shard = new ItemShard("shard",
             ModCreativeTabs.tabMagicBooks2, 64);

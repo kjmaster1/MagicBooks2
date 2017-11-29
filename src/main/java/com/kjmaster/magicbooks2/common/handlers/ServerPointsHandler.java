@@ -12,9 +12,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-/**
- * Created by pbill_000 on 12/09/2017.
- */
 public class ServerPointsHandler implements IMessageHandler<ServerPointsPacket, IMessage> {
 
     @Override

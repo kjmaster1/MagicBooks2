@@ -5,9 +5,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
-/**
- * Created by pbill_000 on 11/09/2017.
- */
 public class MetaItemBase extends Item {
 
     public MetaItemBase(String unlocalizedName, CreativeTabs tab, int maxSize) {

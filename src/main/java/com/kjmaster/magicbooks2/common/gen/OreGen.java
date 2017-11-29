@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.gen;
 
+import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,7 +30,7 @@ public class OreGen implements IWorldGenerator {
 
     private void runGenerator(WorldGenerator generator, World world, Random rand, int chunk_X, int chunk_Z, int chancesToSpawn, int minHeight, int maxHeight) {
         if (minHeight < 0 || maxHeight > 256 || minHeight > maxHeight)
-            throw new IllegalArgumentException("Illegal Height Arguments for WorldGenerator");
+            MagicBooks2.LOGGER.warn(MagicBooks2.MODID + ": received illegal height arguments for world generation!");
 
         int heightDiff = maxHeight - minHeight + 1;
         for (int i = 0; i < chancesToSpawn; i ++) {

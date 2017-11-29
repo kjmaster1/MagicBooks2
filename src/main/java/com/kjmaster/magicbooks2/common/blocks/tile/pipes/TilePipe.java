@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.pipes;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.pipe.BasePipeBlock;
 import com.kjmaster.magicbooks2.common.blocks.pipe.EnumPipeType;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
@@ -19,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TilePipe extends TileEntity implements ITickable, IMana {
 

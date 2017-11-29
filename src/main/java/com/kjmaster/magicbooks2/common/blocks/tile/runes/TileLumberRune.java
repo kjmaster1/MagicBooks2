@@ -5,7 +5,6 @@ import com.kjmaster.magicbooks2.common.events.LumberRuneEvent;
 import com.kjmaster.magicbooks2.utils.InventoryUtils;
 import com.mojang.authlib.GameProfile;
 import gnu.trove.set.hash.THashSet;
-import net.minecraft.block.BlockLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;

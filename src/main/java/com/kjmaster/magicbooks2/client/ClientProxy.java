@@ -2,7 +2,6 @@ package com.kjmaster.magicbooks2.client;
 
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.CommonProxy;
-import com.kjmaster.magicbooks2.common.blocks.BlockManaVase;
 import com.kjmaster.magicbooks2.common.blocks.tile.PedestalTESR;
 import com.kjmaster.magicbooks2.common.blocks.tile.TilePedestal;
 import com.kjmaster.magicbooks2.common.blocks.tile.extractor.ExtractorTESR;
