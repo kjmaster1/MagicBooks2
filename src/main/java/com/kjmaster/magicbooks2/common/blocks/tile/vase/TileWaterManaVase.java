@@ -48,7 +48,7 @@ public class TileWaterManaVase extends TileManaVase implements ITickable {
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
         if (facing != null && capability == CapabilityWaterMana.WATERMANA)
             if (facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.EAST) || facing.equals(EnumFacing.WEST)
-                    || facing.equals(EnumFacing.SOUTH))
+                    || facing.equals(EnumFacing.SOUTH) || facing.equals(EnumFacing.NORTH))
                 return true;
         return super.hasCapability(capability, facing);
     }
@@ -61,7 +61,7 @@ public class TileWaterManaVase extends TileManaVase implements ITickable {
             return (T) this.storage;
         else if (facing != null) {
             if (facing.equals(EnumFacing.NORTH) || facing.equals(EnumFacing.WEST) || facing.equals(EnumFacing.EAST)
-                    || facing.equals(EnumFacing.SOUTH) || facing.equals(EnumFacing.NORTH)) {
+                    || facing.equals(EnumFacing.SOUTH)) {
                 return (T) new IMana() {
                     @Override
                     public int receiveMana(int maxReceive, boolean simulate) {

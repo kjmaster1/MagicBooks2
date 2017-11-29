@@ -1,5 +1,8 @@
 package com.kjmaster.magicbooks2.common.blocks.tile;
 
+import com.kjmaster.magicbooks2.common.blocks.BlockElementBase;
+import com.kjmaster.magicbooks2.common.blocks.tile.vase.*;
+import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
 import com.kjmaster.magicbooks2.common.recipe.PedestalHandler;
 import com.kjmaster.magicbooks2.common.recipe.PedestalRecipe;
 import net.minecraft.block.state.IBlockState;
@@ -16,9 +19,85 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Thank you McJty for the great tutorial which can be found here https://wiki.mcjty.eu/modding/index.php/Render_Block_TESR_/_OBJ-1.9 */
-public class TilePedestal extends TileEntity {
+public class TilePedestal extends TileEntity implements ITickable {
 
     private ItemStack stack = ItemStack.EMPTY;
+    private int processTime;
+
+    @Override
+    public void update() {
+        if (world.isRemote)
+            return;
+        switch (this.world.getBlockState(getPos()).getValue(BlockElementBase.ELEMENT)) {
+            case ARCANE:
+                List<PedestalRecipe> recipes = getValidRecipesForStack(stack);
+                if (!recipes.isEmpty()) {
+                    ItemStack airStack = ItemStack.EMPTY;
+                    ItemStack earthStack = ItemStack.EMPTY;
+                    ItemStack fireStack = ItemStack.EMPTY;
+                    ItemStack waterStack = ItemStack.EMPTY;
+                    TilePedestal[] pedestals = getPedestals();
+                    for (TilePedestal pedestal : pedestals) {
+                        if (pedestal == null)
+                            return;
+                        else if (pedestal.getPedestalType().equals(EnumHandler.ShardTypes.AIR)) {
+                            if (!pedestal.getStack().isEmpty())
+                                airStack = pedestal.getStack();
+                        } else if (pedestal.getPedestalType().equals(EnumHandler.ShardTypes.EARTH)) {
+                            if (!pedestal.getStack().isEmpty())
+                                earthStack = pedestal.getStack();
+                        } else if (pedestal.getPedestalType().equals(EnumHandler.ShardTypes.FIRE)) {
+                            if (!pedestal.getStack().isEmpty())
+                                fireStack = pedestal.getStack();
+                        } else if (pedestal.getPedestalType().equals(EnumHandler.ShardTypes.WATER)) {
+                           if (!pedestal.getStack().isEmpty())
+                               waterStack = pedestal.getStack();
+                        }
+                    }
+                    TileManaVase airManaVase = getManaVaseAtPos(pos.add(3, 0, -3), "Air");
+                    TileManaVase earthManaVase = getManaVaseAtPos(pos.add(3, 0, 3), "Earth");
+                    TileManaVase fireManaVase = getManaVaseAtPos(pos.add(-3, 0, 3), "Fire");
+                    TileManaVase waterManaVase = getManaVaseAtPos(pos.add(-3, 0, -3 ), "Water");
+                    if (airManaVase != null && earthManaVase != null && fireManaVase != null && waterManaVase != null) {
+                        int airMana = airManaVase.storage.getManaStored();
+                        int earthMana = earthManaVase.storage.getManaStored();
+                        int fireMana = fireManaVase.storage.getManaStored();
+                        int waterMana = waterManaVase.storage.getManaStored();
+                        for (PedestalRecipe recipe : recipes) {
+                            if (recipe.airManaCost <= airMana
+                                    && recipe.earthManaCost <= earthMana
+                                    && recipe.fireManaCost <= fireMana
+                                    && recipe.waterManaCost <= waterMana
+                                    && ItemStack.areItemStacksEqual(airStack, recipe.airStack)
+                                    && ItemStack.areItemStacksEqual(earthStack, recipe.earthStack)
+                                    && ItemStack.areItemStacksEqual(fireStack, recipe.fireStack)
+                                    && ItemStack.areItemStacksEqual(waterStack, recipe.waterStack)) {
+
+                                this.processTime++;
+                                boolean done = this.processTime >= recipe.time;
+
+                                airManaVase.storage.extractMana(recipe.airManaCost / recipe.time, false);
+                                earthManaVase.storage.extractMana(recipe.earthManaCost / recipe.time, false);
+                                fireManaVase.storage.extractMana(recipe.fireManaCost / recipe.time, false);
+                                waterManaVase.storage.extractMana(recipe.waterManaCost / recipe.time, false);
+                                if (done) {
+                                    for (TilePedestal pedestal : pedestals) {
+                                        pedestal.setStack(ItemStack.EMPTY);
+                                    }
+                                    setStack(recipe.output.copy());
+                                    this.markDirty();
+                                    this.processTime = 0;
+                                }
+                                return;
+                            }
+                        }
+                        recipes.clear();
+                    }
+                }
+            default:
+                break;
+        }
+    }
 
     public ItemStack getStack() {
         return stack;
@@ -54,6 +133,31 @@ public class TilePedestal extends TileEntity {
         return pedestals;
     }
 
+    private TileManaVase getManaVaseAtPos(BlockPos pos, String expectedElement) {
+        TileEntity entity = world.getTileEntity(pos);
+        if (entity instanceof  TileManaVase) {
+            TileManaVase manaVase = (TileManaVase) entity;
+            EnumHandler.ShardTypes type = world.getBlockState(pos).getValue(BlockElementBase.ELEMENT);
+            switch (expectedElement) {
+                case "Air":
+                    if (type.equals(EnumHandler.ShardTypes.AIR))
+                        return manaVase;
+                case "Earth":
+                    if (type.equals(EnumHandler.ShardTypes.EARTH))
+                        return manaVase;
+                case "Fire":
+                    if (type.equals(EnumHandler.ShardTypes.FIRE))
+                        return manaVase;
+                case "Water":
+                    if (type.equals(EnumHandler.ShardTypes.WATER))
+                        return manaVase;
+                default:
+                    return null;
+            }
+        }
+        return null;
+    }
+
     private TilePedestal getPedestalAtPos(BlockPos pos, String expectedElement) {
         TileEntity entity = world.getTileEntity(pos);
         int meta;
@@ -84,6 +188,10 @@ public class TilePedestal extends TileEntity {
         }
     }
 
+    private EnumHandler.ShardTypes getPedestalType () {
+        return this.world.getBlockState(getPos()).getValue(BlockElementBase.ELEMENT);
+    }
+
     @Override
     public NBTTagCompound getUpdateTag() {
         return writeToNBT(new NBTTagCompound());
@@ -110,6 +218,7 @@ public class TilePedestal extends TileEntity {
             stack.writeToNBT(tagCompound);
             compound.setTag("item", tagCompound);
         }
+        compound.setInteger("ProcessTime", processTime);
         return compound;
     }
 
@@ -121,5 +230,6 @@ public class TilePedestal extends TileEntity {
         } else {
             stack = ItemStack.EMPTY;
         }
+        processTime = compound.getInteger("ProcessTime");
     }
 }

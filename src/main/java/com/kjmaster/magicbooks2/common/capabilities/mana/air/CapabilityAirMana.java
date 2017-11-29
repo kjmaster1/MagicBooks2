@@ -36,7 +36,7 @@ public class CapabilityAirMana implements ICapabilityProvider {
                 ((AirManaStorage)instance).mana = ((NBTTagInt)nbt).getInt();
             }
         },
-                () -> new AirManaStorage(1000));
+                () -> new AirManaStorage(10000));
     }
 
     @Nullable

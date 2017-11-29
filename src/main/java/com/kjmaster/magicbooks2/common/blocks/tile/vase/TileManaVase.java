@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileManaVase extends TileEntity {
 
-    ManaStorage storage;
+    public ManaStorage storage;
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {

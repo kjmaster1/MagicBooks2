@@ -23,7 +23,7 @@ public class TileAirManaVase extends TileManaVase implements ITickable {
         if (world.isRemote)
             return;
         sendManaToAdjacents();
-        MagicBooks2.LOGGER.info("Air Mana Stored: " + this.storage.getManaStored());
+        MagicBooks2.LOGGER.info("Mana Stored In Vase: " + storage.getManaStored());
     }
 
     private void sendManaToAdjacents() {

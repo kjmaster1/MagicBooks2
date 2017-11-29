@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.extractor;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.mana.IMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.air.AirManaStorage;
 import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
@@ -114,8 +113,6 @@ public class TileManaExtractor extends TileEntity implements ITickable {
                     sendEarthMana();
                     sendFireMana();
                     sendWaterMana();
-                    MagicBooks2.LOGGER.info("Extractor Air Mana " + this.airManaStorage.getManaStored());
-                    MagicBooks2.LOGGER.info("Ticks: " + ticks);
                     if (success)
                         ticks++;
                 }

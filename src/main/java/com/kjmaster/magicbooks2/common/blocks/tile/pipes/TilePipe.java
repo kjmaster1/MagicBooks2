@@ -19,58 +19,57 @@ import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TilePipe extends TileEntity implements ITickable, IMana {
 
     public int mana = 0;
-    public PipeNetwork network;
+    private int transferRate = 2500;
     private ArrayList<IMana> acceptors = new ArrayList<>();
+    private ArrayList<TilePipe> pipes = new ArrayList<>();
 
     @Override
     public void update() {
         if (world != null) {
             if (world.isRemote)
                 return;
-            if (this.checkExistingNetwork() != null)
-                this.network = checkExistingNetwork();
-            if (this.checkExistingNetwork() == null && this.network != null && !hasSurroundingAcceptor()) {
-                this.network = new PipeNetwork(25000, 2500, 2500);
-            }
-            if (this.network == null) {
-                this.network = new PipeNetwork(25000, 2500, 2500);
-                this.network.setMana(mana);
-            }
             for (EnumFacing facing : EnumFacing.VALUES) {
                 BlockPos offPos = getPos().offset(facing);
                 TileEntity tile = getWorld().getTileEntity(offPos);
                 if (tile == null) {
                     continue;
-                } else if (!(tile instanceof TilePipe)) {
+                } else if (tile instanceof TilePipe) {
+                    TilePipe tilePipe = (TilePipe) tile;
+                    if (this.getPipeType().equals(tilePipe.getPipeType())
+                            && mana > tilePipe.mana) {
+                        pipes.add(tilePipe);
+                    }
+                } else {
                     switch (getPipeType()) {
                         case AIR:
                             IMana airManaCap = addAirToAcceptors(tile, facing);
                             if (airManaCap != null)
-                                this.acceptors.add(airManaCap);
+                                acceptors.add(airManaCap);
                             break;
                         case ARCANE:
                             IMana arcaneManaCap = addArcaneToAcceptors(tile, facing);
                             if (arcaneManaCap != null)
-                                this.acceptors.add(arcaneManaCap);
+                                acceptors.add(arcaneManaCap);
                             break;
                         case EARTH:
                             IMana earthManaCap = addEarthToAcceptors(tile, facing);
                             if (earthManaCap != null)
-                                this.acceptors.add(earthManaCap);
+                                acceptors.add(earthManaCap);
                             break;
                         case FIRE:
                             IMana fireManaCap = addFireToAcceptors(tile, facing);
                             if (fireManaCap != null)
-                                this.acceptors.add(fireManaCap);
+                                acceptors.add(fireManaCap);
                             break;
                         case WATER:
                             IMana waterManaCap = addWaterToAcceptors(tile, facing);
                             if (waterManaCap != null)
-                                this.acceptors.add(waterManaCap);
+                                acceptors.add(waterManaCap);
                             break;
                         default:
                             break;
@@ -78,79 +77,46 @@ public class TilePipe extends TileEntity implements ITickable, IMana {
                 }
             }
 
-            if (this.acceptors.size() > 0) {
-                int drain = Math.min(this.network.getNetworkMana(), 2500);
-                int manaShare = drain / this.acceptors.size();
+            if (pipes.size() > 0) {
+                int drain = Math.min(mana, transferRate);
+                int manaShare = drain / pipes.size();
                 int remainingMana = drain;
 
                 if (manaShare > 0) {
-                    for (IMana tile : this.acceptors) {
+                    for (TilePipe pipe : pipes) {
+                        int move = pipe.receiveMana(Math.min(manaShare, remainingMana), false);
+                        if (move > 0) {
+                            remainingMana -= move;
+                        }
+                    }
+                    extractMana(drain - remainingMana, false);
+                }
+                pipes.clear();
+            }
+
+            if (acceptors.size() > 0) {
+                int drain = Math.min(mana, transferRate);
+                int manaShare = drain / acceptors.size();
+                int remainingMana = drain;
+
+                if (manaShare > 0) {
+                    for (IMana tile : acceptors) {
                         int move = tile.receiveMana(Math.min(manaShare, remainingMana), false);
                         if (move > 0) {
                             remainingMana -= move;
                         }
                     }
-                    this.network.consumeManaFromNetwork(drain - remainingMana, false);
+                    extractMana(drain - remainingMana, false);
                 }
-            }
-            this.mana = network.getNetworkMana();
-            MagicBooks2.LOGGER.info("Network Mana: " + this.network.getNetworkMana());
-        }
-    }
-
-    private boolean hasSurroundingAcceptor() {
-        for (EnumFacing facing : EnumFacing.VALUES) {
-            BlockPos offPos = getPos().offset(facing);
-            TileEntity tile = getWorld().getTileEntity(offPos);
-            if (tile != null) {
-                switch (getPipeType()) {
-                    case AIR:
-                        if (tile.hasCapability(CapabilityAirMana.AIRMANA, facing.getOpposite()))
-                            return true;
-                    case ARCANE:
-                        if (tile.hasCapability(CapabilityArcaneMana.ARCANEMANA, facing.getOpposite()))
-                            return true;
-                    case EARTH:
-                        if (tile.hasCapability(CapabilityEarthMana.EARTHMANA, facing.getOpposite()))
-                            return true;
-                    case FIRE:
-                        if (tile.hasCapability(CapabilityFireMana.FIREMANA, facing.getOpposite()))
-                            return true;
-                    case WATER:
-                        if (tile.hasCapability(CapabilityWaterMana.WATERMANA, facing.getOpposite()))
-                            return true;
-                    default:
-                        return false;
-                }
+                acceptors.clear();
             }
         }
-        return false;
-    }
-
-    private PipeNetwork checkExistingNetwork() {
-        for (EnumFacing facing : EnumFacing.VALUES) {
-            BlockPos pos = getPos().offset(facing);
-            TileEntity te = world.getTileEntity(pos);
-            if (te instanceof TilePipe) {
-                TilePipe pipe = (TilePipe) te;
-                if (pipe.getPipeType().equals(getPipeType())) {
-                    if (pipe.getNetwork() != null) {
-                        return pipe.getNetwork();
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public PipeNetwork getNetwork() {
-        return network;
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        if (getManaStored() > 0) {
+        if (mana > 0) {
             NBTTagCompound data = new NBTTagCompound();
             data.setInteger("Mana", mana);
             compound.setTag("TilePipe", data);
@@ -184,7 +150,7 @@ public class TilePipe extends TileEntity implements ITickable, IMana {
         this.readFromNBT(pkt.getNbtCompound());
     }
 
-    private EnumPipeType getPipeType() {
+    public EnumPipeType getPipeType() {
         return world.getBlockState(getPos()).getValue(BasePipeBlock.TYPE);
     }
 
@@ -240,31 +206,36 @@ public class TilePipe extends TileEntity implements ITickable, IMana {
 
     @Override
     public int receiveMana(int maxReceive, boolean simulate) {
-        if (this.network != null)
-            return this.network.addManaToNetwork(maxReceive, simulate);
-        return 0;
+        if (!canReceiveMana()) {
+            return 0;
+        }
+
+        int manaReceived = Math.min(getMaxManaStored() - getManaStored(), Math.min(this.transferRate, maxReceive));
+        if (!simulate)
+            mana += manaReceived;
+        return manaReceived;
     }
 
     @Override
     public int extractMana(int maxExtract, boolean simulate) {
-         if (this.network != null)
-             return this.network.consumeManaFromNetwork(maxExtract, simulate);
-         return 0;
+        if (!canExtractMana()) {
+            return 0;
+        }
+
+        int manaExtracted = Math.min(getManaStored(), Math.min(this.transferRate, maxExtract));
+        if (!simulate)
+            mana -= manaExtracted;
+        return manaExtracted;
     }
 
     @Override
     public int getManaStored() {
-        if (this.network != null) {
-            return this.network.getNetworkMana();
-        }
-        return 0;
+        return this.mana;
     }
 
     @Override
     public int getMaxManaStored() {
-        if (this.network != null)
-            return this.network.getNetworkCapacity();
-        return 0;
+        return this.transferRate * 6;
     }
 
     @Override
@@ -279,13 +250,15 @@ public class TilePipe extends TileEntity implements ITickable, IMana {
 
     @Override
     public void consumeMana(int consume) {
-        if (this.network != null)
-            this.network.consumeManaFromNetwork(consume, false);
+        this.mana -= consume;
+        if (this.mana < 0)
+            this.mana = 0;
     }
 
     @Override
     public void setMana(int mana) {
-        if (this.network != null)
-            this.network.setMana(mana);
+        this.mana = mana;
+        if (this.mana > this.getMaxManaStored())
+            this.mana = this.getMaxManaStored();
     }
 }

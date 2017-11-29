@@ -82,6 +82,32 @@ public class EnumHandler {
         public int getID() { return ID; }
     }
 
+    public static enum GobletTypes implements IStringSerializable {
+        EMPTY("empty", 0),
+        AIR("air", 1),
+        EARTH("earth", 2),
+        FIRE("fire", 3),
+        WATER("water", 4),
+        ARCANE("arcane", 5)
+        ;
+
+        private int ID;
+        private String name;
+
+        private GobletTypes(String name, int ID) {
+            this.ID = ID;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() { return getName(); }
+
+        @Override
+        public String getName() { return this.name; }
+
+        public int getID() { return ID; }
+    }
+
     public static enum AirSpellTypes implements IStringSerializable {
         LIGHTNING("lightning", 0),
         INVISIBILITY("invisibility", 1)

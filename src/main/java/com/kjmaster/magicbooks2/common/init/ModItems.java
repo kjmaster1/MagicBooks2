@@ -79,6 +79,9 @@ public class ModItems {
     public static final Item spellBag = new ItemSpellBag("spell_bag",
             ModCreativeTabs.tabMagicBooks2Spells, 1);
 
+    public static final Item elementalGoblet = new ItemElementalGoblet("elemental_goblet",
+            ModCreativeTabs.tabMagicBooks2, 1);
+
     @Mod.EventBusSubscriber
     public static class RegistrationHandler {
         public static final Set<Item> ITEMS = new HashSet<>();
@@ -90,6 +93,7 @@ public class ModItems {
                     Book,
                     MagicBook,
                     Wand,
+                    elementalGoblet,
                     shardPickaxeAir,
                     shardPickaxeEarth,
                     shardPickaxeFire,
@@ -164,6 +168,10 @@ public class ModItems {
         for(int i = 0; i < EnumHandler.WaterSpellTypes.values().length; i++) {
             registerRender(waterSpell, i,
                     "spell_water_" + EnumHandler.WaterSpellTypes.values()[i].getName());
+        }
+        for(int i = 0; i < EnumHandler.GobletTypes.values().length; i++) {
+            registerRender(elementalGoblet, i,
+                    "elemental_goblet_" + EnumHandler.GobletTypes.values()[i].getName());
         }
     }
     @SideOnly(Side.CLIENT)

@@ -1,6 +1,5 @@
 package com.kjmaster.magicbooks2.common.blocks.pipe;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.tile.pipes.*;
 import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.arcane.CapabilityArcaneMana;
