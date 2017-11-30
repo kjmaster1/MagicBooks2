@@ -135,7 +135,7 @@ public class ModItems {
         };
         for(final Item item : items) {
             ModelLoader.setCustomModelResourceLocation(item, 0,
-                    new ModelResourceLocation(MagicBooks2.MODID + ":" + item.getUnlocalizedName().substring(5)
+                    new ModelResourceLocation(item.getRegistryName()
                             , "inventory"));
         }
         for(int i = 0; i < EnumHandler.ShardTypes.values().length; i++) {

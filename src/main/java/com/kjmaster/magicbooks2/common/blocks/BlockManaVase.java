@@ -6,8 +6,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -24,6 +29,47 @@ public class BlockManaVase extends BlockElementBase {
 
     public BlockManaVase(String name, Material mat, CreativeTabs tab, float hardness, float resistance, String tool, int harvest) {
         super(name, mat, tab, hardness, resistance, tool, harvest);
+    }
+
+    @Override
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity instanceof TileManaVase) {
+            TileManaVase manaVase = (TileManaVase) tileEntity;
+            int mana = manaVase.storage.getManaStored();
+            int meta = world.getBlockState(pos).getBlock().getMetaFromState(state);
+            ItemStack stack = new ItemStack(world.getBlockState(pos).getBlock(), 1, meta);
+            stack.setTagInfo("Mana", new NBTTagInt(mana));
+            drops.add(stack);
+        } else {
+            super.getDrops(drops, world, pos, state, fortune);
+        }
+    }
+
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+       return willHarvest || super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
+
+    @Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool)
+    {
+        super.harvestBlock(world, player, pos, state, te, tool);
+        world.setBlockToAir(pos);
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        if (stack.hasTagCompound()) {
+            if (stack.getTagCompound().hasKey("Mana")) {
+                int mana = stack.getTagCompound().getInteger("Mana");
+                TileEntity tileEntity = worldIn.getTileEntity(pos);
+                if (tileEntity instanceof TileManaVase) {
+                    TileManaVase manaVase = (TileManaVase) tileEntity;
+                    manaVase.storage.setMana(mana);
+                }
+            }
+        }
     }
 
     @Override

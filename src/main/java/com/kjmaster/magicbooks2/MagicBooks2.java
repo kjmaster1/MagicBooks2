@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2;
 
+import com.kjmaster.magicbooks2.client.TooltipEvent;
 import com.kjmaster.magicbooks2.common.CommonProxy;
 import com.kjmaster.magicbooks2.common.events.*;
 import com.kjmaster.magicbooks2.common.gen.OreGen;;
@@ -61,6 +62,7 @@ public class MagicBooks2
         MinecraftForge.EVENT_BUS.register(new LootTableEvent());
         MinecraftForge.EVENT_BUS.register(new HurtEvent());
         MinecraftForge.EVENT_BUS.register(new OnPlayerTickEvent());
+        MinecraftForge.EVENT_BUS.register(new TooltipEvent());
         MinecraftForge.TERRAIN_GEN_BUS.register(new MapGenEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(MagicBooks2.instance, new ModGuiHandler());
         GameRegistry.registerWorldGenerator(new OreGen(), 0);

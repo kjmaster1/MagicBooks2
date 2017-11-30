@@ -136,23 +136,4 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         ModEntities.initModels();
     }
-
-    @SubscribeEvent
-    public void onToolTip(ItemTooltipEvent event) {
-        Item item = event.getItemStack().getItem();
-        if(item == ModItems.shardPickaxeAir)
-            event.getToolTip().add("Doubles as a magnet!");
-        if (item == ModItems.shardPickaxeArcane)
-            event.getToolTip().add("Gotta get those shards!");
-        if (item == ModItems.shardPickaxeWater)
-            event.getToolTip().add("Handy for obsidian!");
-        if (item == ModItems.shardPickaxeFire)
-            event.getToolTip().add("All your auto-smelting needs!");
-        if (item == ModItems.shardPickaxeEarth)
-            event.getToolTip().add("Like a hammer but a bit better!");
-        if (item == new ItemStack(ModItems.Wand, 1, 5).getItem())
-            event.getToolTip().add("WIP");
-        if (item == Item.getItemFromBlock(ModBlocks.earthWall))
-            event.getToolTip().add("WIP");
-    }
 }

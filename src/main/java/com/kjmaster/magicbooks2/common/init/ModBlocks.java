@@ -93,6 +93,7 @@ public class ModBlocks {
                     new ItemBlock(earthWall),
                     new ItemBlock(drowningRune),
                     new ItemBlock(lumberRune),
+                    new ItemBlock(manaExtractor),
             };
 
             final IForgeRegistry<Item> registry = event.getRegistry();
@@ -107,7 +108,6 @@ public class ModBlocks {
             registry.register(new ItemBlockBase(shardOre).setRegistryName(shardOre.getRegistryName()));
             registry.register(new ItemBlockBase(shardBlock).setRegistryName(shardBlock.getRegistryName()));
             registry.register(new ItemBlockBase(pedestal).setRegistryName(pedestal.getRegistryName()));
-            registry.register(new ItemBlockBase(manaExtractor).setRegistryName(manaExtractor.getRegistryName()));
             registry.register(new ItemBlockPipe(pipe).setRegistryName(pipe.getRegistryName()));
             MagicBooks2.proxy.registerOreDicBlocks();
         }
@@ -119,9 +119,10 @@ public class ModBlocks {
                 earthWall,
                 drowningRune,
                 lumberRune,
+                manaExtractor,
         };
         for(final Block block: blocks) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(MagicBooks2.MODID + ":" + block.getUnlocalizedName().substring(5), "inventory"));;
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));;
         }
         final ItemBlock[] items = {
                 new ItemBlock(earthWall),
@@ -130,13 +131,12 @@ public class ModBlocks {
         };
         for(final ItemBlock item : items) {
             final Block block = item.getBlock();
-            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(MagicBooks2.MODID + ":" + block.getUnlocalizedName().substring(5), "inventory"));
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
         }
         for(int i = 0; i < EnumHandler.ShardTypes.values().length; i++) {
             registerMetaRender(shardOre, i, "shard_ore_" + EnumHandler.ShardTypes.values()[i].getName());
             registerMetaRender(shardBlock, i, "shard_block_" + EnumHandler.ShardTypes.values()[i].getName());
             registerMetaRender(pedestal, i, "pedestal_block_" + EnumHandler.ShardTypes.values()[i].getName());
-            registerMetaRender(manaExtractor, i, "mana_extractor_" + EnumHandler.ShardTypes.values()[i].getName());
         }
         for (EnumPipeType pipeType: EnumPipeType.values()) {
             registerBlockstateMultiItem(Item.getItemFromBlock(ModBlocks.pipe), pipeType.ordinal(),

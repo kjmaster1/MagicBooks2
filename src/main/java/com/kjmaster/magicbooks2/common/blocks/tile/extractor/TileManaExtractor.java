@@ -33,11 +33,11 @@ public class TileManaExtractor extends TileEntity implements ITickable {
     CapabilityEarthMana.EARTHMANA, CapabilityFireMana.FIREMANA, CapabilityWaterMana.WATERMANA};
     private final List<Capability> capabilityList = Arrays.asList(capabilities);
 
-    private AirManaStorage airManaStorage;
-    private ArcaneManaStorage arcaneManaStorage;
-    private EarthManaStorage earthManaStorage;
-    private FireManaStorage fireManaStorage;
-    private WaterManaStorage waterManaStorage;
+    public AirManaStorage airManaStorage;
+    public ArcaneManaStorage arcaneManaStorage;
+    public EarthManaStorage earthManaStorage;
+    public FireManaStorage fireManaStorage;
+    public WaterManaStorage waterManaStorage;
     int cooldown;
     int ticks;
 
