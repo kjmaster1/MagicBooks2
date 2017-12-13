@@ -29,20 +29,20 @@ public class BlockLumberRune extends BlockBase implements ITileEntityProvider {
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         TileLumberRune rune = (TileLumberRune) worldIn.getTileEntity(pos);
-        rune.setElement("Earth");
-        rune.setMANA_USE(400);
     }
+
+
 
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileLumberRune();
+        return new TileLumberRune("Earth", 400);
     }
 
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileLumberRune();
+        return new TileLumberRune("Earth", 400);
     }
 
     @Override

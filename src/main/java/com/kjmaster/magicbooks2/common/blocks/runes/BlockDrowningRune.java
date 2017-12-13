@@ -36,21 +36,13 @@ public class BlockDrowningRune extends BlockBase implements ITileEntityProvider 
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof TileRune) {
                 TileRune rune = (TileRune) tile;
-                //if (rune.getManaStored() >= 10) {
-                    ((EntityMob) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 9600, 9000));
+                if (rune.getStorage().getManaStored() >= 10) {
+                    ((EntityMob) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 9000));
                     entityIn.attackEntityFrom(DamageSource.DROWN, 1.0F);
-                    //rune.extractMana(10);
-                //}
+                    rune.getStorage().extractMana(10, false);
+                }
             }
         }
-    }
-
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        TileRune rune = (TileRune) worldIn.getTileEntity(pos);
-        rune.setElement("Water");
-        rune.setMANA_USE(400);
     }
 
     @Override
@@ -63,12 +55,12 @@ public class BlockDrowningRune extends BlockBase implements ITileEntityProvider 
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileRune();
+        return new TileRune("Water", 400);
     }
 
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileRune();
+        return new TileRune("Water", 400);
     }
 }

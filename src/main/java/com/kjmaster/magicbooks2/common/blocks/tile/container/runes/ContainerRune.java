@@ -42,15 +42,15 @@ public class ContainerRune extends Container {
         for(int i = 0; i < this.listeners.size(); i++) {
             IContainerListener iContainerListener = this.listeners.get(i);
 
-            //if (this.mana != this.rune.getField(0))
-                //iContainerListener.sendWindowProperty(this, 0, this.rune.getField(0));
+            if (this.mana != this.rune.getField(0))
+                iContainerListener.sendWindowProperty(this, 0, this.rune.getField(0));
         }
-        //this.mana = this.rune.getManaStored();
+        this.mana = this.rune.getStorage().getManaStored();
     }
 
     @Override
     public void updateProgressBar(int id, int data) {
         super.updateProgressBar(id, data);
-        //this.rune.setField(id, data);
+        this.rune.setField(id, data);
     }
 }

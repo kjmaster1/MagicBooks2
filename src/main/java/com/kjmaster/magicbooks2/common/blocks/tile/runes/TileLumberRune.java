@@ -1,6 +1,7 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.runes;
 
 import com.google.common.collect.Lists;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
 import com.kjmaster.magicbooks2.common.events.LumberRuneEvent;
 import com.kjmaster.magicbooks2.utils.InventoryUtils;
 import com.mojang.authlib.GameProfile;
@@ -35,7 +36,10 @@ public class TileLumberRune extends TileRune {
     private int cooldown;
     private int blocksbroken;
 
-    public TileLumberRune() {
+    public TileLumberRune() {}
+
+    public TileLumberRune(String element, int manaUse) {
+        super(element, manaUse);
     }
 
     public void update() {
@@ -251,12 +255,15 @@ public class TileLumberRune extends TileRune {
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return (T) handler;
+        if (capability == CapabilityEarthMana.EARTHMANA)
+            return (T) storage;
         return super.getCapability(capability, facing);
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ||
+                capability == CapabilityEarthMana.EARTHMANA || super.hasCapability(capability, facing);
     }
 
     public int getField(int id) {

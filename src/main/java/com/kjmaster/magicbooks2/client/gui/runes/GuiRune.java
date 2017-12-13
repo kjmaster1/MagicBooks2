@@ -31,6 +31,27 @@ public class GuiRune extends GuiContainer {
         this.rune = rune;
         this.playerInv = playerInv;
         this.world = world;
+        int x = 0;
+        int y = 3;
+        switch (rune.getElement()) {
+            case "Air":
+                x = 177;
+                break;
+            case "Arcane":
+                x = 190;
+                break;
+            case "Earth":
+                x = 203;
+                break;
+            case "Fire":
+                x = 216;
+                break;
+            case "Water":
+                x = 229;
+                break;
+        }
+        this.progressBar = new ProgressBar(TEXTURE, ProgressBar.ProgressBarDirection.DOWN_TO_UP,
+                12, 48, 83, 17, x, y);
     }
 
     @Override
@@ -39,6 +60,9 @@ public class GuiRune extends GuiContainer {
         this.mc.fontRenderer.drawString(s, this.xSize / 2 - this.mc.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
         this.mc.fontRenderer.drawString(this.playerInv.getDisplayName().getFormattedText(), 8, 72, 4210752);
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        this.progressBar.setMin(rune.getField(0));
+        this.progressBar.setMax(1000);
+        this.progressBar.draw(mc);
     }
 
     private String findName(World world, BlockPos pos) {
@@ -62,5 +86,8 @@ public class GuiRune extends GuiContainer {
         super.updateScreen();
         this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        this.progressBar.setMin(rune.getField(0));
+        this.progressBar.setMax(1000);
+        this.progressBar.draw(mc);
     }
 }

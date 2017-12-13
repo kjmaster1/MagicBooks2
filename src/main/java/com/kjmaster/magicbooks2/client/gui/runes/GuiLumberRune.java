@@ -36,8 +36,6 @@ public class GuiLumberRune extends GuiContainer {
         this.mc.fontRenderer.drawString(s, this.xSize / 2 - this.mc.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
         this.mc.fontRenderer.drawString(this.playerInv.getDisplayName().getFormattedText(), 8, 72, 4210752);
         int mana = this.lumberRune.getField(0);
-        this.progressBar.setMin(mana).setMax(10000);
-        this.progressBar.draw(this.mc);
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
     }
 
