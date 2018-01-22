@@ -3,6 +3,7 @@ package com.kjmaster.magicbooks2.common.blocks.runes;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.BlockBase;
 import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileLumberRune;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.EarthManaStorage;
 import com.kjmaster.magicbooks2.common.network.ModGuiHandler;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -27,8 +28,12 @@ public class BlockLumberRune extends BlockBase implements ITileEntityProvider {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        TileLumberRune rune = (TileLumberRune) worldIn.getTileEntity(pos);
+        TileEntity entity = worldIn.getTileEntity(pos);
+        if (entity instanceof TileLumberRune) {
+            TileLumberRune rune = (TileLumberRune) entity;
+            rune.setStorage(new EarthManaStorage(1000, 250, 0));
+            rune.setManaUse(100);
+        }
     }
 
 
@@ -36,13 +41,13 @@ public class BlockLumberRune extends BlockBase implements ITileEntityProvider {
     @Nullable
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileLumberRune("Earth", 400);
+        return new TileLumberRune();
     }
 
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileLumberRune("Earth", 400);
+        return new TileLumberRune();
     }
 
     @Override

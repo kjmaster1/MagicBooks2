@@ -5,6 +5,7 @@ import com.kjmaster.magicbooks2.client.gui.bag.GuiSpellBag;
 import com.kjmaster.magicbooks2.client.gui.bag.InventorySpellBag;
 import com.kjmaster.magicbooks2.client.gui.magicbook.screens.*;
 import com.kjmaster.magicbooks2.client.gui.magicbook.entries.GuiIntroScreen;
+import com.kjmaster.magicbooks2.client.gui.runes.GuiDrowningRune;
 import com.kjmaster.magicbooks2.client.gui.runes.GuiLumberRune;
 import com.kjmaster.magicbooks2.client.gui.runes.GuiRune;
 import com.kjmaster.magicbooks2.common.blocks.tile.container.runes.ContainerLumberRune;
@@ -30,6 +31,7 @@ public class ModGuiHandler implements IGuiHandler {
     public static final int spellBag = 7;
     public static final int rune = 8;
     public static final int lumberRune = 9;
+    public static final int drowningRune = 10;
 
     @Nullable
     @Override
@@ -55,6 +57,8 @@ public class ModGuiHandler implements IGuiHandler {
                 return new GuiRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)), world);
             case lumberRune:
                 return new GuiLumberRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)), world);
+            case drowningRune:
+                return new GuiDrowningRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)), world);
         }
         return null;
     }
@@ -69,6 +73,8 @@ public class ModGuiHandler implements IGuiHandler {
                 return new ContainerRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)));
             case lumberRune:
                 return new ContainerLumberRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)));
+            case drowningRune:
+                return new ContainerRune(player.inventory, (TileRune) world.getTileEntity(new BlockPos(x, y, z)));
         }
         return null;
     }

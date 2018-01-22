@@ -2,6 +2,8 @@ package com.kjmaster.magicbooks2.common.blocks.tile.runes;
 
 import com.google.common.collect.Lists;
 import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
+import com.kjmaster.magicbooks2.common.capabilities.mana.earth.EarthManaStorage;
+import com.kjmaster.magicbooks2.common.capabilities.mana.water.WaterManaStorage;
 import com.kjmaster.magicbooks2.common.events.LumberRuneEvent;
 import com.kjmaster.magicbooks2.utils.InventoryUtils;
 import com.mojang.authlib.GameProfile;
@@ -30,16 +32,15 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
-public class TileLumberRune extends TileRune {
+public class TileLumberRune extends TileRune.TileEarthRune {
 
     private ItemStackHandler handler = new ItemStackHandler(1);
     private int cooldown;
     private int blocksbroken;
 
-    public TileLumberRune() {}
-
-    public TileLumberRune(String element, int manaUse) {
-        super(element, manaUse);
+    public TileLumberRune() {
+        setStorage(new EarthManaStorage(1000, 1000, 0));
+        setManaUse(250);
     }
 
     public void update() {

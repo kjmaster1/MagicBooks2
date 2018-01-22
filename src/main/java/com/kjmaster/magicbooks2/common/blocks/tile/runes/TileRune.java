@@ -1,6 +1,7 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.runes;
 
 
+import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.mana.ManaStorage;
 import com.kjmaster.magicbooks2.common.capabilities.mana.air.AirManaStorage;
 import com.kjmaster.magicbooks2.common.capabilities.mana.air.CapabilityAirMana;
@@ -22,34 +23,15 @@ import javax.annotation.Nullable;
 
 public class TileRune extends TileEntity {
 
-    String element;
     ManaStorage storage;
     private int manaUse;
 
     public TileRune(){}
 
-    public TileRune(String element, int manaUse) {
-        switch (element) {
-            case "Air":
-                this.storage = new AirManaStorage(1000, 500, 0);
-            case "Arcane":
-                this.storage = new ArcaneManaStorage(1000, 500, 0);
-            case "Earth":
-                this.storage = new EarthManaStorage(1000, 500, 0);
-            case "Fire":
-                this.storage = new FireManaStorage(1000, 500, 0);
-            case "Water":
-                this.storage = new WaterManaStorage(1000, 500, 0);
-        }
-        this.manaUse = manaUse;
-        this.element = element;
-    }
-
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         storage.readFromNBT(compound);
-        setElement(compound.getString("Element"));
         setManaUse(compound.getInteger("ManaUse"));
     }
 
@@ -57,68 +39,17 @@ public class TileRune extends TileEntity {
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         storage.writeToNBT(compound);
-        compound.setString("Element", getElement());
         compound.setInteger("ManaUse", getManaUse());
         return compound;
     }
 
-    @Override
-    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        switch (element) {
-            case "Air":
-                return capability == CapabilityAirMana.AIRMANA;
-            case "Arcane":
-                return capability == CapabilityArcaneMana.ARCANEMANA;
-            case "Earth":
-                return capability == CapabilityEarthMana.EARTHMANA;
-            case "Fire":
-                return capability == CapabilityFireMana.FIREMANA;
-            case "Water":
-                return capability == CapabilityWaterMana.WATERMANA;
-            default:
-                return super.hasCapability(capability, facing);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @Nullable
-    @Override
-    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        switch (element) {
-            case "Air":
-                if (capability == CapabilityAirMana.AIRMANA)
-                    return (T) storage;
-                break;
-            case "Arcane":
-                if (capability == CapabilityArcaneMana.ARCANEMANA)
-                    return (T) storage;
-            case "Earth":
-                if (capability == CapabilityEarthMana.EARTHMANA)
-                    return (T) storage;
-            case "Fire":
-                if (capability == CapabilityFireMana.FIREMANA)
-                    return (T) storage;
-            case "Water":
-                if (capability == CapabilityWaterMana.WATERMANA)
-                    return (T) storage;
-        }
-        return super.getCapability(capability, facing);
-    }
 
     public int getManaUse() {
         return manaUse;
     }
 
-    public String getElement() {
-        return element;
-    }
-
     public ManaStorage getStorage() {
         return storage;
-    }
-
-    public void setElement(String element) {
-        this.element = element;
     }
 
     public void setManaUse(int manaUse) {
@@ -130,6 +61,9 @@ public class TileRune extends TileEntity {
     }
 
     public int getField(int id) {
+
+        if (storage == null)
+            return 0;
         switch (id) {
             case 0:
                 return this.storage.getManaStored();
@@ -143,6 +77,102 @@ public class TileRune extends TileEntity {
             case 0:
                 this.storage.setMana(value);
                 break;
+        }
+    }
+
+    public static class TileAirRune extends TileRune {
+
+        public TileAirRune() {}
+
+        @Override
+        public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+            return capability == CapabilityAirMana.AIRMANA || super.hasCapability(capability, facing);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Nullable
+        @Override
+        public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+            if (capability == CapabilityAirMana.AIRMANA)
+                return (T) storage;
+            else
+                return super.getCapability(capability, facing);
+        }
+    }
+
+    public static class TileArcaneRune extends TileRune {
+
+        @Override
+        public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+            return capability == CapabilityArcaneMana.ARCANEMANA || super.hasCapability(capability, facing);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Nullable
+        @Override
+        public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+            if (capability == CapabilityArcaneMana.ARCANEMANA)
+                return (T) storage;
+            else
+                return super.getCapability(capability, facing);
+        }
+    }
+
+    public static class TileEarthRune extends TileRune {
+
+        public TileEarthRune() {}
+
+        @Override
+        public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+            return capability == CapabilityEarthMana.EARTHMANA || super.hasCapability(capability, facing);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Nullable
+        @Override
+        public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+            if (capability == CapabilityEarthMana.EARTHMANA)
+                return (T) storage;
+            else
+                return super.getCapability(capability, facing);
+        }
+    }
+
+    public static class TileFireRune extends TileRune {
+
+        public TileFireRune() {}
+
+        @Override
+        public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+            return capability == CapabilityFireMana.FIREMANA || super.hasCapability(capability, facing);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Nullable
+        @Override
+        public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+            if (capability == CapabilityFireMana.FIREMANA)
+                return (T) storage;
+            return super.getCapability(capability, facing);
+        }
+    }
+
+    public static class TileWaterRune extends TileRune {
+
+        public TileWaterRune() {}
+
+        @Override
+        public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+            return capability == CapabilityWaterMana.WATERMANA || super.hasCapability(capability, facing);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Nullable
+        @Override
+        public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+            if (capability == CapabilityWaterMana.WATERMANA)
+                return (T) storage;
+            return super.getCapability(capability, facing);
         }
     }
 }
