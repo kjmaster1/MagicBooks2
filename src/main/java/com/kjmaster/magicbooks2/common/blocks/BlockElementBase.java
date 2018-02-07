@@ -1,6 +1,7 @@
 package com.kjmaster.magicbooks2.common.blocks;
 
-import com.kjmaster.magicbooks2.common.blocks.item.IMetaBlockName;
+import com.kjmaster.kjlib.common.blocks.BlockBase;
+import com.kjmaster.kjlib.common.blocks.item.IMetaBlockName;
 import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -16,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class BlockElementBase extends BlockBase implements IMetaBlockName{
+public class BlockElementBase extends BlockBase implements IMetaBlockName {
 
     public static final PropertyEnum<EnumHandler.ShardTypes> ELEMENT = PropertyEnum.create("element", EnumHandler.ShardTypes.class);
 

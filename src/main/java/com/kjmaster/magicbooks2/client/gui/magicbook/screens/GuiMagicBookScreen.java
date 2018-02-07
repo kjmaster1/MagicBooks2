@@ -1,9 +1,9 @@
 package com.kjmaster.magicbooks2.client.gui.magicbook.screens;
 
+import com.kjmaster.kjlib.client.gui.GuiToolTipScreen;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.client.gui.magicbook.elements.EntryButton;
 import com.kjmaster.magicbooks2.common.network.ModGuiHandler;
-import com.kjmaster.magicbooks2.utils.GuiToolTipScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;

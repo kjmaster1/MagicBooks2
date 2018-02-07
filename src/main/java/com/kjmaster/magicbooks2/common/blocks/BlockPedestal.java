@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.blocks;
 
+import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.tile.TilePedestal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -18,7 +19,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BlockPedestal extends BlockElementBase implements ITileEntityProvider {
+public class BlockPedestal extends BlockElementBase {
 
     private static final AxisAlignedBB BLOCK_AABB = new AxisAlignedBB(0.2F, 0.0F, 0.2F, 0.8F, 0.95F, 0.8F);
 
@@ -33,10 +34,9 @@ public class BlockPedestal extends BlockElementBase implements ITileEntityProvid
         return new TilePedestal();
     }
 
-    @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TilePedestal();
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
     }
 
     private TilePedestal getTE(World world, BlockPos pos) {

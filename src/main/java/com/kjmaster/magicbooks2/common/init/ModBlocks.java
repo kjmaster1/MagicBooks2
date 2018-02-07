@@ -1,9 +1,9 @@
 package com.kjmaster.magicbooks2.common.init;
 
 import com.google.common.collect.Maps;
+import com.kjmaster.kjlib.common.blocks.item.ItemBlockBase;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.*;
-import com.kjmaster.magicbooks2.common.blocks.item.ItemBlockBase;
 import com.kjmaster.magicbooks2.common.blocks.item.ItemBlockPipe;
 import com.kjmaster.magicbooks2.common.blocks.pipe.BasePipeBlock;
 import com.kjmaster.magicbooks2.common.blocks.pipe.EnumPipeType;

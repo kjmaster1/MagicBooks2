@@ -1,10 +1,10 @@
 package com.kjmaster.magicbooks2.common.gen.structures;
 
 import com.google.common.collect.Sets;
+import com.kjmaster.kjlib.common.container.InventoryUtils;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.entities.*;
 import com.kjmaster.magicbooks2.common.init.ModItems;
-import com.kjmaster.magicbooks2.utils.InventoryUtils;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;

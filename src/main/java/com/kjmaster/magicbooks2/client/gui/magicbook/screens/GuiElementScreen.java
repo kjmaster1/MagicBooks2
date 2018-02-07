@@ -1,6 +1,6 @@
 package com.kjmaster.magicbooks2.client.gui.magicbook.screens;
 
-import com.kjmaster.magicbooks2.MagicBooks2;
+import com.kjmaster.kjlib.client.gui.GuiToolTipScreen;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.ISkillPoints;
 import com.kjmaster.magicbooks2.common.capabilities.skillpoints.SkillPointsProvider;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.ISpells;
@@ -9,7 +9,6 @@ import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.SpellsProvide
 import com.kjmaster.magicbooks2.common.network.PacketInstance;
 import com.kjmaster.magicbooks2.common.network.ServerPointsPacket;
 import com.kjmaster.magicbooks2.common.network.ServerUnlockSpellPacket;
-import com.kjmaster.magicbooks2.utils.GuiToolTipScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;

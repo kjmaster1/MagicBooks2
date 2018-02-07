@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.items;
 
+import com.kjmaster.kjlib.common.items.MetaItemBase;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.blocks.BlockElementBase;
 import com.kjmaster.magicbooks2.common.blocks.tile.vase.*;

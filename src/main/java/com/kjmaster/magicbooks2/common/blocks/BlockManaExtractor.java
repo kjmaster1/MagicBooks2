@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.blocks;
 
+import com.kjmaster.kjlib.common.blocks.BlockBase;
 import com.kjmaster.magicbooks2.common.blocks.tile.extractor.TileManaExtractor;
 import com.kjmaster.magicbooks2.common.blocks.tile.vase.TileManaVase;
 import net.minecraft.block.material.Material;

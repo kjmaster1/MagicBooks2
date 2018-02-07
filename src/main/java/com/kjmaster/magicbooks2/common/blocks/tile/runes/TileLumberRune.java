@@ -1,11 +1,10 @@
 package com.kjmaster.magicbooks2.common.blocks.tile.runes;
 
 import com.google.common.collect.Lists;
+import com.kjmaster.kjlib.common.container.InventoryUtils;
 import com.kjmaster.magicbooks2.common.capabilities.mana.earth.CapabilityEarthMana;
 import com.kjmaster.magicbooks2.common.capabilities.mana.earth.EarthManaStorage;
-import com.kjmaster.magicbooks2.common.capabilities.mana.water.WaterManaStorage;
 import com.kjmaster.magicbooks2.common.events.LumberRuneEvent;
-import com.kjmaster.magicbooks2.utils.InventoryUtils;
 import com.mojang.authlib.GameProfile;
 import gnu.trove.set.hash.THashSet;
 import net.minecraft.entity.player.EntityPlayer;

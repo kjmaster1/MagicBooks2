@@ -1,13 +1,12 @@
 package com.kjmaster.magicbooks2.client.gui.runes;
 
+import com.kjmaster.kjlib.client.gui.ProgressBar;
 import com.kjmaster.magicbooks2.MagicBooks2;
-import com.kjmaster.magicbooks2.client.gui.ProgressBar;
 import com.kjmaster.magicbooks2.common.blocks.tile.container.runes.ContainerRune;
 import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileRune;
 import com.kjmaster.magicbooks2.common.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;

@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.items;
 
+import com.kjmaster.kjlib.common.items.MetaItemBase;
 import com.kjmaster.magicbooks2.common.creative.ModCreativeTabs;
 import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
 import com.kjmaster.magicbooks2.common.network.PacketInstance;

@@ -66,9 +66,18 @@ public class TileManaPad extends TileEntity {
 
     @Nullable
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capabilitiesList.contains(capability))
-            return (T) this;
+        if (capability == CapabilityAirMana.AIRMANA)
+            return (T) airStorage;
+        else if (capability == CapabilityArcaneMana.ARCANEMANA)
+            return (T) arcaneStorage;
+        else if (capability == CapabilityEarthMana.EARTHMANA)
+            return (T) earthStorage;
+        else if (capability == CapabilityFireMana.FIREMANA)
+            return (T) fireStorage;
+        else if (capability == CapabilityWaterMana.WATERMANA)
+            return (T) waterStorage;
         else
             return super.getCapability(capability, facing);
     }

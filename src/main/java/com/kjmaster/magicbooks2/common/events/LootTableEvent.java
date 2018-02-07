@@ -1,8 +1,8 @@
 package com.kjmaster.magicbooks2.common.events;
 
 
+import com.kjmaster.kjlib.utils.LootUtils;
 import com.kjmaster.magicbooks2.common.init.ModItems;
-import com.kjmaster.magicbooks2.utils.LootUtils;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.event.LootTableLoadEvent;

@@ -107,7 +107,7 @@ public class BlockManaPad extends BlockPressurePlate implements ITileEntityProvi
     private void receiveManaServer(int mana, IMana manaCap, IMana tileManaCap, String element, EntityPlayer player) {
         if (manaCap.getManaStored() < manaCap.getMaxManaStored()) {
             int received = manaCap.receiveMana(tileManaCap.getManaStored(), false);
-            tileManaCap.extractMana(received, false);
+            tileManaCap.setMana(tileManaCap.getManaStored() - received);
             sendManaPacket(manaCap, element, (EntityPlayerMP) player);
         }
     }

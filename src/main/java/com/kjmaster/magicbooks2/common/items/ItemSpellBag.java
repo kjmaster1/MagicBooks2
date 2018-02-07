@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.items;
 
+import com.kjmaster.kjlib.common.items.ItemBase;
 import com.kjmaster.magicbooks2.MagicBooks2;
 import com.kjmaster.magicbooks2.common.capabilities.unlockedspells.Spells;
 import com.kjmaster.magicbooks2.common.network.ModGuiHandler;

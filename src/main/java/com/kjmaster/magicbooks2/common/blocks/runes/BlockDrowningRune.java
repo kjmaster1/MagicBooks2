@@ -1,7 +1,7 @@
 package com.kjmaster.magicbooks2.common.blocks.runes;
 
+import com.kjmaster.kjlib.common.blocks.BlockBase;
 import com.kjmaster.magicbooks2.MagicBooks2;
-import com.kjmaster.magicbooks2.common.blocks.BlockBase;
 import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileDrowningRune;
 import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileRune;
 import com.kjmaster.magicbooks2.common.blocks.tile.runes.TileRune.TileWaterRune;
