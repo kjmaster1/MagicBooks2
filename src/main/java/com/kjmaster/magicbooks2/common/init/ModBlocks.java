@@ -1,5 +1,6 @@
 package com.kjmaster.magicbooks2.common.init;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.kjmaster.kjlib.common.blocks.item.ItemBlockBase;
 import com.kjmaster.magicbooks2.MagicBooks2;
@@ -11,7 +12,6 @@ import com.kjmaster.magicbooks2.common.blocks.runes.BlockDrowningRune;
 import com.kjmaster.magicbooks2.common.blocks.runes.BlockLumberRune;
 import com.kjmaster.magicbooks2.common.creative.ModCreativeTabs;
 import com.kjmaster.magicbooks2.common.handlers.EnumHandler;
-import jline.internal.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.block.material.Material;

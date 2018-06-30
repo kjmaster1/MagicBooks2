@@ -56,11 +56,6 @@ public class BlockElementBase extends BlockBase implements IMetaBlockName {
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-    }
-
-    @Override
     public int damageDropped(IBlockState state) {
         return getMetaFromState(state);
     }

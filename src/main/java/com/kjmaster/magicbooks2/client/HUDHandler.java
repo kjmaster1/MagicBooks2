@@ -63,7 +63,8 @@ public class HUDHandler {
             int width = 8;
             int height = 64;
             int x = 1;
-            int y = (res.getScaledHeight() / 2 - height / 2) - 20;
+            int y = (res.getScaledHeight() / 2 - height / 20) - 20;
+
             int textureWidth = 16;
             int textureHeight = 64;
 
