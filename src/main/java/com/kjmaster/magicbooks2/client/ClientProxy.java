@@ -128,10 +128,13 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void init(FMLInitializationEvent event) {
+        super.init(event);
+        MinecraftForge.EVENT_BUS.register(new TooltipEvent());
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        super.preInit(event);
         OBJLoader.INSTANCE.addDomain(MagicBooks2.MODID);
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         ModEntities.initModels();

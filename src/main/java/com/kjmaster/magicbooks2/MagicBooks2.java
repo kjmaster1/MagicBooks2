@@ -32,7 +32,7 @@ public class MagicBooks2
     public static MagicBooks2 instance;
 
     public static final String MODID = "magicbooks2";
-    public static final String VERSION = "1.0.3";
+    public static final String VERSION = "1.0.4";
     public static final String CLIENT_PROXY = "com.kjmaster.magicbooks2.client.ClientProxy";
     public static final String COMMON_PROXY = "com.kjmaster.magicbooks2.common.CommonProxy";
 
@@ -62,7 +62,6 @@ public class MagicBooks2
         MinecraftForge.EVENT_BUS.register(new LootTableEvent());
         MinecraftForge.EVENT_BUS.register(new HurtEvent());
         MinecraftForge.EVENT_BUS.register(new OnPlayerTickEvent());
-        MinecraftForge.EVENT_BUS.register(new TooltipEvent());
         MinecraftForge.TERRAIN_GEN_BUS.register(new MapGenEvent());
         NetworkRegistry.INSTANCE.registerGuiHandler(MagicBooks2.instance, new ModGuiHandler());
         GameRegistry.registerWorldGenerator(new OreGen(), 0);
